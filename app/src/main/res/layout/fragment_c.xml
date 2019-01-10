@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/squiz"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/buttonTFQuiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/b_tf"
+        android:text="@string/trueFalseQuiz"
+        android:textSize="20dp"
+        android:textColor="@color/colorDarkBlue" />
+    <Button
+        android:id="@+id/buttonMultiQuiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/b_tf"
+        android:text="@string/Multi_quiz"
+        android:textSize="20dp"
+        android:textColor="@color/colorDarkBlue" />
+</LinearLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="34dp"-->
+        <!--android:background="@drawable/b_tf"-->
+        <!--android:text="@string/trueFalseQuiz"-->
+        <!--android:textColor="@color/colorDarkBlue"/>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/fragment_travel_image"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:contentDescription="@string/trueFalseQuiz"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/selquiz" />-->
+
+    <!--</LinearLayout>-->
+<!--</RelativeLayout>-->

@@ -1,180 +1,152 @@
 package in.catking.catking;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+//
+//import static in.catking.catking.test2.KEY_AUTHOR;
+//import static in.catking.catking.test2.KEY_DESCRIPTION;
+//import static in.catking.catking.test2.KEY_PUBLISHEDAT;
+//import static in.catking.catking.test2.KEY_TITLE;
+//import static in.catking.catking.test2.KEY_URL;
+//import static in.catking.catking.test2.KEY_URLTOIMAGE;
 
-///**
-// * A simple {@link Fragment} subclass.
-// * Activities that contain this fragment must implement the
-// * {@link FragmentA.OnFragmentInteractionListener} interface
-// * to handle interaction events.
-// * Use the {@link FragmentA#newInstance} factory method to
-// * create an instance of this fragment.
-// */
 public class FragmentA extends Fragment {
-    RecyclerView recyclerView;
-    ListView list;
+    String API_KEY = "9f322babc4154fdeb653ffbf0f93ff12"; // API owner Vishal Raut
+    String NEWS_SOURCE = "in";
 
-    @Nullable
+    private ArrayList<HashMap<String, String>> dataList = new ArrayList<HashMap<String, String>>();
+    static final String KEY_AUTHOR = "author";
+    static final String KEY_TITLE = "title";
+    static final String KEY_DESCRIPTION = "description";
+    static final String KEY_URL = "url";
+    static final String KEY_URLTOIMAGE = "urlToImage";
+    static final String KEY_PUBLISHEDAT = "publishedAt";
+    public ListView listNews;
+    ProgressBar loader;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(
-                R.layout.fragment, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment, container, false);
+
+        listNews = rootView.findViewById(R.id.listNews);
+        loader = rootView.findViewById(R.id.loader);
+        listNews.setEmptyView(loader);
+        //this section will contain cards type view for list
+        listNews.setClipToPadding(false);
+        listNews.setDivider(null);
+        Resources r = getResources();
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                8, r.getDisplayMetrics());
+        listNews.setDividerHeight(px);
+        listNews.setFadingEdgeLength(0);
+        listNews.setFitsSystemWindows(true);
+        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12,
+                r.getDisplayMetrics());
+        listNews.setPadding(px, px, px, px);
+        listNews.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
+        //this section contains card type view for list
+
+        if(Function.isNetworkAvailable(getContext()))
+        {
+            FragmentA.DownloadNews newsTask = new DownloadNews();
+            newsTask.execute();
+        }else{
+            Toast.makeText(getContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
+        }
+
         return rootView;
+    }
 
+//    @Override
+//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//        String[] items = getResources().getStringArray(R.array.tab_A);
+//        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
+//        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(adapter);
+//    }
+    class DownloadNews extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-        /**The below code was when the ListView was used in place of RecyclerView. **/
+        }
+        protected String doInBackground(String... args) {
+            String xml = "";
 
-        /*View view = inflater.inflate(R.layout.fragment_list, container, false);
+            String urlParameters = "";//xml = Function.excuteGet("https://newsapi.org/v2/top-headlines?country="+NEWS_SOURCE+"&apiKey="+API_KEY, urlParameters);
+            xml = Function.excuteGet("https://newsapi.org/v2/top-headlines?country="+NEWS_SOURCE+"&apiKey="+API_KEY, urlParameters);
+            return  xml;
+        }
+        @Override
+        protected void onPostExecute(String xml) {
 
-        list = (ListView) view.findViewById(R.id.list);
-        ArrayList stringList= new ArrayList();
+            if(xml.length()>10){ // Just checking if not empty
 
-        stringList.add("Item 1A");
-        stringList.add("Item 1B");
-        stringList.add("Item 1C");
-        stringList.add("Item 1D");
-        stringList.add("Item 1E");
-        stringList.add("Item 1F");
-        stringList.add("Item 1G");
-        stringList.add("Item 1H");
-        stringList.add("Item 1I");
-        stringList.add("Item 1J");
-        stringList.add("Item 1K");
-        stringList.add("Item 1L");
-        stringList.add("Item 1M");
-        stringList.add("Item 1N");
-        stringList.add("Item 1O");
-        stringList.add("Item 1P");
-        stringList.add("Item 1Q");
-        stringList.add("Item 1R");
-        stringList.add("Item 1S");
-        stringList.add("Item 1T");
-        stringList.add("Item 1U");
-        stringList.add("Item 1V");
-        stringList.add("Item 1W");
-        stringList.add("Item 1X");
-        stringList.add("Item 1Y");
-        stringList.add("Item 1Z");
+                try {
+                    JSONObject jsonResponse = new JSONObject(xml);
+                    JSONArray jsonArray = jsonResponse.optJSONArray("articles");
 
-        CustomAdapter adapter = new CustomAdapter(stringList,getActivity());
-        list.setAdapter(adapter);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put(KEY_AUTHOR, jsonObject.optString(KEY_AUTHOR).toString());
+                        map.put(KEY_TITLE, jsonObject.optString(KEY_TITLE).toString());
+                        map.put(KEY_DESCRIPTION, jsonObject.optString(KEY_DESCRIPTION).toString());
+                        map.put(KEY_URL, jsonObject.optString(KEY_URL).toString());
+                        map.put(KEY_URLTOIMAGE, jsonObject.optString(KEY_URLTOIMAGE).toString());
+                        map.put(KEY_PUBLISHEDAT, jsonObject.optString(KEY_PUBLISHEDAT).toString());
+                        dataList.add(map);
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getContext(), "Unexpected error", Toast.LENGTH_SHORT).show();
+                }
 
-        return view;*/
+                ListNewsAdapter adapter = new ListNewsAdapter(getContext(), dataList);
+                listNews.setAdapter(adapter);
+
+                listNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        Intent i = new Intent(getContext(), DetailsActivity.class);
+                        i.putExtra("url", dataList.get(+position).get(KEY_URL));
+                        startActivity(i);
+                    }
+                });
+
+            }else{
+                Toast.makeText(getContext(), "No news found", Toast.LENGTH_SHORT).show();
+            }
+        }
+
 
 
     }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        String[] items = getResources().getStringArray(R.array.tab_A);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-
-    }
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-//
-//    private OnFragmentInteractionListener mListener;
-//
-//    public FragmentA() {
-//        // Required empty public constructor
-//    }
-//
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-//     * @return A new instance of fragment FragmentA.
-//     */
-//    // TODO: Rename and change types and number of parameters
-//    public static FragmentA newInstance(String param1, String param2) {
-//        FragmentA fragment = new FragmentA();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        TextView textView = new TextView(getActivity());
-//        textView.setText(R.string.hello_blank_fragment);
-//        return textView;
-//    }
-//
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-//
-//    /**
-//     * This interface must be implemented by activities that contain this
-//     * fragment to allow an interaction in this fragment to be communicated
-//     * to the activity and potentially other fragments contained in that
-//     * activity.
-//     * <p>
-//     * See the Android Training lesson <a href=
-//     * "http://developer.android.com/training/basics/fragments/communicating.html"
-//     * >Communicating with Other Fragments</a> for more information.
-//     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 }

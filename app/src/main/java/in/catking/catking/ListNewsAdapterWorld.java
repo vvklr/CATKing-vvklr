@@ -18,11 +18,11 @@ import java.util.HashMap;
  * vvklr
  */
 
-class ListNewsAdapter extends BaseAdapter {
+class ListNewsAdapterWorld extends BaseAdapter {
     private Context context;
     private ArrayList<HashMap<String, String>> data;
 
-    public ListNewsAdapter(Context a, ArrayList<HashMap<String, String>> d) {
+    public ListNewsAdapterWorld(Context a, ArrayList<HashMap<String, String>> d) {
         context = a;
         data=d;
     }
@@ -60,17 +60,17 @@ class ListNewsAdapter extends BaseAdapter {
         song = data.get(position);
 
         try{
-            holder.author.setText(song.get(FragmentA.KEY_AUTHOR));
-            holder.title.setText(song.get(FragmentA.KEY_TITLE));
-            holder.time.setText(song.get(FragmentA.KEY_PUBLISHEDAT));
-            holder.sdetails.setText(song.get(FragmentA.KEY_DESCRIPTION));
+            holder.author.setText(song.get(FragmentB.KEY_AUTHOR));
+            holder.title.setText(song.get(FragmentB.KEY_TITLE));
+            holder.time.setText(song.get(FragmentB.KEY_PUBLISHEDAT));
+            holder.sdetails.setText(song.get(FragmentB.KEY_DESCRIPTION));
 
-            if(song.get(FragmentA.KEY_URLTOIMAGE).toString().length() < 5)
+            if(song.get(FragmentB.KEY_URLTOIMAGE).toString().length() < 5)
             {
                 holder.galleryImage.setVisibility(View.GONE);
             }else{
                 Picasso.with(context)
-                        .load(song.get(FragmentA.KEY_URLTOIMAGE).toString())
+                        .load(song.get(FragmentB.KEY_URLTOIMAGE).toString())
                         .resize(300, 150)
                         .into(holder.galleryImage);
             }
@@ -79,7 +79,7 @@ class ListNewsAdapter extends BaseAdapter {
     }
 }
 
-class ListNewsViewHolder {
+class ListNewsViewHolderWorld {
     ImageView galleryImage;
     TextView author, title, sdetails, time;
 }
