@@ -5,26 +5,26 @@ package in.catking.catking;
 
 
 public class TrueFalse {
-    private int mQuestionID;
-    private boolean mAnswer;
-    public TrueFalse(int questionResourceID,boolean trueOrFalse){
+    private String mQuestionID;
+    private String mAnswer;
+    public TrueFalse(String questionResourceID,String trueOrFalse){
         mQuestionID = questionResourceID;
         mAnswer = trueOrFalse;
     }
 
-    public int getmQuestionID() {
+    public String getmQuestionID() {
         return mQuestionID;
     }
 
-    public void setmQuestionID(int mQuestionID) {
+    public void setmQuestionID(String mQuestionID) {
         this.mQuestionID = mQuestionID;
     }
 
-    public boolean ismAnswer() {
+    public String ismAnswer() {
         return mAnswer;
     }
 
-    public void setmAnswer(boolean mAnswer) {
+    public void setmAnswer(String mAnswer) {
         this.mAnswer = mAnswer;
     }
 }

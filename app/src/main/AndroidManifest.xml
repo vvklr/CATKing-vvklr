@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.catking.catking">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -20,7 +23,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".quiz_true_false"></activity>
+        <activity android:name=".DetailsActivity" />
+        <activity android:name=".view_Geography" />
+        <activity android:name=".view_History" />
+        <activity android:name=".view_doc_activity" />
+        <activity android:name=".test1" />
+        <activity android:name=".test2" />
+        <activity android:name=".view_Sport_Achievement" />
+        <activity android:name=".view_Science" />
+        <activity android:name=".view_BooksAndAuthor" />
+        <activity android:name=".view_Olympics" />
+        <activity android:name=".view_ArtAndCulture" />
+        <activity android:name=".view_Economics" />
+        <activity android:name=".view_Politics" />
+        <activity android:name=".view_ConstitutionOfIndia" />
+        <activity android:name=".view_Miscellaneous" />
+        <activity android:name=".view_FunFacts" />
+        <activity android:name=".view_DynamicGK"></activity>
     </application>
 
 </manifest>
