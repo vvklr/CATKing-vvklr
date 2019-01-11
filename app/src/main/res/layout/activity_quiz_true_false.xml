@@ -23,11 +23,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/score"
-        android:textColor="@color/colorText"
+        android:textColor="#0c12ba"
+        android:background="@drawable/b_score"
         android:textStyle="bold"
-        android:textSize="25sp"
+        android:textSize="15sp"
         android:text="@string/initial_score"
-        android:padding="10dp"/>
+        android:padding="5dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -53,7 +54,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginBottom="134dp"
+        android:layout_marginBottom="116dp"
         android:background="@drawable/b_true"
         android:text="TRUE"
         android:textColor="#FFFFFFFF"

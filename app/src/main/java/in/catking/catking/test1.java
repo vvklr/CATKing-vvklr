@@ -56,6 +56,8 @@ public class test1 extends Activity {
         mQuestionTextView = findViewById(R.id.question_text_view);
         mScoreTextView = findViewById(R.id.score);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        // multiple cq https://script.google.com/macros/s/AKfycbx43E6TT_KXcLJecWFdBySt_QiMrTIPPBjWUVbAYMUUBduJjKI/exec?MPtlf0VeKRdOrWxcJ8asoGUwhP7cC3CUJ
+
         String url = "https://script.google.com/macros/s/AKfycbxlRWQK1ypdlapRhFWoI1WY3B5ccQsYduZp7EVCIiBGz1vrcNI/exec?MAT477-BuRhAq-xS2vtUhjkwhP7cC3CUJ";
             AsyncHttpClient client = new AsyncHttpClient();
             final RequestHandle requestHandle = client.get(url, new JsonHttpResponseHandler() {
@@ -160,6 +162,8 @@ public class test1 extends Activity {
                             }
                         }
                     });
+
+
 //                    private void updateQuestion(){
 //                        mIndex = (mIndex+1)% myQuestionData.length;
 //                        if(mIndex==0){

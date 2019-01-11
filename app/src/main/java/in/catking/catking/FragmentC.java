@@ -29,6 +29,13 @@ public class FragmentC extends Fragment {
             }
         });
 
+        MCQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),test2.class);
+                startActivity(intent);
+            }
+        });
         return rootView;
     }
 
