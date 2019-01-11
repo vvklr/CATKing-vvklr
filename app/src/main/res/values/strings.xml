@@ -12,14 +12,14 @@
     <string name="button_description_menu">catking logo</string>
     <string name="true_button">True</string>
     <string name="false_button">False</string>
-    <string name="initial_score">Score 0/13</string>
+    <string name="initial_score">Score 0/0</string>
 
     <string name="trueFalseQuiz">True or False Quiz</string>
     <string name="Multi_quiz">Multiple Choice Quiz</string>
 
     <string name="incorrect_toast">Wrong!</string>
     <string name="correct_toast">You got it!</string>
-    <string name="question_1">CATKing</string>
+    <string name="question_1">CATKing    Loading Quiz</string>
     <string name="article_headind">Heading</string>
     <string name="Article_descrition">Description</string>
     <string name="source">Source</string>

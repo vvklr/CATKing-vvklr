@@ -145,19 +145,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10sp"
+                android:fontFamily="@font/roboto_condensed_regular"
                 android:text="@string/article_headind"
                 android:textAlignment="textStart"
-                android:textColor="@color/colorTrueButton"
-                android:textSize="19sp" />
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/sdetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25sp"
+                android:fontFamily="@font/roboto_light"
                 android:text="@string/Article_descrition"
                 android:textAlignment="textStart"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -168,20 +170,22 @@
                     android:id="@+id/author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
                     android:layout_weight="1"
                     android:text="@string/source"
                     android:textAlignment="textStart"
-                    android:layout_marginLeft="10sp"
+                    android:textColor="@color/colorFalseButton"
                     android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10sp"
                     android:layout_weight="1"
                     android:text="@string/date_and_time"
                     android:textAlignment="textEnd"
-                    android:layout_marginRight="10sp"
+                    android:textColor="@color/colorFalseButton"
                     android:textSize="12sp" />
             </LinearLayout>
 

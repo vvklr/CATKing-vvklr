@@ -1,0 +1,105 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/qq"
+    android:orientation="vertical" >
+
+    <ProgressBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/progress_bar_mcq"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:indeterminate="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/progress_bar_mcq"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/score_mcq"
+        android:textColor="#0c12ba"
+        android:background="@drawable/b_score"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:text="@string/initial_score"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/mcq_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/text_container"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="@string/question_1"
+        android:textColor="@color/colorText"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_optionC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/button_optionD"
+        android:layout_marginBottom="2dp"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/b_true"
+        android:text="Option C"
+        android:textColor="#FFFFFFFF" />
+
+    <Button
+        android:id="@+id/button_optionB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/button_optionC"
+        android:layout_marginBottom="2dp"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/b_true"
+        android:text="Option B" />
+
+    <Button
+        android:id="@+id/button_optionD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/score_mcq"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/b_true"
+        android:text="Option D" />
+
+    <Button
+        android:id="@+id/button_optionA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_optionB"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/b_true"
+        android:text="Option A" />
+
+    <!--<Button-->
+        <!--android:id="@+id/false_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/score"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:background="@drawable/b_false"-->
+        <!--android:text="FALSE"-->
+        <!--android:textColor="#FFFFFFFF"-->
+        <!--android:textSize="30sp" />-->
+</RelativeLayout>
+

@@ -160,11 +160,10 @@ public class MainActivity extends AppCompatActivity
             this.startActivity(intent);
             //economics
         }else if (id == R.id.menu_science) {
-            Intent intent = new Intent(this, test2.class);
+            Intent intent = new Intent(this, view_Science.class);
+            intent.putExtra("science","Science");
+            intent.putExtra("Science","1Oal6x5C7qrEU1mB7yiBgDCFbKYVdAwIE");
             this.startActivity(intent);
-//            intent.putExtra("science","Science");
-//            intent.putExtra("Science","1Oal6x5C7qrEU1mB7yiBgDCFbKYVdAwIE");
-//            this.startActivity(intent);
             //science
         }else if (id == R.id.menu_miscellaneous) {
             Intent intent = new Intent(this, view_Miscellaneous.class);
@@ -202,6 +201,8 @@ public class MainActivity extends AppCompatActivity
             this.startActivity(intent);
             //true false quiz
         }else if (id == R.id.menu_quiz_mcq) {
+            Intent intent = new Intent(this, test2.class);
+            this.startActivity(intent);
             //multiple choice question quiz
         } else if (id == R.id.menu_sport_achievement) {
             Intent intent = new Intent(this, view_Sport_Achievement.class);
