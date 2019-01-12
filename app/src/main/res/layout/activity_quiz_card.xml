@@ -50,6 +50,20 @@
                 android:orientation="vertical"
                 android:padding="16dp">
                 <TextView
+                    android:id="@+id/mcq_qn_view_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Question No:"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/tondo_bold"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+                <TextView
                     android:id="@+id/mcq_text_view_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,6 +74,10 @@
                     android:fontFamily="@font/tondo_bold"
                     android:background="?android:attr/selectableItemBackground"
                     android:textStyle="bold" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
                 <Button
                     android:id="@+id/button_option_A"
                     android:layout_width="match_parent"
@@ -67,11 +85,15 @@
                     android:gravity="left|center_vertical"
                     android:background="?android:attr/selectableItemBackground"
                     android:fontFamily="@font/tondo_regular"
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     android:text="Option A"
                     android:layout_marginLeft="5dp"
                     android:textAllCaps="false"
                     android:textColor="#121111" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
 
                 <Button
                     android:id="@+id/button_option_B"
@@ -80,11 +102,15 @@
                     android:gravity="left|center_vertical"
                     android:background="?android:attr/selectableItemBackground"
                     android:fontFamily="@font/tondo_regular"
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     android:text="Option B"
                     android:layout_marginLeft="5dp"
                     android:textAllCaps="false"
                     android:textColor="#121111"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
 
                 <Button
                     android:id="@+id/button_option_C"
@@ -93,11 +119,15 @@
                     android:gravity="left|center_vertical"
                     android:background="?android:attr/selectableItemBackground"
                     android:fontFamily="@font/tondo_regular"
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     android:text="Option C"
                     android:layout_marginLeft="5dp"
                     android:textAllCaps="false"
                     android:textColor="#121111"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
 
                 <Button
                     android:id="@+id/button_option_D"
@@ -106,7 +136,7 @@
                     android:gravity="left|center_vertical"
                     android:background="?android:attr/selectableItemBackground"
                     android:fontFamily="@font/tondo_regular"
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     android:text="Option D"
                     android:layout_marginLeft="5dp"
                     android:textAllCaps="false"

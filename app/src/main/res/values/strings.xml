@@ -19,7 +19,7 @@
 
     <string name="incorrect_toast">Wrong!</string>
     <string name="correct_toast">You got it!</string>
-    <string name="question_1">CATKing    Loading Quiz</string>
+    <string name="question_1">CATKing loading question from quiz</string>
     <string name="article_headind">Heading</string>
     <string name="Article_descrition">Description</string>
     <string name="source">Source</string>

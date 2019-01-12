@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity
             this.startActivity(intent);
             //true false quiz
         }else if (id == R.id.menu_quiz_mcq) {
-            Intent intent = new Intent(this, test2.class);
+            Intent intent = new Intent(this, test3.class);
             this.startActivity(intent);
             //multiple choice question quiz
         } else if (id == R.id.menu_sport_achievement) {

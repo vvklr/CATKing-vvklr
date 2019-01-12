@@ -32,10 +32,12 @@ public class test3 extends Activity {
     Button mOption_C;
     Button mOption_D;
     TextView mQuestionText_View;
+    TextView mQuestion_Number;
     TextView mScoreText_View;
     ProgressBar mProgress_Bar;
     int m_Index; //will increase after answer selection
     String m_Question;
+    int m_Qn;
     int m_Score;  //will increase with correct answer
 
     @Override
@@ -45,10 +47,12 @@ public class test3 extends Activity {
         if (savedInstanceState != null) {
             m_Score = savedInstanceState.getInt("ScoreKey");
             m_Index = savedInstanceState.getInt("IndexKey");
+            m_Qn = savedInstanceState.getInt("Question_Number");
 
         } else {
             m_Score = 0;
             m_Index = 0;
+            m_Qn = 1;
 
         }
         //new LetsCollectJSON("https://script.google.com/macros/s/AKfycbxlRWQK1ypdlapRhFWoI1WY3B5ccQsYduZp7EVCIiBGz1vrcNI/exec?MAT477-BuRhAq-xS2vtUhjkwhP7cC3CUJ");
@@ -57,6 +61,7 @@ public class test3 extends Activity {
         mOption_B = (Button) findViewById(R.id.button_option_B);
         mOption_C = (Button) findViewById(R.id.button_option_C);
         mOption_D = (Button) findViewById(R.id.button_option_D);
+        mQuestion_Number = findViewById(R.id.mcq_qn_view_card);
         mQuestionText_View = findViewById(R.id.mcq_text_view_card);
         mScoreText_View = findViewById(R.id.score_mcq_card);
         mProgress_Bar = (ProgressBar) findViewById(R.id.progress_bar_mcq_card);
@@ -79,10 +84,11 @@ public class test3 extends Activity {
 
                 m_Question = myQuestion_Data[m_Index];
                 mQuestionText_View.setText(m_Question);
-                mOption_A.setText(myOptina_A_data[m_Index]);
-                mOption_B.setText(myOptina_B_data[m_Index]);
-                mOption_C.setText(myOptina_C_data[m_Index]);
-                mOption_D.setText(myOptina_D_data[m_Index]);
+                mQuestion_Number.setText("Question No: "+m_Qn);
+                mOption_A.setText("A. "+myOptina_A_data[m_Index]);
+                mOption_B.setText("B. "+myOptina_B_data[m_Index]);
+                mOption_C.setText("C. "+myOptina_C_data[m_Index]);
+                mOption_D.setText("D. "+myOptina_D_data[m_Index]);
 
                 mScoreText_View.setText("Score" + m_Score + "/" + myQuestion_Data.length);
 
@@ -98,6 +104,7 @@ public class test3 extends Activity {
                     }
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
+                        m_Qn = m_Qn+1;
                         if(m_Index==0){
                             AlertDialog.Builder alert = new AlertDialog.Builder(test3.this);
                             alert.setTitle("Quiz is done");
@@ -113,10 +120,11 @@ public class test3 extends Activity {
                         }
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
-                        mOption_A.setText(myOptina_A_data[m_Index]);
-                        mOption_B.setText(myOptina_B_data[m_Index]);
-                        mOption_C.setText(myOptina_C_data[m_Index]);
-                        mOption_D.setText(myOptina_D_data[m_Index]);
+                        mQuestion_Number.setText("Question No: "+m_Qn);
+                        mOption_A.setText("A. "+myOptina_A_data[m_Index]);
+                        mOption_B.setText("B. "+myOptina_B_data[m_Index]);
+                        mOption_C.setText("C. "+myOptina_C_data[m_Index]);
+                        mOption_D.setText("D. "+myOptina_D_data[m_Index]);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
                         mScoreText_View.setText("Score" + m_Score+ "/"+ myQuestion_Data.length);
                     }
@@ -147,6 +155,7 @@ public class test3 extends Activity {
                     }
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
+                        m_Qn = m_Qn+1;
                         if(m_Index==0){
                             AlertDialog.Builder alert = new AlertDialog.Builder(test3.this);
                             alert.setTitle("Quiz is done");
@@ -162,10 +171,11 @@ public class test3 extends Activity {
                         }
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
-                        mOption_A.setText(myOptina_A_data[m_Index]);
-                        mOption_B.setText(myOptina_B_data[m_Index]);
-                        mOption_C.setText(myOptina_C_data[m_Index]);
-                        mOption_D.setText(myOptina_D_data[m_Index]);
+                        mQuestion_Number.setText("Question No: "+m_Qn);
+                        mOption_A.setText("A. "+myOptina_A_data[m_Index]);
+                        mOption_B.setText("B. "+myOptina_B_data[m_Index]);
+                        mOption_C.setText("C. "+myOptina_C_data[m_Index]);
+                        mOption_D.setText("D." +myOptina_D_data[m_Index]);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
                         mScoreText_View.setText("Score" + m_Score+ "/"+ myQuestion_Data.length);
                     }
@@ -196,6 +206,7 @@ public class test3 extends Activity {
                     }
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
+                        m_Qn = m_Qn+1;
                         if(m_Index==0){
                             AlertDialog.Builder alert = new AlertDialog.Builder(test3.this);
                             alert.setTitle("Quiz is done");
@@ -209,12 +220,14 @@ public class test3 extends Activity {
                             });
                             alert.show();
                         }
+
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
-                        mOption_A.setText(myOptina_A_data[m_Index]);
-                        mOption_B.setText(myOptina_B_data[m_Index]);
-                        mOption_C.setText(myOptina_C_data[m_Index]);
-                        mOption_D.setText(myOptina_D_data[m_Index]);
+                        mQuestion_Number.setText("Question No: "+m_Qn);
+                        mOption_A.setText("A. "+myOptina_A_data[m_Index]);
+                        mOption_B.setText("B. "+myOptina_B_data[m_Index]);
+                        mOption_C.setText("C. "+myOptina_C_data[m_Index]);
+                        mOption_D.setText("D. "+myOptina_D_data[m_Index]);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
                         mScoreText_View.setText("Score" + m_Score+ "/"+ myQuestion_Data.length);
                     }
@@ -245,6 +258,7 @@ public class test3 extends Activity {
                     }
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
+                        m_Qn = m_Qn+1;
                         if(m_Index==0){
                             AlertDialog.Builder alert = new AlertDialog.Builder(test3.this);
                             alert.setTitle("Quiz is done");
@@ -260,10 +274,11 @@ public class test3 extends Activity {
                         }
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
-                        mOption_A.setText(myOptina_A_data[m_Index]);
-                        mOption_B.setText(myOptina_B_data[m_Index]);
-                        mOption_C.setText(myOptina_C_data[m_Index]);
-                        mOption_D.setText(myOptina_D_data[m_Index]);
+                        mQuestion_Number.setText("Question No: "+m_Qn);
+                        mOption_A.setText("A. "+myOptina_A_data[m_Index]);
+                        mOption_B.setText("B. "+myOptina_B_data[m_Index]);
+                        mOption_C.setText("C. "+myOptina_C_data[m_Index]);
+                        mOption_D.setText("D. "+myOptina_D_data[m_Index]);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
                         mScoreText_View.setText("Score" + m_Score+ "/"+ myQuestion_Data.length);
                     }
@@ -302,5 +317,6 @@ public class test3 extends Activity {
         super.onSaveInstanceState(outState);
         outState.putInt("ScoreKey", m_Score);
         outState.putInt("IndexKey",m_Index);
+        outState.putInt("Question_Number",m_Qn);
     }
 }
