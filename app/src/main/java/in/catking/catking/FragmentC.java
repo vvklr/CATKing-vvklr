@@ -20,6 +20,7 @@ public class FragmentC extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_c, container, false);
         Button TFQuiz = (Button) rootView.findViewById(R.id.buttonTFQuiz);
         Button MCQuiz = (Button) rootView.findViewById(R.id.buttonMultiQuiz);
+//        Button CardQuiz = (Button) rootView.findViewById(R.id.buttonCardQuiz);
 
         TFQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,10 +33,18 @@ public class FragmentC extends Fragment {
         MCQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),test2.class);
+                Intent intent = new Intent(getContext(),test3.class);
                 startActivity(intent);
             }
         });
+
+//        CardQuiz.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(),test3.class);
+//                startActivity(intent);
+//            }
+//        });
         return rootView;
     }
 

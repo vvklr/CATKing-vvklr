@@ -24,6 +24,17 @@
         android:text="@string/Multi_quiz"
         android:textSize="20dp"
         android:textColor="@color/colorDarkBlue" />
+    <!--<Button-->
+        <!--android:id="@+id/buttonCardQuiz"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="44dp"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:background="@drawable/b_tf"-->
+        <!--android:text="@string/Multi_quiz"-->
+        <!--android:textSize="20dp"-->
+        <!--android:textColor="@color/colorDarkBlue"-->
+        <!--/>-->
 </LinearLayout>
 
     <!--<?xml version="1.0" encoding="utf-8"?>-->

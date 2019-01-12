@@ -29,6 +29,7 @@
         <activity android:name=".view_doc_activity" />
         <activity android:name=".test1" />
         <activity android:name=".test2" />
+        <activity android:name=".test3" />
         <activity android:name=".view_Sport_Achievement" />
         <activity android:name=".view_Science" />
         <activity android:name=".view_BooksAndAuthor" />

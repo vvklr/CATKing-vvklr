@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:background="#25042e"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ProgressBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/progress_bar_mcq_card"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:indeterminate="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/progress_bar_mcq_card"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/score_mcq_card"
+        android:textColor="#f9f9f9"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:text="@string/initial_score"
+        android:padding="5dp"/>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="10dp"
+        card_view:contentPadding="10dp"
+        card_view:cardBackgroundColor="#ffffff"
+        card_view:cardElevation="4dp"
+        card_view:cardMaxElevation="6dp"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="#ffffff"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:id="@+id/mcq_text_view_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="@string/question_1"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/tondo_bold"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:textStyle="bold" />
+                <Button
+                    android:id="@+id/button_option_A"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:fontFamily="@font/tondo_regular"
+                    android:textSize="20dp"
+                    android:text="Option A"
+                    android:layout_marginLeft="5dp"
+                    android:textAllCaps="false"
+                    android:textColor="#121111" />
+
+                <Button
+                    android:id="@+id/button_option_B"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:fontFamily="@font/tondo_regular"
+                    android:textSize="20dp"
+                    android:text="Option B"
+                    android:layout_marginLeft="5dp"
+                    android:textAllCaps="false"
+                    android:textColor="#121111"/>
+
+                <Button
+                    android:id="@+id/button_option_C"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:fontFamily="@font/tondo_regular"
+                    android:textSize="20dp"
+                    android:text="Option C"
+                    android:layout_marginLeft="5dp"
+                    android:textAllCaps="false"
+                    android:textColor="#121111"/>
+
+                <Button
+                    android:id="@+id/button_option_D"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:fontFamily="@font/tondo_regular"
+                    android:textSize="20dp"
+                    android:text="Option D"
+                    android:layout_marginLeft="5dp"
+                    android:textAllCaps="false"
+                    android:textColor="#121111" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
