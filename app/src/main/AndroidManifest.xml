@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Entry_To_CATKing"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailsActivity" />
+        <activity android:name=".MainActivity"/>
         <activity android:name=".view_Geography" />
         <activity android:name=".view_History" />
         <activity android:name=".view_doc_activity" />
@@ -40,7 +41,9 @@
         <activity android:name=".view_ConstitutionOfIndia" />
         <activity android:name=".view_Miscellaneous" />
         <activity android:name=".view_FunFacts" />
-        <activity android:name=".view_DynamicGK"></activity>
+        <activity android:name=".view_DynamicGK" />
+        <activity android:name=".Login_Mobile" />
+        <activity android:name=".Login_otp"></activity>
     </application>
 
 </manifest>
