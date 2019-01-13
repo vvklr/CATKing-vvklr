@@ -211,6 +211,11 @@ public class MainActivity extends AppCompatActivity
             this.startActivity(intent);
             //sports and achievements 1wNJXKzxqi9k0US1L7qEeZk7DtENitswy
         } else if (id == R.id.nav_share) {
+            Intent SLink = new Intent(Intent.ACTION_SEND);
+            SLink.setType("text/plain");
+            SLink.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL"); // Email 's Subject
+            SLink.putExtra(Intent.EXTRA_TEXT, "https://www.catking.in/appDownload");  //Email 's Greeting text
+            startActivity(Intent.createChooser(SLink, "CATKing App link"));
 
         } else if (id == R.id.nav_send) {
             Intent Email = new Intent(Intent.ACTION_SEND);

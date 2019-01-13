@@ -4,6 +4,8 @@ package in.catking.catking;
 //Email me on vr.iitb@gmail.com if you come across any problem
 import android.content.Intent;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -12,6 +14,8 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.zip.Inflater;
+
 import cz.msebera.android.httpclient.Header;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -133,12 +137,25 @@ public class test3 extends Activity {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
-                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
+                            LayoutInflater inflater = getLayoutInflater();
+                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
+                            Toast customT = new Toast(getApplicationContext());
+                            customT.setView(customToast);
+                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
+                            customT.setDuration(Toast.LENGTH_SHORT);
+                            customT.show();
+//                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
                             m_Score = m_Score+1;
 
                         }else{
-                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
-
+                            LayoutInflater inflater = getLayoutInflater();
+                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
+                            Toast customT = new Toast(getApplicationContext());
+                            customT.setView(customToast);
+                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
+                            customT.setDuration(Toast.LENGTH_SHORT);
+                            customT.show();
+//                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
                         }
                     }
 //                    private void showAns(){
@@ -184,13 +201,35 @@ public class test3 extends Activity {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
-                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
+                            LayoutInflater inflater = getLayoutInflater();
+                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
+                            Toast customT = new Toast(getApplicationContext());
+                            customT.setView(customToast);
+                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
+                            customT.setDuration(Toast.LENGTH_SHORT);
+                            customT.show();
+//                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
                             m_Score = m_Score+1;
 
                         }else{
-                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
-
+                            LayoutInflater inflater = getLayoutInflater();
+                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
+                            Toast customT = new Toast(getApplicationContext());
+                            customT.setView(customToast);
+                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
+                            customT.setDuration(Toast.LENGTH_SHORT);
+                            customT.show();
+//                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
                         }
+//                        if(Aa== true){
+//
+//                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
+//                            m_Score = m_Score+1;
+//
+//                        }else{
+//                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
+//
+//                        }
                     }
 //                    private void showAns(){
 //                        String correctA = myAData[mIndex];
@@ -236,13 +275,34 @@ public class test3 extends Activity {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
-                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
+                            LayoutInflater inflater = getLayoutInflater();
+                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
+                            Toast customT = new Toast(getApplicationContext());
+                            customT.setView(customToast);
+                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
+                            customT.setDuration(Toast.LENGTH_SHORT);
+                            customT.show();
+//                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
                             m_Score = m_Score+1;
 
                         }else{
-                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
-
+                            LayoutInflater inflater = getLayoutInflater();
+                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
+                            Toast customT = new Toast(getApplicationContext());
+                            customT.setView(customToast);
+                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
+                            customT.setDuration(Toast.LENGTH_SHORT);
+                            customT.show();
+//                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
                         }
+//                        if(Aa== true){
+//                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
+//                            m_Score = m_Score+1;
+//
+//                        }else{
+//                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
+//
+//                        }
                     }
 //                    private void showAns(){
 //                        String correctA = myAData[mIndex];
@@ -287,13 +347,34 @@ public class test3 extends Activity {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
-                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
+                            LayoutInflater inflater = getLayoutInflater();
+                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
+                            Toast customT = new Toast(getApplicationContext());
+                            customT.setView(customToast);
+                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
+                            customT.setDuration(Toast.LENGTH_SHORT);
+                            customT.show();
+//                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
                             m_Score = m_Score+1;
 
                         }else{
-                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
-
+                            LayoutInflater inflater = getLayoutInflater();
+                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
+                            Toast customT = new Toast(getApplicationContext());
+                            customT.setView(customToast);
+                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
+                            customT.setDuration(Toast.LENGTH_SHORT);
+                            customT.show();
+//                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
                         }
+//                        if(Aa== true){
+//                            Toast.makeText(getApplicationContext(),R.string.correct_toast, Toast.LENGTH_SHORT).show();
+//                            m_Score = m_Score+1;
+//
+//                        }else{
+//                            Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
+//
+//                        }
                     }
 //                    private void showAns(){
 //                        String correctA = myAData[mIndex];
