@@ -3,18 +3,21 @@ package in.catking.catking;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import cz.msebera.android.httpclient.Header;
+import in.catking.catking.spalsh_screen;
 
 public class Login_Mobile extends AppCompatActivity {
     EditText mobile_number;
@@ -24,6 +27,8 @@ public class Login_Mobile extends AppCompatActivity {
     final String AUTH_KEY = "256447A1O4p8Ed5c3a1e10";
     SharedPreferences sharedpreferences;
     public static final String MyPREFERENCES = "MyPrefs" ;
+    private static int SPLASH_TIME_OTP = 4000;
+    private static int SPLASH_TIME_SPLASHSCREEN = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,16 @@ public class Login_Mobile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mobileText = mobile_number.getText().toString();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Do any action here. Now we are moving to next page
+                        Intent mySuperIntent = new Intent(Login_Mobile.this, Splash_Screen_otp.class);
+                        startActivity(mySuperIntent);
+                        finish();
+                    }
+                }, SPLASH_TIME_SPLASHSCREEN);
+                getOTP.setEnabled(false);
                 sendOTP();
             }
         });
@@ -57,21 +72,36 @@ public class Login_Mobile extends AppCompatActivity {
         client.get(OTP_URL, param, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Log.d("OTP_AUTH", "otp sent Success");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
-                final String randomOTP_String= Integer.toString(randomOTP);
-                Intent intentC = new Intent(getApplicationContext(),Login_otp.class);
-                intentC.putExtra("OTP",randomOTP_String);
-                startActivity(intentC);
+                        Log.d("OTP_AUTH", "otp sent Success");
+                        final String randomOTP_String= Integer.toString(randomOTP);
+                        Intent intentC = new Intent(getApplicationContext(),Login_otp.class);
+                        intentC.putExtra("OTP",randomOTP_String);
+                        startActivity(intentC);
+                    }
+                }, SPLASH_TIME_OTP);
+
+
+//
+//                Log.d("OTP_AUTH", "otp sent Success");
+//                final String randomOTP_String= Integer.toString(randomOTP);
+//                Intent intentC = new Intent(getApplicationContext(),Login_otp.class);
+//                intentC.putExtra("OTP",randomOTP_String);
+//                startActivity(intentC);
+
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.d("OTP AUTH", "Failure");
+                Toast.makeText(getApplicationContext(),"Failed to send OTP",Toast.LENGTH_LONG).show();
+                Intent intentZ = new Intent(getApplicationContext(),Login_Mobile.class);
+                startActivity(intentZ);
             }
         });
     }
-
-
 }

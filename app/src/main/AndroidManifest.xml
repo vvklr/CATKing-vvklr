@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailsActivity" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity android:name=".view_Geography" />
         <activity android:name=".view_History" />
         <activity android:name=".view_doc_activity" />
@@ -43,7 +43,10 @@
         <activity android:name=".view_FunFacts" />
         <activity android:name=".view_DynamicGK" />
         <activity android:name=".Login_Mobile" />
-        <activity android:name=".Login_otp"></activity>
+        <activity android:name=".Splash_Screen_otp"></activity>
+        <activity android:name=".Login_otp" />
+        <activity android:name=".spalsh_screen">
+        </activity>
     </application>
 
 </manifest>
