@@ -235,10 +235,12 @@ public class view_doc_activity extends AppCompatActivity
             //history
         }else if (id == R.id.menu_quiz_tf) {
 
-            Intent intent = new Intent(this, test1.class);
+            Intent intent = new Intent(this, test4.class);
             this.startActivity(intent);
             //true false quiz
         }else if (id == R.id.menu_quiz_mcq) {
+            Intent intent = new Intent(this, test3.class);
+            this.startActivity(intent);
             //multiple choice question quiz
         } else if (id == R.id.menu_sport_achievement) {
             Intent intent = new Intent(this, view_doc_activity.class);
