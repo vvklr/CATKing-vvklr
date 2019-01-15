@@ -13,6 +13,7 @@
     <string name="true_button">True</string>
     <string name="false_button">False</string>
     <string name="initial_score">Score 0/0</string>
+    <string name="termsAndCondition">By logging In, you agree to our Terms and Conditions and Privacy Policy</string>
 
     <string name="trueFalseQuiz">True or False Quiz</string>
     <string name="Multi_quiz">Multiple Choice Quiz</string>

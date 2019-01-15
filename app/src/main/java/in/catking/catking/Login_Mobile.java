@@ -65,7 +65,7 @@ public class Login_Mobile extends AppCompatActivity {
         RequestParams param = new RequestParams();
         param.put("authkey",AUTH_KEY);
         param.put("otp",randomOTP);
-        param.put("message","Your otp for login into CATKing app is: "+randomOTP);
+        param.put("message","Your OTP for logging into CATKing app is: "+randomOTP+". Check out our courses at our website https://www.courses.catking.in");
         param.put("sender","CATKing");
         param.put("mobile",mobileText);
         AsyncHttpClient client = new AsyncHttpClient();
