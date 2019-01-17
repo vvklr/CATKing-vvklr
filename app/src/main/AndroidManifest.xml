@@ -44,10 +44,14 @@
         <activity android:name=".view_FunFacts" />
         <activity android:name=".view_DynamicGK" />
         <activity android:name=".Login_Mobile" />
-        <activity android:name=".Splash_Screen_otp"></activity>
+        <activity android:name=".quiz.QuizList"/>
+        <activity android:name=".quiz.TF_QuizList"/>
+        <activity android:name=".Splash_Screen_otp" />
         <activity android:name=".Login_otp" />
-        <activity android:name=".spalsh_screen">
-        </activity>
+        <activity android:name=".quiz.newMCQ"/>
+        <activity android:name=".quiz.new_TF"/>
+        <activity android:name=".List_view_quiz_selection"/>
+        <activity android:name=".spalsh_screen"></activity>
     </application>
 
 </manifest>

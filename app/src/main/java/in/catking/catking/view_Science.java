@@ -6,6 +6,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
@@ -23,6 +24,8 @@ public class view_Science extends AppCompatActivity
         String value = bundle.getString("Science");
         String plink = "https://drive.google.com/viewerng/viewer?embedded=true&url=https://drive.google.com/uc?id=";//permanent link
         webview.loadUrl(plink + value);
+        System.out.println(value);
+        Log.d("View_Science","this is the value"+value);
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

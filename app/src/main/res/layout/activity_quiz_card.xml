@@ -64,6 +64,16 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray"/>
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15sp"
+                    android:layout_marginRight="15sp"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/tondo_regular"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="3dp" />
+                <TextView
                     android:id="@+id/mcq_text_view_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -74,6 +84,16 @@
                     android:fontFamily="@font/tondo_bold"
                     android:background="?android:attr/selectableItemBackground"
                     android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15sp"
+                    android:layout_marginRight="15sp"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/tondo_regular"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="6dp" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

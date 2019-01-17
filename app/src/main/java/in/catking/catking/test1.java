@@ -64,6 +64,7 @@ public class test1 extends Activity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     Log.d("CATKing", "Successful JSON data collection " + response.toString());
+                    //final String[] myQuestionData = tf_QuestionData.fromJsonQ(response);
                     final String[] myQuestionData = tf_QuestionData.fromJsonQ(response);
                     final String[] myAnswerData = tf_QuestionData.fromJsonA(response);
                     // TODO: Declare constants here

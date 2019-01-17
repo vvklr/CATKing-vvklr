@@ -10,17 +10,17 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/progress_bar_tf_card"
+        android:id="@+id/progress_bar_mcq_card"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:indeterminate="false" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/progress_bar_tf_card"
+        android:layout_above="@id/progress_bar_mcq_card"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/score_tf_card"
+        android:id="@+id/score_mcq_card"
         android:textColor="#f9f9f9"
         android:textStyle="bold"
         android:textSize="15sp"
@@ -49,26 +49,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
-                <TextView
-                    android:id="@+id/tf_qn_view_card"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Question No:"
-                    android:textColor="#000000"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/tondo_bold"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15sp"
-                    android:layout_marginRight="15sp"
-                    android:gravity="center_horizontal"
-                    android:fontFamily="@font/tondo_regular"
-                    android:text=""
-                    android:textColor="#000000"
-                    android:textSize="3dp" />
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/mcq_qn_view_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="Correct "
+                        android:textColor="#000000"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/tondo_bold"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -82,9 +77,9 @@
                     android:fontFamily="@font/tondo_regular"
                     android:text=""
                     android:textColor="#000000"
-                    android:textSize="4dp" />
+                    android:textSize="3dp" />
                 <TextView
-                    android:id="@+id/tf_text_view_card"
+                    android:id="@+id/mcq_text_view_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
@@ -103,20 +98,20 @@
                     android:fontFamily="@font/tondo_regular"
                     android:text=""
                     android:textColor="#000000"
-                    android:textSize="4dp" />
+                    android:textSize="6dp" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray"/>
                 <Button
-                    android:id="@+id/button_option_true"
+                    android:id="@+id/button_option_A"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left|center_vertical"
                     android:background="?android:attr/selectableItemBackground"
                     android:fontFamily="@font/tondo_regular"
                     android:textSize="18dp"
-                    android:text="True"
+                    android:text="Option A"
                     android:layout_marginLeft="5dp"
                     android:textAllCaps="false"
                     android:textColor="#121111" />
@@ -126,17 +121,51 @@
                     android:background="@android:color/darker_gray"/>
 
                 <Button
-                    android:id="@+id/button_option_false"
+                    android:id="@+id/button_option_B"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left|center_vertical"
                     android:background="?android:attr/selectableItemBackground"
                     android:fontFamily="@font/tondo_regular"
                     android:textSize="18dp"
-                    android:text="False"
+                    android:text="Option B"
                     android:layout_marginLeft="5dp"
                     android:textAllCaps="false"
                     android:textColor="#121111"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <Button
+                    android:id="@+id/button_option_C"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:fontFamily="@font/tondo_regular"
+                    android:textSize="18dp"
+                    android:text="Option C"
+                    android:layout_marginLeft="5dp"
+                    android:textAllCaps="false"
+                    android:textColor="#121111"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <Button
+                    android:id="@+id/button_option_D"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:fontFamily="@font/tondo_regular"
+                    android:textSize="18dp"
+                    android:text="Option D"
+                    android:layout_marginLeft="5dp"
+                    android:textAllCaps="false"
+                    android:textColor="#121111" />
 
             </LinearLayout>
         </LinearLayout>
