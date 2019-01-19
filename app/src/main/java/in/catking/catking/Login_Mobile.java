@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,8 @@ import in.catking.catking.spalsh_screen;
 public class Login_Mobile extends AppCompatActivity {
     EditText mobile_number;
     String mobileText;
+    EditText m_name;
+    EditText m_email;
     Button getOTP;
     final String OTP_URL = "http://control.msg91.com/api/sendotp.php";
     final String AUTH_KEY = "256447A1O4p8Ed5c3a1e10";
@@ -40,11 +44,24 @@ public class Login_Mobile extends AppCompatActivity {
         getOTP = (Button) findViewById(R.id.button_generateOTP);
 
         mobile_number = (EditText)findViewById(R.id.phone_number);
+        m_name = (EditText)findViewById(R.id.mname);
+        m_email = (EditText)findViewById(R.id.memail);
 
 
         getOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (TextUtils.isEmpty(m_email.getText().toString()) ||
+                        TextUtils.isEmpty(m_name.getText().toString()) ||
+                        TextUtils.isEmpty(mobile_number.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "All fields are mandatory.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                //Check if a valid email is entered
+                if (!Patterns.EMAIL_ADDRESS.matcher(m_email.getText().toString()).matches()) {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid email.", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 mobileText = mobile_number.getText().toString();
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -78,8 +95,14 @@ public class Login_Mobile extends AppCompatActivity {
 
                         Log.d("OTP_AUTH", "otp sent Success");
                         final String randomOTP_String= Integer.toString(randomOTP);
+                        final String NAME_String = m_name.getText().toString();
+                        final String EMAIL_String = m_email.getText().toString();
+                        final String PHONE_String = mobile_number.getText().toString();
                         Intent intentC = new Intent(getApplicationContext(),Login_otp.class);
                         intentC.putExtra("OTP",randomOTP_String);
+                        intentC.putExtra("NAME",NAME_String);
+                        intentC.putExtra("PHONE",PHONE_String);
+                        intentC.putExtra("EMAIL",EMAIL_String);
                         startActivity(intentC);
                     }
                 }, SPLASH_TIME_OTP);

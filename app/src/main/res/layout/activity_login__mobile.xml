@@ -11,12 +11,33 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/lay_catking_small"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         tools:ignore="SpUsage"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/person"/>
+
+        <EditText
+            android:id="@+id/mname"
+            android:layout_width="276dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="0"
+            android:hint="Enter Your Name"
+            android:textColorHint="#e7a1ff"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/main_color_400"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,9 +54,30 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_weight="0"
-            android:hint="Enter Mobile Number"
+            android:hint="Enter Your Mobile Number"
             android:inputType="phone"
             android:maxLength="10"
+            android:textColorHint="#e7a1ff"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/main_color_400"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/email"/>
+
+        <EditText
+            android:id="@+id/memail"
+            android:layout_width="276dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="0"
+            android:hint="Enter Your Email"
             android:textColorHint="#e7a1ff"
             android:textCursorDrawable="@null"
             android:textColor="@color/main_color_400"/>
