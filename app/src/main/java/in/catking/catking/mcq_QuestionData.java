@@ -11,6 +11,7 @@ public class mcq_QuestionData {
     private String mOptionC;
     private String mOptionD;
     private String mCorrectAnswer;
+    private String mDescription;
 
 
     // TODO: Create a question data from a JSON:
@@ -113,6 +114,21 @@ public class mcq_QuestionData {
             return null;
         }
     }
+    public static String[] fromJsonDes(JSONObject jsonObject) {
+        try {
+            int QbLength = jsonObject.getJSONArray("questions").length();
+            String[] myAns_Data = new String[QbLength];
+            for (int i = 0; i < QbLength; i++) {
+                mcq_QuestionData aData = new mcq_QuestionData();
+                aData.mDescription = jsonObject.getJSONArray("questions").getJSONObject(i).getString("description");
+                myAns_Data[i]=aData.getmDescription();
+            }
+            return myAns_Data;//was not able to define as much parameters as tf_question_data as
+        }catch(JSONException e){//questionData is defined in both classes.
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     public String getmQuestion() {
@@ -137,5 +153,9 @@ public class mcq_QuestionData {
 
     public String getmCorrectAnswer() {
         return mCorrectAnswer;
+    }
+
+    public String getmDescription() {
+        return mDescription;
     }
 }

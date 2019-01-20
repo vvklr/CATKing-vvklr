@@ -1,11 +1,18 @@
 package in.catking.catking.quiz;
 //Vishal Raut
 //Email me on vr.iitb@gmail.com if you come across any problem
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -44,6 +51,7 @@ public class newMCQ extends Activity {
     TextView mQuestionText_View;
     TextView mQuestion_Number;
     TextView mScoreText_View;
+    TextView mDescription;
     ProgressBar mProgress_Bar;
     int m_Index; //will increase after answer selection
     String m_Question;
@@ -51,6 +59,7 @@ public class newMCQ extends Activity {
     int m_Qn;
     int m_Score;  //will increase with correct answer
     private static int SPLASH_TIME = 5000;
+    LayoutInflater inflater;
 
 
     @Override
@@ -87,6 +96,7 @@ public class newMCQ extends Activity {
                 final String[] myOptina_B_data = mcq_QuestionData.fromJsonB(response);
                 final String[] myOptina_C_data = mcq_QuestionData.fromJsonC(response);
                 final String[] myOptina_D_data = mcq_QuestionData.fromJsonD(response);
+                final String[] myDescription_data = mcq_QuestionData.fromJsonDes(response);
                 // TODO: Declare constants here
 
                 final int PROGRESS_BAR_INCREMENT = (int) Math.ceil(100.0 / myQuestion_Data.length);
@@ -108,18 +118,23 @@ public class newMCQ extends Activity {
                 mOption_A.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mOption_A.setEnabled(false);
+                        mOption_B.setEnabled(false);
+                        mOption_C.setEnabled(false);
+                        mOption_D.setEnabled(false);
 
                         String a = myA_Data[m_Index];
                         setAnswer(a);
 
                         checkAnswer("a");
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateQuestion();
-                            }
-                        }, SPLASH_TIME);
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                updateQuestion();
+//                            }
+//                        }, SPLASH_TIME);
+
                     }
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
@@ -149,8 +164,20 @@ public class newMCQ extends Activity {
                         mOption_C.setBackgroundColor(0xAAffffff);
                         mOption_D.setText("D. "+myOptina_D_data[m_Index]);
                         mOption_D.setBackgroundColor(0xAAffffff);
+                        mOption_A.setEnabled(true);
+                        mOption_B.setEnabled(true);
+                        mOption_C.setEnabled(true);
+                        mOption_D.setEnabled(true);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
                         mScoreText_View.setText("Score " + m_Score+ "/"+ myQuestion_Data.length);
+
+                        LinearLayout ll = findViewById(R.id.p_layout);
+                        final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
+                        ll.removeView(child);
+                        final LinearLayout child2 = (LinearLayout) ll.findViewById(R.id.des_layout);
+                        ll.removeView(child2);
+                        final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
+                        ll.removeView(child3);
                     }
 
                     private void checkAnswer(String userSelection) {
@@ -158,29 +185,91 @@ public class newMCQ extends Activity {
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
                             mOption_A.setBackgroundColor(0xAA81c784);
+                            //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             mQuestion_Number.setText("Correct");
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
-//                            m_Score = m_Score+1;
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
+                            LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
 
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            String des = myDescription_data[m_Index];
+                            String check ="";
+                            boolean de = check.equalsIgnoreCase(des);
+                            if(de == false){
+                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                parent_layout.addView(divider_layout,cp);
+
+                                parent_layout.addView(description_layout,cp);
+                                TextView teTag = new TextView(getApplicationContext());
+                                teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                teTag.setPadding(60,5,30,5);
+                                teTag.setTextSize(18);
+                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                teTag.setText(myDescription_data[m_Index]);
+                                description_layout.addView(teTag);
+                            }
+
+                            parent_layout.addView(activity_layout,cp);
+                            Button btnTag = new Button(getApplicationContext());
+                            btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnTag.setText("Next Question");
+                            activity_layout.addView(btnTag);
+                            btnTag.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    updateQuestion();
+                                }
+                            });
                         }else{
                             mOption_A.setBackgroundColor(0xAAe57272);
+                            //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             mQuestion_Number.setText("Wrong");
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
+
+                            LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            String des = myDescription_data[m_Index];
+                            String check ="";
+                            boolean de = check.equalsIgnoreCase(des);
+                            if(de == false){
+                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                parent_layout.addView(divider_layout,cp);
+//                                ImageView divider = new ImageView(getApplicationContext());
+//                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                                lp.setMargins(0, 0, 0, 0);
+//                                divider.setLayoutParams(lp);
+//                                divider.setBackgroundColor(0xAAAAAAAA);
+                                parent_layout.addView(description_layout,cp);
+                                TextView teTag = new TextView(getApplicationContext());
+                                teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                teTag.setPadding(70,5,40,5);
+                                teTag.setTextSize(18);
+                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                teTag.setText(myDescription_data[m_Index]);
+                                description_layout.addView(teTag);
+                            }
+
+
+                            parent_layout.addView(activity_layout,cp);
+                            final Button btnTag = new Button(getApplicationContext());
+                            btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnTag.setText("Next Question");
+                            activity_layout.addView(btnTag);
+                            btnTag.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    btnTag.setEnabled(false);
+                                    updateQuestion();
+                                }
+                            });
                         }
                     }
                     private void setAnswer(String cA){
@@ -207,17 +296,23 @@ public class newMCQ extends Activity {
                 mOption_B.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        mOption_A.setEnabled(false);
+                        mOption_B.setEnabled(false);
+                        mOption_C.setEnabled(false);
+                        mOption_D.setEnabled(false);
+
                         String a = myA_Data[m_Index];
                         setAnswer(a);
 
                         checkAnswer("b");
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateQuestion();
-                            }
-                        }, SPLASH_TIME);
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                updateQuestion();
+//                            }
+//                        }, SPLASH_TIME);
                     }
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
@@ -247,8 +342,20 @@ public class newMCQ extends Activity {
                         mOption_C.setBackgroundColor(0xAAffffff);
                         mOption_D.setText("D. "+myOptina_D_data[m_Index]);
                         mOption_D.setBackgroundColor(0xAAffffff);
+                        mOption_A.setEnabled(true);
+                        mOption_B.setEnabled(true);
+                        mOption_C.setEnabled(true);
+                        mOption_D.setEnabled(true);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
                         mScoreText_View.setText("Score " + m_Score+ "/"+ myQuestion_Data.length);
+
+                        LinearLayout ll = findViewById(R.id.p_layout);
+                        final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
+                        ll.removeView(child);
+                        final LinearLayout child2 = (LinearLayout) ll.findViewById(R.id.des_layout);
+                        ll.removeView(child2);
+                        final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
+                        ll.removeView(child3);
                     }
 
                     private void checkAnswer(String userSelection) {
@@ -256,29 +363,91 @@ public class newMCQ extends Activity {
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
                             mOption_B.setBackgroundColor(0xAA81c784);
+                            //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             mQuestion_Number.setText("Correct");
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
-//                            m_Score = m_Score+1;
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
+                            LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
 
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            String des = myDescription_data[m_Index];
+                            String check ="";
+                            boolean de = check.equalsIgnoreCase(des);
+                            if(de == false){
+                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                parent_layout.addView(divider_layout,cp);
+
+                                parent_layout.addView(description_layout,cp);
+                                TextView teTag = new TextView(getApplicationContext());
+                                teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                teTag.setPadding(60,5,30,5);
+                                teTag.setTextSize(18);
+                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                teTag.setText(myDescription_data[m_Index]);
+                                description_layout.addView(teTag);
+                            }
+
+                            parent_layout.addView(activity_layout,cp);
+                            Button btnTag = new Button(getApplicationContext());
+                            btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnTag.setText("Next Question");
+                            activity_layout.addView(btnTag);
+                            btnTag.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    updateQuestion();
+                                }
+                            });
                         }else{
                             mOption_B.setBackgroundColor(0xAAe57272);
+                            //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             mQuestion_Number.setText("Wrong");
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
+
+                            LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            String des = myDescription_data[m_Index];
+                            String check ="";
+                            boolean de = check.equalsIgnoreCase(des);
+                            if(de == false){
+                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                parent_layout.addView(divider_layout,cp);
+//                                ImageView divider = new ImageView(getApplicationContext());
+//                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                                lp.setMargins(0, 0, 0, 0);
+//                                divider.setLayoutParams(lp);
+//                                divider.setBackgroundColor(0xAAAAAAAA);
+                                parent_layout.addView(description_layout,cp);
+                                TextView teTag = new TextView(getApplicationContext());
+                                teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                teTag.setPadding(70,5,40,5);
+                                teTag.setTextSize(18);
+                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                teTag.setText(myDescription_data[m_Index]);
+                                description_layout.addView(teTag);
+                            }
+
+
+                            parent_layout.addView(activity_layout,cp);
+                            final Button btnTag = new Button(getApplicationContext());
+                            btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnTag.setText("Next Question");
+                            activity_layout.addView(btnTag);
+                            btnTag.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    btnTag.setEnabled(false);
+                                    updateQuestion();
+                                }
+                            });
                         }
                     }
                     private void setAnswer(String cA){
@@ -305,17 +474,23 @@ public class newMCQ extends Activity {
                 mOption_C.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        mOption_A.setEnabled(false);
+                        mOption_B.setEnabled(false);
+                        mOption_C.setEnabled(false);
+                        mOption_D.setEnabled(false);
+
                         String a = myA_Data[m_Index];
                         setAnswer(a);
 
                         checkAnswer("c");
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateQuestion();
-                            }
-                        }, SPLASH_TIME);
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                updateQuestion();
+//                            }
+//                        }, SPLASH_TIME);
                     }
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
@@ -345,8 +520,21 @@ public class newMCQ extends Activity {
                         mOption_C.setBackgroundColor(0xAAffffff);
                         mOption_D.setText("D. "+myOptina_D_data[m_Index]);
                         mOption_D.setBackgroundColor(0xAAffffff);
+                        mOption_A.setEnabled(true);
+                        mOption_B.setEnabled(true);
+                        mOption_C.setEnabled(true);
+                        mOption_D.setEnabled(true);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
                         mScoreText_View.setText("Score " + m_Score+ "/"+ myQuestion_Data.length);
+
+                        LinearLayout ll = findViewById(R.id.p_layout);
+                        final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
+                        ll.removeView(child);
+                        final LinearLayout child2 = (LinearLayout) ll.findViewById(R.id.des_layout);
+                        ll.removeView(child2);
+                        final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
+                        ll.removeView(child3);
+
                     }
 
                     private void checkAnswer(String userSelection) {
@@ -354,29 +542,91 @@ public class newMCQ extends Activity {
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
                             mOption_C.setBackgroundColor(0xAA81c784);
+                            //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             mQuestion_Number.setText("Correct");
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
-//                            m_Score = m_Score+1;
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
+                            LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
 
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            String des = myDescription_data[m_Index];
+                            String check ="";
+                            boolean de = check.equalsIgnoreCase(des);
+                            if(de == false){
+                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                parent_layout.addView(divider_layout,cp);
+
+                                parent_layout.addView(description_layout,cp);
+                                TextView teTag = new TextView(getApplicationContext());
+                                teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                teTag.setPadding(60,5,30,5);
+                                teTag.setTextSize(18);
+                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                teTag.setText(myDescription_data[m_Index]);
+                                description_layout.addView(teTag);
+                            }
+
+                            parent_layout.addView(activity_layout,cp);
+                            Button btnTag = new Button(getApplicationContext());
+                            btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnTag.setText("Next Question");
+                            activity_layout.addView(btnTag);
+                            btnTag.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    updateQuestion();
+                                }
+                            });
                         }else{
                             mOption_C.setBackgroundColor(0xAAe57272);
+                            //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             mQuestion_Number.setText("Wrong");
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
+
+                            LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            String des = myDescription_data[m_Index];
+                            String check ="";
+                            boolean de = check.equalsIgnoreCase(des);
+                            if(de == false){
+                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                parent_layout.addView(divider_layout,cp);
+//                                ImageView divider = new ImageView(getApplicationContext());
+//                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                                lp.setMargins(0, 0, 0, 0);
+//                                divider.setLayoutParams(lp);
+//                                divider.setBackgroundColor(0xAAAAAAAA);
+                                parent_layout.addView(description_layout,cp);
+                                TextView teTag = new TextView(getApplicationContext());
+                                teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                teTag.setPadding(70,5,40,5);
+                                teTag.setTextSize(18);
+                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                teTag.setText(myDescription_data[m_Index]);
+                                description_layout.addView(teTag);
+                            }
+
+
+                            parent_layout.addView(activity_layout,cp);
+                            final Button btnTag = new Button(getApplicationContext());
+                            btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnTag.setText("Next Question");
+                            activity_layout.addView(btnTag);
+                            btnTag.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    btnTag.setEnabled(false);
+                                    updateQuestion();
+                                }
+                            });
                         }
                     }
                     private void setAnswer(String cA){
@@ -403,17 +653,23 @@ public class newMCQ extends Activity {
                 mOption_D.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        mOption_A.setEnabled(false);
+                        mOption_B.setEnabled(false);
+                        mOption_C.setEnabled(false);
+                        mOption_D.setEnabled(false);
+
                         String a = myA_Data[m_Index];
                         setAnswer(a);
 
                         checkAnswer("d");
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateQuestion();
-                            }
-                        }, SPLASH_TIME);
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                updateQuestion();
+//                            }
+//                        }, SPLASH_TIME);
                     }
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
@@ -443,8 +699,20 @@ public class newMCQ extends Activity {
                         mOption_C.setBackgroundColor(0xAAffffff);
                         mOption_D.setText("D. "+myOptina_D_data[m_Index]);
                         mOption_D.setBackgroundColor(0xAAffffff);
+                        mOption_A.setEnabled(true);
+                        mOption_B.setEnabled(true);
+                        mOption_C.setEnabled(true);
+                        mOption_D.setEnabled(true);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
                         mScoreText_View.setText("Score " + m_Score+ "/"+ myQuestion_Data.length);
+
+                        LinearLayout ll = findViewById(R.id.p_layout);
+                        final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
+                        ll.removeView(child);
+                        final LinearLayout child2 = (LinearLayout) ll.findViewById(R.id.des_layout);
+                        ll.removeView(child2);
+                        final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
+                        ll.removeView(child3);
                     }
 
                     private void checkAnswer(String userSelection) {
@@ -452,29 +720,91 @@ public class newMCQ extends Activity {
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
                             mOption_D.setBackgroundColor(0xAA81c784);
+                            //mOption_D.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             mQuestion_Number.setText("Correct");
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
-//                            m_Score = m_Score+1;
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
+                            LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
 
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            String des = myDescription_data[m_Index];
+                            String check ="";
+                            boolean de = check.equalsIgnoreCase(des);
+                            if(de == false){
+                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                parent_layout.addView(divider_layout,cp);
+
+                                parent_layout.addView(description_layout,cp);
+                                TextView teTag = new TextView(getApplicationContext());
+                                teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                teTag.setPadding(60,5,30,5);
+                                teTag.setTextSize(18);
+                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                teTag.setText(myDescription_data[m_Index]);
+                                description_layout.addView(teTag);
+                            }
+
+                            parent_layout.addView(activity_layout,cp);
+                            Button btnTag = new Button(getApplicationContext());
+                            btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnTag.setText("Next Question");
+                            activity_layout.addView(btnTag);
+                            btnTag.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    updateQuestion();
+                                }
+                            });
                         }else{
                             mOption_D.setBackgroundColor(0xAAe57272);
+                            //mOption_D.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             mQuestion_Number.setText("Wrong");
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
+
+                            LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            String des = myDescription_data[m_Index];
+                            String check ="";
+                            boolean de = check.equalsIgnoreCase(des);
+                            if(de == false){
+                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                parent_layout.addView(divider_layout,cp);
+//                                ImageView divider = new ImageView(getApplicationContext());
+//                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                                lp.setMargins(0, 0, 0, 0);
+//                                divider.setLayoutParams(lp);
+//                                divider.setBackgroundColor(0xAAAAAAAA);
+                                parent_layout.addView(description_layout,cp);
+                                TextView teTag = new TextView(getApplicationContext());
+                                teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                teTag.setPadding(70,5,40,5);
+                                teTag.setTextSize(18);
+                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                teTag.setText(myDescription_data[m_Index]);
+                                description_layout.addView(teTag);
+                            }
+
+
+                            parent_layout.addView(activity_layout,cp);
+                            final Button btnTag = new Button(getApplicationContext());
+                            btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnTag.setText("Next Question");
+                            activity_layout.addView(btnTag);
+                            btnTag.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    btnTag.setEnabled(false);
+                                    updateQuestion();
+                                }
+                            });
                         }
                     }
                     private void setAnswer(String cA){
@@ -517,4 +847,3 @@ public class newMCQ extends Activity {
         outState.putInt("Question_Number",m_Qn);
     }
 }
-
