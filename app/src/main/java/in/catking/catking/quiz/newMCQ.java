@@ -51,7 +51,6 @@ public class newMCQ extends Activity {
     TextView mQuestionText_View;
     TextView mQuestion_Number;
     TextView mScoreText_View;
-    TextView mDescription;
     ProgressBar mProgress_Bar;
     int m_Index; //will increase after answer selection
     String m_Question;
@@ -208,7 +207,11 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
-                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                Typeface face = Typeface.createFromAsset(getAssets(),
+                                        "fonts/tondo_regular.ttf");
+                                teTag.setTypeface(face);
+                                teTag.setBackground(getResources().getDrawable(R.drawable.text_container_des));
+                                //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
                                 teTag.setText(myDescription_data[m_Index]);
                                 description_layout.addView(teTag);
                             }
@@ -252,7 +255,11 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
-                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                Typeface face = Typeface.createFromAsset(getAssets(),
+                                        "fonts/tondo_regular.ttf");
+                                teTag.setTypeface(face);
+                                teTag.setBackground(getResources().getDrawable(R.drawable.text_container_des));
+                                //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
                                 teTag.setText(myDescription_data[m_Index]);
                                 description_layout.addView(teTag);
                             }
@@ -386,7 +393,11 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
-                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                Typeface face = Typeface.createFromAsset(getAssets(),
+                                        "fonts/tondo_regular.ttf");
+                                teTag.setTypeface(face);
+                                teTag.setBackground(getResources().getDrawable(R.drawable.text_container_des));
+                                //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
                                 teTag.setText(myDescription_data[m_Index]);
                                 description_layout.addView(teTag);
                             }
@@ -430,7 +441,11 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
-                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                Typeface face = Typeface.createFromAsset(getAssets(),
+                                        "fonts/tondo_regular.ttf");
+                                teTag.setTypeface(face);
+                                teTag.setBackground(getResources().getDrawable(R.drawable.text_container_des));
+                                //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
                                 teTag.setText(myDescription_data[m_Index]);
                                 description_layout.addView(teTag);
                             }
@@ -565,7 +580,11 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
-                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                Typeface face = Typeface.createFromAsset(getAssets(),
+                                        "fonts/tondo_regular.ttf");
+                                teTag.setTypeface(face);
+                                teTag.setBackground(getResources().getDrawable(R.drawable.text_container_des));
+                                //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
                                 teTag.setText(myDescription_data[m_Index]);
                                 description_layout.addView(teTag);
                             }
@@ -609,7 +628,11 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
-                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                Typeface face = Typeface.createFromAsset(getAssets(),
+                                        "fonts/tondo_regular.ttf");
+                                teTag.setTypeface(face);
+                                teTag.setBackground(getResources().getDrawable(R.drawable.text_container_des));
+                                //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
                                 teTag.setText(myDescription_data[m_Index]);
                                 description_layout.addView(teTag);
                             }
@@ -743,7 +766,11 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
-                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                Typeface face = Typeface.createFromAsset(getAssets(),
+                                        "fonts/tondo_regular.ttf");
+                                teTag.setTypeface(face);
+                                teTag.setBackground(getResources().getDrawable(R.drawable.text_container_des));
+                                //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
                                 teTag.setText(myDescription_data[m_Index]);
                                 description_layout.addView(teTag);
                             }
@@ -786,8 +813,12 @@ public class newMCQ extends Activity {
                                 TextView teTag = new TextView(getApplicationContext());
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
-                                teTag.setTextSize(18);
-                                teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+                                teTag.setTextSize(20);
+                                Typeface face = Typeface.createFromAsset(getAssets(),
+                                        "fonts/tondo_regular.ttf");
+                                teTag.setTypeface(face);
+                                teTag.setBackground(getResources().getDrawable(R.drawable.text_container_des));
+                                //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
                                 teTag.setText(myDescription_data[m_Index]);
                                 description_layout.addView(teTag);
                             }

@@ -23,6 +23,7 @@ public class view_BooksAndAuthor extends AppCompatActivity
         String value = bundle.getString("BooksAndAuthor");
         String plink = "https://drive.google.com/viewerng/viewer?embedded=true&url=https://drive.google.com/uc?id=";//permanent link
         webview.loadUrl(plink + value);
+        //webview.loadUrl(value);
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

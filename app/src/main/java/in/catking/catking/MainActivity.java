@@ -161,7 +161,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.menu_books_author) {
             Intent intent = new Intent(this, view_BooksAndAuthor.class);
+            //intent.putExtra("BooksAndAuthor","https://docs.google.com/document/d/1GVmTKAFss3FJYLjpq_cKOhiywxqeHDKOE3eyO3kWMjs/");
             intent.putExtra("booksandauthor","BooksAndAuthor");
+            //https://docs.google.com/document/d/1GVmTKAFss3FJYLjpq_cKOhiywxqeHDKOE3eyO3kWMjs/
             intent.putExtra("BooksAndAuthor","17YRfCrqsBxLSpGlkc9lQ7wwAweQ_r_9E");
             this.startActivity(intent);
             // books and author
