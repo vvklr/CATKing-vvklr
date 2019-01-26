@@ -117,7 +117,7 @@ public class Login_otp extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean result){
             //Print Success or failure message accordingly
-            Toast.makeText(getApplicationContext(),result?"Message successfully sent!":"There was some error in sending message. Please try again after some time.",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),result?"Logged in successfully":"There was some error in sending message. Please try again after some time.",Toast.LENGTH_LONG).show();
         }
     }
 }

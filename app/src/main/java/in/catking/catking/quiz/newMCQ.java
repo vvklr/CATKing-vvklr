@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -177,6 +178,8 @@ public class newMCQ extends Activity {
                         ll.removeView(child2);
                         final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
                         ll.removeView(child3);
+                        final LinearLayout child4 = (LinearLayout) ll.findViewById(R.id.emptyText_layout);
+                        ll.removeView(child4);
                     }
 
                     private void checkAnswer(String userSelection) {
@@ -191,6 +194,7 @@ public class newMCQ extends Activity {
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
                             LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -207,6 +211,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
+//                                teTag.setMaxLines(4);
+//                                teTag.setVerticalScrollBarEnabled(true);
+//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -217,6 +224,7 @@ public class newMCQ extends Activity {
                             }
 
                             parent_layout.addView(activity_layout,cp);
+                            parent_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question");
@@ -234,8 +242,9 @@ public class newMCQ extends Activity {
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
-
                             LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
 
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -255,6 +264,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
+//                                teTag.setVerticalScrollBarEnabled(true);
+//                                teTag.setMaxLines(4);
+//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -266,6 +278,7 @@ public class newMCQ extends Activity {
 
 
                             parent_layout.addView(activity_layout,cp);
+                            parent_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question");
@@ -363,6 +376,8 @@ public class newMCQ extends Activity {
                         ll.removeView(child2);
                         final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
                         ll.removeView(child3);
+                        final LinearLayout child4 = (LinearLayout) ll.findViewById(R.id.emptyText_layout);
+                        ll.removeView(child4);
                     }
 
                     private void checkAnswer(String userSelection) {
@@ -377,6 +392,7 @@ public class newMCQ extends Activity {
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
                             LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -393,6 +409,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
+//                                teTag.setMaxLines(4);
+//                                teTag.setVerticalScrollBarEnabled(true);
+//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -403,6 +422,7 @@ public class newMCQ extends Activity {
                             }
 
                             parent_layout.addView(activity_layout,cp);
+                            parent_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question");
@@ -420,8 +440,9 @@ public class newMCQ extends Activity {
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
-
                             LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
 
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -441,6 +462,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
+//                                teTag.setMaxLines(4);
+//                                teTag.setVerticalScrollBarEnabled(true);
+//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -452,6 +476,7 @@ public class newMCQ extends Activity {
 
 
                             parent_layout.addView(activity_layout,cp);
+                            parent_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question");
@@ -549,6 +574,8 @@ public class newMCQ extends Activity {
                         ll.removeView(child2);
                         final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
                         ll.removeView(child3);
+                        final LinearLayout child4 = (LinearLayout) ll.findViewById(R.id.emptyText_layout);
+                        ll.removeView(child4);
 
                     }
 
@@ -564,6 +591,7 @@ public class newMCQ extends Activity {
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
                             LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -580,6 +608,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
+//                                teTag.setMaxLines(4);
+//                                teTag.setVerticalScrollBarEnabled(true);
+//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -590,6 +621,7 @@ public class newMCQ extends Activity {
                             }
 
                             parent_layout.addView(activity_layout,cp);
+                            parent_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question");
@@ -607,8 +639,9 @@ public class newMCQ extends Activity {
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
-
                             LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
 
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -628,6 +661,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
+//                                teTag.setMaxLines(4);
+//                                teTag.setVerticalScrollBarEnabled(true);
+//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -639,6 +675,7 @@ public class newMCQ extends Activity {
 
 
                             parent_layout.addView(activity_layout,cp);
+                            parent_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question");
@@ -736,6 +773,8 @@ public class newMCQ extends Activity {
                         ll.removeView(child2);
                         final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
                         ll.removeView(child3);
+                        final LinearLayout child4 = (LinearLayout) ll.findViewById(R.id.emptyText_layout);
+                        ll.removeView(child4);
                     }
 
                     private void checkAnswer(String userSelection) {
@@ -750,6 +789,7 @@ public class newMCQ extends Activity {
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
                             LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -766,6 +806,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
+//                                teTag.setMaxLines(4);
+//                                teTag.setVerticalScrollBarEnabled(true);
+//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -776,6 +819,7 @@ public class newMCQ extends Activity {
                             }
 
                             parent_layout.addView(activity_layout,cp);
+                            parent_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question");
@@ -793,8 +837,9 @@ public class newMCQ extends Activity {
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
-
                             LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
+                            LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
 
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -813,7 +858,10 @@ public class newMCQ extends Activity {
                                 TextView teTag = new TextView(getApplicationContext());
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
-                                teTag.setTextSize(20);
+                                teTag.setTextSize(18);
+//                                teTag.setMaxLines(4);
+//                                teTag.setVerticalScrollBarEnabled(true);
+//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -825,6 +873,7 @@ public class newMCQ extends Activity {
 
 
                             parent_layout.addView(activity_layout,cp);
+                            parent_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question");

@@ -28,7 +28,7 @@ public class Login_Mobile extends AppCompatActivity {
     EditText m_email;
     Button getOTP;
     final String OTP_URL = "http://control.msg91.com/api/sendotp.php";
-    final String AUTH_KEY = "256447A1O4p8Ed5c3a1e10";
+    final String AUTH_KEY = "245495A22tzLDtN5c38b089";
     SharedPreferences sharedpreferences;
     public static final String MyPREFERENCES = "MyPrefs" ;
     private static int SPLASH_TIME_OTP = 4000;

@@ -7,6 +7,7 @@ public class tf_QuestionData {
     //TODO: public members
     private String mQuestion;
     private String mCorrectAnswer;
+    private String mDescription;
     // TODO: Create a question data from a JSON:
     public static String[] fromJsonQ(JSONObject jsonObject) {
         try {
@@ -14,21 +15,9 @@ public class tf_QuestionData {
             String[] myQuestionData = new String[QbLength];
             for (int i = 0; i < QbLength; i++) {
                 tf_QuestionData questionData = new tf_QuestionData();
-                //questionData.mQuestionNumber = jsonObject.getJSONArray("questions").getJSONObject(i).getInt("questionNumber");
                 questionData.mQuestion = jsonObject.getJSONArray("questions").getJSONObject(i).getString("question");
-                //questionData.mCorrectAnswer = jsonObject.getJSONArray("questions").getJSONObject(i).getString("correctAns");
                 myQuestionData[i] = questionData.getmQuestion();
-                //return  myQuestionData;
             }
-//            boolean[] myAnswerData = new boolean[QbLength];
-//            for (int i = 0; i < QbLength; i++) {
-//                tf_QuestionData questionData = new tf_QuestionData();
-//                //questionData.mQuestionNumber = jsonObject.getJSONArray("questions").getJSONObject(i).getInt("questionNumber");
-//                //questionData.mQuestion = jsonObject.getJSONArray("questions").getJSONObject(i).getString("question");
-//                questionData.mCorrectAnswer = jsonObject.getJSONArray("questions").getJSONObject(i).getBoolean("correctAns");
-//                myAnswerData[i] = questionData.ismCorrectAnswer();
-//                //return  myQuestionData;
-//            }
             return myQuestionData;
             }catch(JSONException e){
                 e.printStackTrace();
@@ -50,31 +39,30 @@ public class tf_QuestionData {
             return null;
         }
     }
-
-
-            // TODO: Create a question data from a JSON:
-//    public static tf_QuestionData fromJson(JSONObject jsonObject) {
-//        try {
-//            tf_QuestionData questionData = new tf_QuestionData();
-//            questionData.mQuestionNumber = jsonObject.getJSONArray("questions").getJSONObject(0).getInt("questionNumber");
-//            questionData.mQuestion= jsonObject.getJSONArray("questions").getJSONObject(0).getString("question");
-//            questionData.mCorrectAnswer= jsonObject.getJSONArray("questions").getJSONObject(0).getBoolean("correctAns");
-//            return questionData;
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
-//    public int getmQuestionNumber() {
-//        return mQuestionNumber;
-//    }
+    public static String[] fromJsonDes(JSONObject jsonObject) {
+        try {
+            int QbLength = jsonObject.getJSONArray("questions").length();
+            String[] myAns_Data = new String[QbLength];
+            for (int i = 0; i < QbLength; i++) {
+                tf_QuestionData aData = new tf_QuestionData();
+                aData.mDescription = jsonObject.getJSONArray("questions").getJSONObject(i).getString("description");
+                myAns_Data[i]=aData.getmDescription();
+            }
+            return myAns_Data;//was not able to define as much parameters as tf_question_data as
+        }catch(JSONException e){//questionData is defined in both classes.
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public String getmQuestion() {
         return mQuestion;
     }
     public String ismCorrectAnswer() {
         return mCorrectAnswer;
+    }
+    public String getmDescription() {
+        return mDescription;
     }
 
 }

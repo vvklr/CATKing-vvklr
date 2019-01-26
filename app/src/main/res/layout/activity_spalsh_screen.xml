@@ -3,11 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#006699"
     android:orientation="vertical" >
 
     <in.catking.catking.view.kbv.KenBurnsView
         android:id="@+id/ken_burns_images"
         android:layout_width="match_parent"
+        android:src="@drawable/splash_back"
+        android:background="@drawable/splash_back"
+        android:foreground="@drawable/splash_back"
         android:layout_height="match_parent" />
 
     <!-- We use dps for font size: we don't want our logo
@@ -17,7 +21,7 @@
     <ImageView
         android:id="@+id/splash_logo"
         android:layout_width="wrap_content"
-        android:src="@drawable/lay_catking_small"
+        android:src="@drawable/dark_yoyo"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:alpha="0.0" />
@@ -30,8 +34,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:alpha="0.0"
-        android:text="Sending OTP"
+        android:text="Sending OTP..."
         android:textSize="25dp"
-        android:textColor="#853a96" />
+        android:textColor="#ffffff" />
 
 </RelativeLayout>

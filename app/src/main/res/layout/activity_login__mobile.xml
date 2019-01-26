@@ -4,16 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#006699"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="24dp" >
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="32dp"
-        android:src="@drawable/lay_catking_small"
+        android:src="@drawable/dark_yoyo"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         tools:ignore="SpUsage"/>
@@ -24,8 +24,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:src="@drawable/person"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/user_s"/>
 
         <EditText
             android:id="@+id/mname"
@@ -34,9 +35,10 @@
             android:layout_marginLeft="16dp"
             android:layout_weight="0"
             android:hint="Enter Your Name"
-            android:textColorHint="#e7a1ff"
+            android:fontFamily="@font/tondo_regular"
+            android:textColorHint="#adc2eb"
             android:textCursorDrawable="@null"
-            android:textColor="@color/main_color_400"/>
+            android:textColor="#ffffff"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,8 +47,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:src="@drawable/mobilephone_s"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/mobile_s"/>
 
         <EditText
             android:id="@+id/phone_number"
@@ -55,11 +58,12 @@
             android:layout_marginLeft="16dp"
             android:layout_weight="0"
             android:hint="Enter Your Mobile Number"
+            android:fontFamily="@font/tondo_regular"
             android:inputType="phone"
             android:maxLength="10"
-            android:textColorHint="#e7a1ff"
+            android:textColorHint="#adc2eb"
             android:textCursorDrawable="@null"
-            android:textColor="@color/main_color_400"/>
+            android:textColor="#ffffff"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,8 +72,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:src="@drawable/email"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/mail_s"/>
 
         <EditText
             android:id="@+id/memail"
@@ -78,35 +83,46 @@
             android:layout_marginLeft="16dp"
             android:layout_weight="0"
             android:hint="Enter Your Email"
-            android:textColorHint="#e7a1ff"
+            android:fontFamily="@font/tondo_regular"
+            android:textColorHint="#adc2eb"
             android:textCursorDrawable="@null"
-            android:textColor="@color/main_color_400"/>
+            android:textColor="#ffffff"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="2dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/termsAndCondition"
             android:textSize="12dp"
             android:fontFamily="@font/tondo_regular"
-            android:textColor="@color/main_color_600"
+            android:textColor="#ffffff"
             android:gravity="center_horizontal"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp" >
+        android:layout_marginTop="10dp" >
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/button_generateOTP"
             android:layout_margin="0dp"
-            android:background="@color/main_color_500"
+            android:background="#ffffff"
             android:minWidth="112dp"
             android:text="@string/send_opt"
-            android:textColor="#fff" />
+            android:textAllCaps="false"
+            android:textSize="20dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:minHeight="2dp"
+            android:fontFamily="@font/tondo_regular"
+            android:textColor="#006699" />
     </LinearLayout>
 </LinearLayout>
 

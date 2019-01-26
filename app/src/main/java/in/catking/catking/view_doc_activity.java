@@ -7,17 +7,69 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestHandle;
+
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
 public class view_doc_activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private String Science_1;
+    private String Geography_1;
+    private String Books_and_Authors_1;
+    private String Olympics_1;
+    private String Sports_and_Achievements_1;
+    private String Art_and_Culture_1;
+    private String History_1;
+    private String Politics_1;
+    private String Constitution_of_India_1;
+    private String Miscellaneous_1;
+    private String Funfacts_1;
+    private String DynamicGK_1;
+    private String Economics_1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_doc_activity);
+
+        String url = "https://script.google.com/macros/s/AKfycbwfvXAADSw7PCH36Rjiut9cqOOzOCjGXp2qg0S8jTMMa7eAaGU/exec?MQK1hyOY2ysqc29O-nnehdEwhP7cC3CUJ";
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestHandle requestHandle = client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d("CATKing", "Successful JSON data collection " + response.toString());
+                final String[] mySheetID_Data = pdf_SheetData.fromJson_pdfID(response);
+                Science_1 = mySheetID_Data[0];
+                Geography_1 = mySheetID_Data[1];
+                Books_and_Authors_1 = mySheetID_Data[2];
+                Olympics_1 = mySheetID_Data[3];
+                Sports_and_Achievements_1 = mySheetID_Data[4];
+                Art_and_Culture_1 = mySheetID_Data[5];
+                History_1 = mySheetID_Data[6];
+                Politics_1 = mySheetID_Data[7];
+                Constitution_of_India_1 = mySheetID_Data[8];
+                Miscellaneous_1 = mySheetID_Data[9];
+                Funfacts_1 = mySheetID_Data[10];
+                DynamicGK_1 = mySheetID_Data[11];
+                Economics_1 = mySheetID_Data[12];
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject responce) {
+                Log.e("CATKing", "Fail JSON" + e.toString());
+                Log.d("CATKING", " Fail Status Code" + statusCode);
+            }
+
+        });
+
         WebView webview = (WebView) findViewById(R.id.webView1);
         webview.getSettings().setJavaScriptEnabled(true);
         Bundle bundle = getIntent().getExtras();

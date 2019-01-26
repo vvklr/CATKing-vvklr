@@ -27,7 +27,7 @@ public class pdf_sheet_name {
     private static String Funfacts;
     private static String DynamicGK;
     private static String Economics;
-    public void pdf_sheet_name_fun(){
+    public void pdf_sheet_name(){
         String url = "https://script.google.com/macros/s/AKfycbwfvXAADSw7PCH36Rjiut9cqOOzOCjGXp2qg0S8jTMMa7eAaGU/exec?MQK1hyOY2ysqc29O-nnehdEwhP7cC3CUJ";
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestHandle requestHandle = client.get(url, new JsonHttpResponseHandler() {
@@ -61,7 +61,7 @@ public class pdf_sheet_name {
                 setDynamicGK(DynamicGK_2);
                 final String Economics_2 = mySheetID_Data[12];
                 setEconomics(Economics_2);
-                //Log.d("CAT_PDF","This is for check: "+DynamicGK_2);
+                Log.d("CAT_PDF","This is for check: "+DynamicGK_2);
             }
 
 
