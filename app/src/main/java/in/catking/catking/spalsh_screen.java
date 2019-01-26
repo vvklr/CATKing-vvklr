@@ -27,10 +27,9 @@ public class spalsh_screen extends AppCompatActivity {
             getWindow().requestFeature(Window.FEATURE_NO_TITLE); //Removing ActionBar
             getSupportActionBar().hide();
             setContentView(R.layout.activity_spalsh_screen);
-
-            mKenBurns = (in.catking.catking.view.kbv.KenBurnsView) findViewById(R.id.ken_burns_images);
-            mLogo = (in.catking.catking.font.MaterialDesignIconsTextView) findViewById(R.id.splash_logo);
-            welcomeText = (TextView) findViewById(R.id.Sending_OTP_text);
+            //mKenBurns = (in.catking.catking.view.kbv.KenBurnsView) findViewById(R.id.ken_burns_images);
+            // mLogo = (in.catking.catking.font.MaterialDesignIconsTextView) findViewById(R.id.splash_logo);
+            //welcomeText = (TextView) findViewById(R.id.Sending_OTP_text);
             setAnimation(SPLASH_SCREEN_OPTION_3);
         }
 

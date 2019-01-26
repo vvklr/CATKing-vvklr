@@ -3,20 +3,29 @@ package in.catking.catking;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import cz.msebera.android.httpclient.Header;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -33,16 +42,33 @@ public class Login_otp extends AppCompatActivity {
     public static final String EMAIL_KEY = "entry.1347260737";
 
     Button verify_OTP;
+    Button resendOTP;
+    Button reMobile;
     EditText otp_text;
+    String mobileText;
+    TextView teTag;
+
+    final String OTP_URL = "http://control.msg91.com/api/sendotp.php";
+    final String AUTH_KEY = "245495A22tzLDtN5c38b089";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_otp);
         verify_OTP = (Button) findViewById(R.id.button_verify_OTP);
+        resendOTP = (Button) findViewById(R.id.resendOTP);
+        reMobile = (Button)findViewById(R.id.changeNo);
         otp_text = (EditText)findViewById(R.id.received_OTP);
         Intent myOTP = getIntent();
         final String otpText = myOTP.getStringExtra("OTP");
+        final String mo = myOTP.getStringExtra("PHONE");
+
+
+        teTag = (TextView)findViewById(R.id.set_Mobile_number);
+        Typeface face = Typeface.createFromAsset(getAssets(),
+                "fonts/tondo_regular.ttf");
+        teTag.setTypeface(face);
+        teTag.setText("OTP Sent on "+mo);
 
         verify_OTP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +92,46 @@ public class Login_otp extends AppCompatActivity {
                     Log.d("OTP_AUTH", "otp verify unSuccess");
                     Log.d("OTP_AUTH", "because given otp is: "+otpText+"and provided otp is: "+otp_Received);
                 }
+            }
+        });
+        resendOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendOTP();
+            }
+
+            private void sendOTP() {
+                Intent intent = getIntent();
+                String OTP = intent.getStringExtra("OTP");
+                mobileText = intent.getStringExtra("PHONE");
+                RequestParams param = new RequestParams();
+                param.put("authkey",AUTH_KEY);
+                param.put("otp",OTP);
+                param.put("message","Your OTP for logging into CATKing app is: "+OTP+". Check out our courses at our website https://www.courses.catking.in");
+                param.put("sender","CATKing");
+                param.put("mobile",mobileText);
+                AsyncHttpClient client = new AsyncHttpClient();
+                client.get(OTP_URL, param, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        Toast.makeText(getApplicationContext(),"Successfully sent OTP",Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Log.d("OTP AUTH", "Failure");
+                        Toast.makeText(getApplicationContext(),"Failed to send OTP",Toast.LENGTH_LONG).show();
+                        Intent intentZ = new Intent(getApplicationContext(),Login_Mobile.class);
+                        startActivity(intentZ);
+                    }
+                });
+            }
+        });
+        reMobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Login_Mobile.class);
+                startActivity(i);
             }
         });
     }

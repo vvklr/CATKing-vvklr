@@ -4,29 +4,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#006699"
+    android:background="#ffffff"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="24dp" >
+    android:padding="0dp" >
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/dark_yoyo"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/login_back"
+        android:src="@drawable/login_pagelogo"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         tools:ignore="SpUsage"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="26dp"
+        android:layout_marginLeft="26dp"
         android:gravity="center_vertical" >
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/user_s"/>
+            android:src="@drawable/user_icon"/>
 
         <EditText
             android:id="@+id/mname"
@@ -36,20 +38,22 @@
             android:layout_weight="0"
             android:hint="Enter Your Name"
             android:fontFamily="@font/tondo_regular"
-            android:textColorHint="#adc2eb"
+            android:textColorHint="#dedede"
             android:textCursorDrawable="@null"
-            android:textColor="#ffffff"/>
+            android:textColor="#201B53"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="26dp"
+        android:layout_marginLeft="26dp"
         android:gravity="center_vertical" >
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/mobile_s"/>
+            android:src="@drawable/mobile_icon"/>
 
         <EditText
             android:id="@+id/phone_number"
@@ -61,20 +65,22 @@
             android:fontFamily="@font/tondo_regular"
             android:inputType="phone"
             android:maxLength="10"
-            android:textColorHint="#adc2eb"
+            android:textColorHint="#dedede"
             android:textCursorDrawable="@null"
-            android:textColor="#ffffff"/>
+            android:textColor="#201B53"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="26dp"
+        android:layout_marginLeft="26dp"
         android:gravity="center_vertical" >
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/mail_s"/>
+            android:src="@drawable/email_icon"/>
 
         <EditText
             android:id="@+id/memail"
@@ -84,45 +90,42 @@
             android:layout_weight="0"
             android:hint="Enter Your Email"
             android:fontFamily="@font/tondo_regular"
-            android:textColorHint="#adc2eb"
+            android:textColorHint="#dedede"
             android:textCursorDrawable="@null"
-            android:textColor="#ffffff"/>
+            android:textColor="#201B53"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp" >
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_generateOTP"
+            android:layout_margin="0dp"
+            android:background="@drawable/login_button_new"
+            android:text="Yes, Sign Up for Free GK"
+            android:textAllCaps="false"
+            android:textSize="25dp"
+            android:fontFamily="@font/tondo_bold"
+            android:textColor="#ffffff" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="2dp">
-        <TextView
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/termsAndCondition"
-            android:textSize="12dp"
-            android:fontFamily="@font/tondo_regular"
-            android:textColor="#ffffff"
-            android:gravity="center_horizontal"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button_generateOTP"
-            android:layout_margin="0dp"
-            android:background="#ffffff"
-            android:minWidth="112dp"
-            android:text="@string/send_opt"
-            android:textAllCaps="false"
             android:textSize="20dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:minHeight="2dp"
+            android:textAllCaps="false"
+            android:id="@+id/tandc"
+            android:background="#ffffff"
             android:fontFamily="@font/tondo_regular"
-            android:textColor="#006699" />
+            android:textColor="#000000"
+            android:gravity="center_horizontal"/>
     </LinearLayout>
 </LinearLayout>
 

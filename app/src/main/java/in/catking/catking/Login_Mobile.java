@@ -27,6 +27,7 @@ public class Login_Mobile extends AppCompatActivity {
     EditText m_name;
     EditText m_email;
     Button getOTP;
+    Button TandC;
     final String OTP_URL = "http://control.msg91.com/api/sendotp.php";
     final String AUTH_KEY = "245495A22tzLDtN5c38b089";
     SharedPreferences sharedpreferences;
@@ -42,6 +43,8 @@ public class Login_Mobile extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         getOTP = (Button) findViewById(R.id.button_generateOTP);
+        TandC = (Button) findViewById(R.id.tandc);
+
 
         mobile_number = (EditText)findViewById(R.id.phone_number);
         m_name = (EditText)findViewById(R.id.mname);
@@ -68,6 +71,8 @@ public class Login_Mobile extends AppCompatActivity {
                     public void run() {
                         //Do any action here. Now we are moving to next page
                         Intent mySuperIntent = new Intent(Login_Mobile.this, Splash_Screen_otp.class);
+                        final String mobile = mobile_number.getText().toString();
+                        mySuperIntent.putExtra("mob",mobile);
                         startActivity(mySuperIntent);
                         finish();
                     }
@@ -76,6 +81,14 @@ public class Login_Mobile extends AppCompatActivity {
                 sendOTP();
             }
         });
+        TandC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), t_and_c.class);
+                startActivity(i);
+            }
+        });
+
     }
     public void sendOTP(){
         final int randomOTP = (int)(Math.random() * 900000 + 100000);

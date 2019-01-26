@@ -50,6 +50,7 @@
         <activity android:name=".Login_otp" />
         <activity android:name=".quiz.newMCQ"/>
         <activity android:name=".quiz.new_TF"/>
+        <activity android:name=".t_and_c"/>
         <activity android:name=".List_view_quiz_selection"/>
         <activity android:name=".spalsh_screen"></activity>
     </application>
