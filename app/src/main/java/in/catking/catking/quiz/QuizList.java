@@ -105,6 +105,7 @@ public class QuizList extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), newMCQ.class);
                         i.putExtra("url", dataList.get(+position).get(KEY_QUIZAPI));
                         startActivity(i);
+
                     }
                 });
 

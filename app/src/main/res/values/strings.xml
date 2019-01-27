@@ -15,8 +15,8 @@
     <string name="initial_score">Score 0/0</string>
     <string name="termsAndCondition">By Signing-up you agree to Terms of Use and Privacy Policy</string>
 
-    <string name="trueFalseQuiz">True or False Quiz</string>
-    <string name="Multi_quiz">Multiple Choice Quiz</string>
+    <string name="trueFalseQuiz">True or False Questions</string>
+    <string name="Multi_quiz">MCQ Questions</string>
 
 
     <string name ="resendOTP_text">Did not receive OTP? Click here to resend</string>

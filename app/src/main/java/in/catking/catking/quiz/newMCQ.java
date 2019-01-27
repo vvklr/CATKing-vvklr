@@ -3,9 +3,11 @@ package in.catking.catking.quiz;
 //Email me on vr.iitb@gmail.com if you come across any problem
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.v7.widget.CardView;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
@@ -60,6 +62,8 @@ public class newMCQ extends Activity {
     int m_Score;  //will increase with correct answer
     private static int SPLASH_TIME = 5000;
     LayoutInflater inflater;
+    CardView cardMCQ;
+
 
 
     @Override
@@ -75,6 +79,8 @@ public class newMCQ extends Activity {
             m_Index = 0;
             m_Qn = 1;
         }
+        cardMCQ = (CardView)findViewById(R.id.cardview_mcq);
+
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
         mOption_A = (Button) findViewById(R.id.button_option_A);
@@ -85,8 +91,11 @@ public class newMCQ extends Activity {
         mQuestionText_View = findViewById(R.id.mcq_text_view_card);
         mScoreText_View = findViewById(R.id.score_mcq_card);
         mProgress_Bar = (ProgressBar) findViewById(R.id.progress_bar_mcq_card);
+        mProgress_Bar.setProgressTintList(ColorStateList.valueOf(0xAA92D050));
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestHandle requestHandle = client.get(url, new JsonHttpResponseHandler() {
+
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.d("CATKing", "Successful JSON data collection " + response.toString());
@@ -155,6 +164,7 @@ public class newMCQ extends Activity {
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
                         mQuestion_Number.setText("Question No: "+m_Qn);
+                        mQuestion_Number.setTextColor(0xAA000000);
                         mQuestion_Number.setBackground(null);
                         mOption_A.setText("A. "+myOptina_A_data[m_Index]);
                         mOption_A.setBackgroundColor(0xAAffffff);
@@ -188,7 +198,8 @@ public class newMCQ extends Activity {
                         if(Aa== true){
                             mOption_A.setBackgroundColor(0xAA81c784);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
-                            mQuestion_Number.setText("Correct");
+                            mQuestion_Number.setText("Hurray!\n" + "You got it right");
+                            mQuestion_Number.setTextColor(0xAA385723);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -227,7 +238,9 @@ public class newMCQ extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -238,7 +251,8 @@ public class newMCQ extends Activity {
                         }else{
                             mOption_A.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
-                            mQuestion_Number.setText("Wrong");
+                            mQuestion_Number.setText("Oops!\n" + "You got it wrong");
+                            mQuestion_Number.setTextColor(0xAAFFFFFF);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
@@ -281,7 +295,9 @@ public class newMCQ extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -353,6 +369,7 @@ public class newMCQ extends Activity {
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
                         mQuestion_Number.setText("Question No: "+m_Qn);
+                        mQuestion_Number.setTextColor(0xAA000000);
                         mQuestion_Number.setBackground(null);
                         mOption_A.setText("A. "+myOptina_A_data[m_Index]);
                         mOption_A.setBackgroundColor(0xAAffffff);
@@ -386,7 +403,8 @@ public class newMCQ extends Activity {
                         if(Aa== true){
                             mOption_B.setBackgroundColor(0xAA81c784);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
-                            mQuestion_Number.setText("Correct");
+                            mQuestion_Number.setText("Hurray!\n" + "You got it right");
+                            mQuestion_Number.setTextColor(0xAA385723);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -425,7 +443,9 @@ public class newMCQ extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -436,7 +456,8 @@ public class newMCQ extends Activity {
                         }else{
                             mOption_B.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
-                            mQuestion_Number.setText("Wrong");
+                            mQuestion_Number.setText("Oops!\n" + "You got it wrong");
+                            mQuestion_Number.setTextColor(0xAAFFFFFF);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
@@ -479,7 +500,9 @@ public class newMCQ extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -551,6 +574,7 @@ public class newMCQ extends Activity {
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
                         mQuestion_Number.setText("Question No: "+m_Qn);
+                        mQuestion_Number.setTextColor(0xAA000000);
                         mQuestion_Number.setBackground(null);
                         mOption_A.setText("A. "+myOptina_A_data[m_Index]);
                         mOption_A.setBackgroundColor(0xAAffffff);
@@ -585,7 +609,8 @@ public class newMCQ extends Activity {
                         if(Aa== true){
                             mOption_C.setBackgroundColor(0xAA81c784);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
-                            mQuestion_Number.setText("Correct");
+                            mQuestion_Number.setText("Hurray!\n" + "You got it right");
+                            mQuestion_Number.setTextColor(0xAA385723);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -624,7 +649,9 @@ public class newMCQ extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -635,7 +662,8 @@ public class newMCQ extends Activity {
                         }else{
                             mOption_C.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
-                            mQuestion_Number.setText("Wrong");
+                            mQuestion_Number.setText("Oops!\n" + "You got it wrong");
+                            mQuestion_Number.setTextColor(0xAAFFFFFF);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
@@ -678,7 +706,9 @@ public class newMCQ extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -750,6 +780,7 @@ public class newMCQ extends Activity {
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
                         mQuestion_Number.setText("Question No: "+m_Qn);
+                        mQuestion_Number.setTextColor(0xAA000000);
                         mQuestion_Number.setBackground(null);
                         mOption_A.setText("A. "+myOptina_A_data[m_Index]);
                         mOption_A.setBackgroundColor(0xAAffffff);
@@ -783,7 +814,8 @@ public class newMCQ extends Activity {
                         if(Aa== true){
                             mOption_D.setBackgroundColor(0xAA81c784);
                             //mOption_D.setBackground(getResources().getDrawable(R.drawable.text_container_true));
-                            mQuestion_Number.setText("Correct");
+                            mQuestion_Number.setText("Hurray!\n" + "You got it right");
+                            mQuestion_Number.setTextColor(0xAA385723);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -822,7 +854,9 @@ public class newMCQ extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -833,7 +867,8 @@ public class newMCQ extends Activity {
                         }else{
                             mOption_D.setBackgroundColor(0xAAe57272);
                             //mOption_D.setBackground(getResources().getDrawable(R.drawable.text_container_false));
-                            mQuestion_Number.setText("Wrong");
+                            mQuestion_Number.setText("Oops!\n" + "You got it wrong");
+                            mQuestion_Number.setTextColor(0xAAFFFFFF);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
@@ -876,7 +911,9 @@ public class newMCQ extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override

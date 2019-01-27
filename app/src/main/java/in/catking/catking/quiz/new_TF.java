@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +43,8 @@ public class new_TF extends Activity {
     String url = "";
     int m_Score;  //will increase with correct answer
     int m_Qn;
+    int m_Qr;
+    int m_Count;
     LayoutInflater inflater;
 
     @Override
@@ -56,6 +60,7 @@ public class new_TF extends Activity {
             m_Score = 0;
             m_Index = 0;
             m_Qn = 1;
+            m_Count =0;
 
         }
         mTrueButton = (Button) findViewById(R.id.button_option_true);
@@ -64,6 +69,7 @@ public class new_TF extends Activity {
         mQuestionTextView = findViewById(R.id.tf_text_view_card);
         mScoreTextView = findViewById(R.id.score_tf_card);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar_tf_card);
+        mProgressBar.setProgressTintList(ColorStateList.valueOf(0xAA92D050));
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
         AsyncHttpClient client = new AsyncHttpClient();
@@ -79,7 +85,10 @@ public class new_TF extends Activity {
                 mQuestion = myQuestionData[m_Index];
                 mQuestionTextView.setText(mQuestion);
                 mQuestion_Number.setText("Question No: "+m_Qn);
-                mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
+
+                m_Qr = (myQuestionData.length)-m_Index;
+                mScoreTextView.setText(m_Qr+" question to go.");
+                //mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
 
 
                 mTrueButton.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +105,9 @@ public class new_TF extends Activity {
 
                     private void updateQuestion() {
                         m_Index = (m_Index + 1) % myQuestionData.length;
+                        m_Count = (m_Count+1);
                         m_Qn = m_Qn+1;
+                        m_Qr = (myQuestionData.length)-m_Count;
                         if (m_Index == 0) {
                             AlertDialog.Builder alert = new AlertDialog.Builder(new_TF.this);
                             alert.setTitle("Quiz is done");
@@ -110,11 +121,17 @@ public class new_TF extends Activity {
                             });
                             alert.show();
                         }
+                        if(m_Qr==0){
+                            mScoreTextView.setText("Hurray 100% progress. You are done!");
+                        }else {
+                            mScoreTextView.setText(m_Qr+" more question to go.");
+                        }
                         mQuestion = myQuestionData[m_Index];
                         mQuestionTextView.setText(mQuestion);
                         mQuestion_Number.setText("Question No: "+m_Qn);
 
                         mQuestion_Number.setBackground(null);
+                        mQuestion_Number.setTextColor(0xAA000000);
                         mTrueButton.setBackgroundColor(0xAAffffff);
                         mFalseButton.setBackgroundColor(0xAAffffff);
 
@@ -122,7 +139,7 @@ public class new_TF extends Activity {
                         mFalseButton.setEnabled(true);
 
                         mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
-                        mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
+
 
                         LinearLayout ll = findViewById(R.id.tf_layout);
                         final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
@@ -140,7 +157,8 @@ public class new_TF extends Activity {
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
                             mTrueButton.setBackgroundColor(0xAA81c784);
-                            mQuestion_Number.setText("Correct");
+                            mQuestion_Number.setText("Hurray!\n" + "You got it right");
+                            mQuestion_Number.setTextColor(0xAA385723);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
 
@@ -180,7 +198,9 @@ public class new_TF extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -191,7 +211,8 @@ public class new_TF extends Activity {
                         }else{
                             mTrueButton.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
-                            mQuestion_Number.setText("Wrong");
+                            mQuestion_Number.setText("Oops!\n" + "You got it wrong");
+                            mQuestion_Number.setTextColor(0xAAFFFFFF);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
@@ -234,7 +255,9 @@ public class new_TF extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -292,6 +315,8 @@ public class new_TF extends Activity {
                     private void updateQuestion() {
                         m_Index = (m_Index + 1) % myQuestionData.length;
                         m_Qn = m_Qn+1;
+                        m_Count = (m_Count+1);
+                        m_Qr = (myQuestionData.length)-m_Count;
                         if (m_Index == 0) {
                             AlertDialog.Builder alert = new AlertDialog.Builder(new_TF.this);
                             alert.setTitle("Quiz is done");
@@ -305,11 +330,17 @@ public class new_TF extends Activity {
                             });
                             alert.show();
                         }
+                        if(m_Qr==0){
+                            mScoreTextView.setText("Hurray 100% progress. You are done!");
+                        }else {
+                            mScoreTextView.setText(m_Qr+" more question to go.");
+                        }
                         mQuestion = myQuestionData[m_Index];
                         mQuestionTextView.setText(mQuestion);
                         mQuestion_Number.setText("Question No: "+m_Qn);
 
                         mQuestion_Number.setBackground(null);
+                        mQuestion_Number.setTextColor(0xAA000000);
                         mTrueButton.setBackgroundColor(0xAAffffff);
                         mFalseButton.setBackgroundColor(0xAAffffff);
 
@@ -317,7 +348,7 @@ public class new_TF extends Activity {
                         mFalseButton.setEnabled(true);
 
                         mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
-                        mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
+                        //mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
 
                         LinearLayout ll = findViewById(R.id.tf_layout);
                         final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
@@ -336,7 +367,8 @@ public class new_TF extends Activity {
                         if(Aa== true){
                             mFalseButton.setBackgroundColor(0xAA81c784);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
-                            mQuestion_Number.setText("Correct");
+                            mQuestion_Number.setText("Hurray!\n" + "You got it right");
+                            mQuestion_Number.setTextColor(0xAA385723);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -375,7 +407,9 @@ public class new_TF extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -386,7 +420,8 @@ public class new_TF extends Activity {
                         }else{
                             mFalseButton.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
-                            mQuestion_Number.setText("Wrong");
+                            mQuestion_Number.setText("Oops!\n" + "You got it wrong");
+                            mQuestion_Number.setTextColor(0xAAFFFFFF);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
@@ -429,7 +464,9 @@ public class new_TF extends Activity {
                             parent_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question");
+                            btnTag.setText("Next Question >");
+                            btnTag.setTextColor(0xAAFFFFFF);
+                            btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
                             btnTag.setOnClickListener(new View.OnClickListener() {
                                 @Override

@@ -154,43 +154,43 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-//        MenuInflater inflater = getMenuInflater();        //this inflates navigation in setting menu
-//        inflater.inflate(R.menu.activity_main_drawer, menu);
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
 //        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch(item.getItemId()) {
-//            case R.id.menu_quiz_tf:
-//                Intent intent = new Intent(this, quiz_true_false.class);
-//                this.startActivity(intent);
-//                break;
-////            case R.id.menu_quiz_mcq:
-////                // another startActivity, this is for item with id "menu_item2"
+////        MenuInflater inflater = getMenuInflater();        //this inflates navigation in setting menu
+////        inflater.inflate(R.menu.activity_main_drawer, menu);
+////        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+////        switch(item.getItemId()) {
+////            case R.id.menu_quiz_tf:
+////                Intent intent = new Intent(this, quiz_true_false.class);
+////                this.startActivity(intent);
 ////                break;
-//            default:
-//                return super.onOptionsItemSelected(item);
+//////            case R.id.menu_quiz_mcq:
+//////                // another startActivity, this is for item with id "menu_item2"
+//////                break;
+////            default:
+////                return super.onOptionsItemSelected(item);
+////        }
+////
+////        return true;
+//         //Handle action bar item clicks here. The action bar will
+//         //automatically handle clicks on the Home/Up button, so long
+//       //  as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
 //        }
 //
-//        return true;
-         //Handle action bar item clicks here. The action bar will
-         //automatically handle clicks on the Home/Up button, so long
-       //  as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
