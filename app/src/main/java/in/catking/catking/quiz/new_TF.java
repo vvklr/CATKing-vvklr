@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,8 +70,11 @@ public class new_TF extends Activity {
         mQuestion_Number = findViewById(R.id.tf_qn_view_card);
         mQuestionTextView = findViewById(R.id.tf_text_view_card);
         mScoreTextView = findViewById(R.id.score_tf_card);
+
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar_tf_card);
         mProgressBar.setProgressTintList(ColorStateList.valueOf(0xAA92D050));
+        mProgressBar.setProgressBackgroundTintList(ColorStateList.valueOf(0xFFE9E6E6));//(getResources().getDrawable(R.drawable.text_container))//.setColorFilter(0xAA92D050, PorterDuff.Mode.SRC_IN);
+
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
         AsyncHttpClient client = new AsyncHttpClient();
@@ -86,7 +91,7 @@ public class new_TF extends Activity {
                 mQuestionTextView.setText(mQuestion);
                 mQuestion_Number.setText("Question No: "+m_Qn);
 
-                m_Qr = (myQuestionData.length)-m_Index;
+                m_Qr = (myQuestionData.length -1)-m_Index;
                 mScoreTextView.setText(m_Qr+" question to go.");
                 //mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
 
@@ -105,25 +110,118 @@ public class new_TF extends Activity {
 
                     private void updateQuestion() {
                         m_Index = (m_Index + 1) % myQuestionData.length;
-                        m_Count = (m_Count+1);
                         m_Qn = m_Qn+1;
-                        m_Qr = (myQuestionData.length)-m_Count;
+                        m_Count = (m_Count+1);
+                        m_Qr = (myQuestionData.length -1)-m_Count;
                         if (m_Index == 0) {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(new_TF.this);
-                            alert.setTitle("Quiz is done");
-                            alert.setCancelable(false);
-                            alert.setMessage("You scored " + m_Score + " points out of " + myQuestionData.length);
-                            alert.setPositiveButton("Close Quiz", new DialogInterface.OnClickListener() {
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+                            LinearLayout empty_layout_1 =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+                            //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.tf_layout);
+                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bottTF);
+
+
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            parent_layout.removeAllViewsInLayout();
+
+                            TextView greet = new TextView(getApplicationContext());
+                            greet.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            greet.setPadding(60,5,30,5);
+                            greet.setTextSize(30);
+                            Typeface face = Typeface.createFromAsset(getAssets(), "fonts/tondo_regular.ttf");
+                            greet.setTypeface(face);
+                            greet.setBackgroundColor(0xAAFFC000);
+                            greet.setGravity(Gravity.CENTER);
+                            greet.setText("Congratulations!");
+
+                            TextView greet_2 = new TextView(getApplicationContext());
+                            greet_2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            greet_2.setPadding(60,5,30,5);
+                            greet_2.setTextSize(20);
+                            greet_2.setTypeface(face);
+                            greet_2.setBackgroundColor(0xAAFFC000);
+                            greet_2.setGravity(Gravity.CENTER);
+                            greet_2.setText("You completed  the quiz");
+
+
+                            Button btnshare = new Button(getApplicationContext());
+                            btnshare.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnshare.setText("Click to share your success Stories with friends");
+                            btnshare.setTextSize(18);
+                            btnshare.setTextColor(0xAA000000);
+                            btnshare.setAllCaps(false);
+                            btnshare.setBackground(null);
+
+                            TextView teScore = new TextView(getApplicationContext());
+                            teScore.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            teScore.setPadding(60,5,30,5);
+                            teScore.setTextSize(20);
+                            teScore.setTypeface(face);
+                            teScore.setBackgroundColor(0xAAFFFFFF);
+                            teScore.setText("You got "+ m_Score+" questions correct out of " + myQuestionData.length+" questions");
+
+                            parent_layout.addView(greet);
+                            parent_layout.addView(greet_2);
+                            parent_layout.addView(empty_layout_1,cp);
+                            parent_layout.addView(teScore);
+                            LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                            parent_layout.addView(divider_layout,cp);
+                            parent_layout.addView(btnshare);
+
+                            mScoreTextView.setText("Hurray 100% progress. You are done!");
+                            progress_layout.addView(empty_layout,cp);
+                            Button btnfinish = new Button(getApplicationContext());
+                            btnfinish.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnfinish.setText("Next Quiz >");
+                            btnfinish.setTextColor(0xAAFFFFFF);
+                            btnfinish.setBackgroundColor(0xAAA6A6A6);
+                            progress_layout.addView(btnfinish);
+                            btnfinish.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(View v) {
                                     finish();
                                 }
                             });
-                            alert.show();
+                            btnshare.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                                        share.setType("text/plain");
+
+                                        share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestionData.length+
+                                                " questions\n Install GK App to keep your General Knowledge up to date");
+                                        share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestionData.length+
+                                                " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/");
+
+                                        startActivity(Intent.createChooser(share, "Share your result with friends using"));
+                                }
+                            });
+//                            btnshare.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//
+//                                }
+//                            });
+//                            AlertDialog.Builder alert = new AlertDialog.Builder(new_TF.this);
+//                            alert.setTitle("Quiz is done");
+//                            alert.setCancelable(false);
+//                            alert.setMessage("You scored " + m_Score + " points out of " + myQuestionData.length);
+//                            alert.setPositiveButton("Close Quiz", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    finish();
+//                                }
+//                            });
+//                            alert.show();
                         }
                         if(m_Qr==0){
                             mScoreTextView.setText("Hurray 100% progress. You are done!");
-                        }else {
+                        }else if(m_Qr<0){
+                            mScoreTextView.setText("Hurray 100% progress. You are done!");
+                        }else{
                             mScoreTextView.setText(m_Qr+" more question to go.");
                         }
                         mQuestion = myQuestionData[m_Index];
@@ -131,31 +229,33 @@ public class new_TF extends Activity {
                         mQuestion_Number.setText("Question No: "+m_Qn);
 
                         mQuestion_Number.setBackground(null);
-                        mQuestion_Number.setTextColor(0xAA000000);
-                        mTrueButton.setBackgroundColor(0xAAffffff);
-                        mFalseButton.setBackgroundColor(0xAAffffff);
+                        mQuestion_Number.setTextColor(0xFF000000);
+                        mTrueButton.setBackgroundColor(0xFFffffff);
+                        mFalseButton.setBackgroundColor(0xFFffffff);
 
                         mTrueButton.setEnabled(true);
                         mFalseButton.setEnabled(true);
 
-                        mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
+                        //mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
 
 
                         LinearLayout ll = findViewById(R.id.tf_layout);
-                        final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
-                        ll.removeView(child);
+                        LinearLayout mm = findViewById(R.id.bottTF);
+                        final LinearLayout child = (LinearLayout) mm.findViewById(R.id.button_layout);
+                        mm.removeView(child);
                         final LinearLayout child2 = (LinearLayout) ll.findViewById(R.id.des_layout);
                         ll.removeView(child2);
                         final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
                         ll.removeView(child3);
-                        final LinearLayout child4 = (LinearLayout) ll.findViewById(R.id.emptyText_layout);
-                        ll.removeView(child4);
+                        final LinearLayout child4 = (LinearLayout) mm.findViewById(R.id.emptyText_layout);
+                        mm.removeView(child4);
                     }
 
                     private void checkAnswer(String userSelection) {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
+                            mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mTrueButton.setBackgroundColor(0xAA81c784);
                             mQuestion_Number.setText("Hurray!\n" + "You got it right");
                             mQuestion_Number.setTextColor(0xAA385723);
@@ -168,6 +268,8 @@ public class new_TF extends Activity {
                             LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.tf_layout);
+                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bottTF);
+
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                             String des = myDesData[m_Index];
@@ -182,9 +284,6 @@ public class new_TF extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
-//                                teTag.setMaxLines(4);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -194,8 +293,8 @@ public class new_TF extends Activity {
                                 description_layout.addView(teTag);
                             }
 
-                            parent_layout.addView(activity_layout,cp);
-                            parent_layout.addView(emptyTextview_layout,cp);
+                            progress_layout.addView(activity_layout,cp);
+                            progress_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question >");
@@ -209,17 +308,20 @@ public class new_TF extends Activity {
                                 }
                             });
                         }else{
+                            mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mTrueButton.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             mQuestion_Number.setText("Oops!\n" + "You got it wrong");
                             mQuestion_Number.setTextColor(0xAAFFFFFF);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
+
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
                             LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
                             LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.tf_layout);
+                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bottTF);
 
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             String des = myDesData[m_Index];
@@ -228,19 +330,11 @@ public class new_TF extends Activity {
                             if(de == false){
                                 LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
                                 parent_layout.addView(divider_layout,cp);
-//                                ImageView divider = new ImageView(getApplicationContext());
-//                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                                lp.setMargins(0, 0, 0, 0);
-//                                divider.setLayoutParams(lp);
-//                                divider.setBackgroundColor(0xAAAAAAAA);
                                 parent_layout.addView(description_layout,cp);
                                 TextView teTag = new TextView(getApplicationContext());
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMaxLines(4);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -251,8 +345,8 @@ public class new_TF extends Activity {
                             }
 
 
-                            parent_layout.addView(activity_layout,cp);
-                            parent_layout.addView(emptyTextview_layout,cp);
+                            progress_layout.addView(activity_layout,cp);
+                            progress_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question >");
@@ -267,25 +361,6 @@ public class new_TF extends Activity {
                                 }
                             });
                         }
-//                        if (userSelection == correctAnswer) {
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
-//                            m_Score = m_Score + 1;
-//
-//                        } else {
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
-//                        }
                     }
                     private void setAnswer(String cA){
                         String tANS = "t";
@@ -300,6 +375,8 @@ public class new_TF extends Activity {
                         }
                     }
                 });
+                //=======================================================================================
+
                 mFalseButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -316,21 +393,177 @@ public class new_TF extends Activity {
                         m_Index = (m_Index + 1) % myQuestionData.length;
                         m_Qn = m_Qn+1;
                         m_Count = (m_Count+1);
-                        m_Qr = (myQuestionData.length)-m_Count;
+                        m_Qr = (myQuestionData.length -1)-m_Count;
                         if (m_Index == 0) {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(new_TF.this);
-                            alert.setTitle("Quiz is done");
-                            alert.setCancelable(false);
-                            alert.setMessage("You scored " + m_Score + " points out of " + myQuestionData.length);
-                            alert.setPositiveButton("Close Quiz", new DialogInterface.OnClickListener() {
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+                            LinearLayout empty_layout_1 =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+                            //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.tf_layout);
+                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bottTF);
+
+
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            parent_layout.removeAllViewsInLayout();
+
+                            TextView greet = new TextView(getApplicationContext());
+                            greet.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            greet.setPadding(60,5,30,5);
+                            greet.setTextSize(30);
+                            Typeface face = Typeface.createFromAsset(getAssets(), "fonts/tondo_regular.ttf");
+                            greet.setTypeface(face);
+                            greet.setBackgroundColor(0xAAFFC000);
+                            greet.setGravity(Gravity.CENTER);
+                            greet.setText("Congratulations!");
+
+                            TextView greet_2 = new TextView(getApplicationContext());
+                            greet_2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            greet_2.setPadding(60,5,30,5);
+                            greet_2.setTextSize(20);
+                            greet_2.setTypeface(face);
+                            greet_2.setBackgroundColor(0xAAFFC000);
+                            greet_2.setGravity(Gravity.CENTER);
+                            greet_2.setText("You completed  the quiz");
+
+
+                            Button btnshare = new Button(getApplicationContext());
+                            btnshare.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnshare.setText("Click to share your success Stories with friends");
+                            btnshare.setTextSize(18);
+                            btnshare.setTextColor(0xAA000000);
+                            btnshare.setAllCaps(false);
+                            btnshare.setBackground(null);
+
+                            TextView teScore = new TextView(getApplicationContext());
+                            teScore.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            teScore.setPadding(60,5,30,5);
+                            teScore.setTextSize(20);
+                            teScore.setTypeface(face);
+                            teScore.setBackgroundColor(0xAAFFFFFF);
+                            teScore.setText("You got "+ m_Score+" questions correct out of " + myQuestionData.length+" questions");
+
+                            parent_layout.addView(greet);
+                            parent_layout.addView(greet_2);
+                            parent_layout.addView(empty_layout_1,cp);
+                            parent_layout.addView(teScore);
+                            LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                            parent_layout.addView(divider_layout,cp);
+                            parent_layout.addView(btnshare);
+
+                            mScoreTextView.setText("Hurray 100% progress. You are done!");
+                            progress_layout.addView(empty_layout,cp);
+                            Button btnfinish = new Button(getApplicationContext());
+                            btnfinish.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnfinish.setText("Next Quiz >");
+                            btnfinish.setTextColor(0xAAFFFFFF);
+                            btnfinish.setBackgroundColor(0xAAA6A6A6);
+                            progress_layout.addView(btnfinish);
+                            btnfinish.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(View v) {
                                     finish();
                                 }
                             });
-                            alert.show();
+                            btnshare.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                                    share.setType("text/plain");
+
+                                    share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestionData.length+
+                                            " questions\n Install GK App to keep your General Knowledge up to date");
+                                    share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestionData.length+
+                                            " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/");
+
+                                    startActivity(Intent.createChooser(share, "Share your result with friends using"));
+                                }
+                            });
+
+//                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                            //LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
+//                            LinearLayout empty_Textview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+//                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.tf_layout);
+//                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bottTF);
+//
+//                            LinearLayout ll = (LinearLayout)findViewById(R.id.tf_layout);
+//                            ll.removeAllViewsInLayout();
+//
+//                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+//                            //parent_layout.addView(description_layout,cp);
+//                            TextView teTag = new TextView(getApplicationContext());
+//                            teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//                            teTag.setPadding(60,5,30,5);
+//                            teTag.setTextSize(20);
+//                            Typeface face = Typeface.createFromAsset(getAssets(),
+//                                    "fonts/tondo_regular.ttf");
+//                            teTag.setTypeface(face);
+//                            teTag.setBackgroundColor(0xAAFFC000);
+//                            teTag.setGravity(Gravity.CENTER);
+//                            //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+//                            teTag.setText("Congratulations!\n" + "You completed  the quiz");
+////                            description_layout.addView(teTag);
+////                            parent_layout.addView(description_layout,cp);
+//                            Button btnshare = new Button(getApplicationContext());
+//                            btnshare.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//                            btnshare.setText("Click to share your success Stories with friends");
+//                            btnshare.setTextSize(18);
+//                            btnshare.setTextColor(0xAAFFFFFF);
+//                            btnshare.setAllCaps(false);
+//                            btnshare.setBackgroundColor(0xAAA6A6A6);
+//
+//                            TextView teScore = new TextView(getApplicationContext());
+//                            teScore.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//                            teScore.setPadding(60,5,30,5);
+//                            teScore.setTextSize(20);
+//                            Typeface re_face = Typeface.createFromAsset(getAssets(),
+//                                    "fonts/tondo_regular.ttf");
+//                            teScore.setTypeface(re_face);
+//                            teScore.setBackgroundColor(0xAAFFFFFF);
+//                            //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
+//                            teScore.setText("You got "+ m_Score+" questions correct out of " + myQuestionData.length+" questions");
+//
+////                            description_layout.addView(teTag);
+////                            parent_layout.addView(description_layout,cp);
+//                            parent_layout.addView(teTag);
+//                            parent_layout.addView(teScore);
+//                            LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+//                            parent_layout.addView(divider_layout,cp);
+//                            parent_layout.addView(btnshare);
+//                            parent_layout.addView(divider_layout,cp);
+//                            mScoreTextView.setText("Hurray 100% progress. You are done!");
+
+                            //progress_layout.addView(activity_layout,cp);
+//                            progress_layout.addView(empty_Textview_layout,cp);
+//                            Button btnfinish = new Button(getApplicationContext());
+//                            btnfinish.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//                            btnfinish.setText("Next Quiz >");
+//                            btnfinish.setTextColor(0xAAFFFFFF);
+//                            btnfinish.setBackgroundColor(0xAAA6A6A6);
+//                            progress_layout.addView(btnfinish);
+//                            btnfinish.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    finish();
+//                                }
+//                            });
+//                            AlertDialog.Builder alert = new AlertDialog.Builder(new_TF.this);
+//                            alert.setTitle("Quiz is done");
+//                            alert.setCancelable(false);
+//                            alert.setMessage("You scored " + m_Score + " points out of " + myQuestionData.length);
+//                            alert.setPositiveButton("Close Quiz", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    finish();
+//                                }
+//                            });
+//                            alert.show();
                         }
                         if(m_Qr==0){
+                            mScoreTextView.setText("Hurray 100% progress. You are done!");
+                        }else if(m_Qr<0){
                             mScoreTextView.setText("Hurray 100% progress. You are done!");
                         }else {
                             mScoreTextView.setText(m_Qr+" more question to go.");
@@ -340,31 +573,33 @@ public class new_TF extends Activity {
                         mQuestion_Number.setText("Question No: "+m_Qn);
 
                         mQuestion_Number.setBackground(null);
-                        mQuestion_Number.setTextColor(0xAA000000);
-                        mTrueButton.setBackgroundColor(0xAAffffff);
-                        mFalseButton.setBackgroundColor(0xAAffffff);
+                        mQuestion_Number.setTextColor(0xFF000000);
+                        mTrueButton.setBackgroundColor(0xFFffffff);
+                        mFalseButton.setBackgroundColor(0xFFffffff);
 
                         mTrueButton.setEnabled(true);
                         mFalseButton.setEnabled(true);
 
-                        mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
+                        //mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
                         //mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
 
                         LinearLayout ll = findViewById(R.id.tf_layout);
-                        final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
-                        ll.removeView(child);
+                        LinearLayout mm = findViewById(R.id.bottTF);
+                        final LinearLayout child = (LinearLayout) mm.findViewById(R.id.button_layout);
+                        mm.removeView(child);
                         final LinearLayout child2 = (LinearLayout) ll.findViewById(R.id.des_layout);
                         ll.removeView(child2);
                         final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
                         ll.removeView(child3);
-                        final LinearLayout child4 = (LinearLayout) ll.findViewById(R.id.emptyText_layout);
-                        ll.removeView(child4);
+                        final LinearLayout child4 = (LinearLayout) mm.findViewById(R.id.emptyText_layout);
+                        mm.removeView(child4);
                     }
 
                     private void checkAnswer(String userSelection) {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
+                            mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mFalseButton.setBackgroundColor(0xAA81c784);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             mQuestion_Number.setText("Hurray!\n" + "You got it right");
@@ -377,6 +612,8 @@ public class new_TF extends Activity {
                             LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.tf_layout);
+                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bottTF);
+
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                             String des = myDesData[m_Index];
@@ -391,9 +628,6 @@ public class new_TF extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
-//                                teTag.setMaxLines(4);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -403,8 +637,8 @@ public class new_TF extends Activity {
                                 description_layout.addView(teTag);
                             }
 
-                            parent_layout.addView(activity_layout,cp);
-                            parent_layout.addView(emptyTextview_layout,cp);
+                            progress_layout.addView(activity_layout,cp);
+                            progress_layout.addView(emptyTextview_layout,cp);
                             Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question >");
@@ -418,6 +652,7 @@ public class new_TF extends Activity {
                                 }
                             });
                         }else{
+                            mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mFalseButton.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             mQuestion_Number.setText("Oops!\n" + "You got it wrong");
@@ -429,6 +664,7 @@ public class new_TF extends Activity {
                             LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.tf_layout);
+                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bottTF);
 
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             String des = myDesData[m_Index];
@@ -437,19 +673,11 @@ public class new_TF extends Activity {
                             if(de == false){
                                 LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
                                 parent_layout.addView(divider_layout,cp);
-//                                ImageView divider = new ImageView(getApplicationContext());
-//                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                                lp.setMargins(0, 0, 0, 0);
-//                                divider.setLayoutParams(lp);
-//                                divider.setBackgroundColor(0xAAAAAAAA);
                                 parent_layout.addView(description_layout,cp);
                                 TextView teTag = new TextView(getApplicationContext());
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMaxLines(4);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -460,8 +688,8 @@ public class new_TF extends Activity {
                             }
 
 
-                            parent_layout.addView(activity_layout,cp);
-                            parent_layout.addView(emptyTextview_layout,cp);
+                            progress_layout.addView(activity_layout,cp);
+                            progress_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             btnTag.setText("Next Question >");
@@ -476,25 +704,6 @@ public class new_TF extends Activity {
                                 }
                             });
                         }
-//                        if (userSelection == correctAnswer) {
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
-//                            m_Score = m_Score + 1;
-//
-//                        } else {
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
-//                        }
                     }
                     private void setAnswer(String cA){
                         String tANS = "t";
@@ -508,58 +717,6 @@ public class new_TF extends Activity {
                             mFalseButton.setBackgroundColor(0xAA81c784);
                         }
                     }
-//                    @Override
-//                    public void onClick(View v) {
-//                        checkAnswer("false");
-//                        updateQuestion();
-//                    }
-//
-//                    private void updateQuestion() {
-//                        m_Index = (m_Index + 1) % myQuestionData.length;
-//                        m_Qn = m_Qn+1;
-//                        if (m_Index == 0) {
-//                            AlertDialog.Builder alert = new AlertDialog.Builder(new_TF.this);
-//                            alert.setTitle("Quiz is done");
-//                            alert.setCancelable(false);
-//                            alert.setMessage("You scored " + m_Score + " points out of " + myQuestionData.length);
-//                            alert.setPositiveButton("Close Quiz", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    finish();
-//                                }
-//                            });
-//                            alert.show();
-//                        }
-//                        mQuestion = myQuestionData[m_Index];
-//                        mQuestionTextView.setText(mQuestion);
-//                        mQuestion_Number.setText("Question No: "+m_Qn);
-//                        mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
-//                        mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
-//                    }
-//
-//                    private void checkAnswer(String userSelection) {
-//                        String correctAnswer = myA_Data[m_Index];
-//                        if (userSelection == correctAnswer) {
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_true,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
-//                            m_Score = m_Score + 1;
-//
-//                        } else {
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View customToast =inflater.inflate(R.layout.bg_toast_false,null);
-//                            Toast customT = new Toast(getApplicationContext());
-//                            customT.setView(customToast);
-//                            customT.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 400);
-//                            customT.setDuration(Toast.LENGTH_SHORT);
-//                            customT.show();
-//
-//                        }
-//                    }
 
                 });
             }
@@ -579,5 +736,4 @@ public class new_TF extends Activity {
         outState.putInt("IndexKey",m_Index);
         outState.putInt("Question_Number",m_Qn);
     }
-
 }
