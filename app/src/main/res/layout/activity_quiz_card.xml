@@ -3,12 +3,17 @@
     android:layout_height="wrap_content"
     android:layout_weight="1"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:background="#25042e"
+    android:background="#FFFFFF"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include
+        layout="@layout/app_bar_all"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="70dp"
         android:layout_alignParentTop="true">
         <android.support.v7.widget.CardView
             android:id="@+id/cardview_mcq"
@@ -16,13 +21,13 @@
             android:layout_height="wrap_content"
             card_view:cardCornerRadius="10dp"
             card_view:contentPadding="10dp"
-            card_view:cardBackgroundColor="#ffffff"
+            card_view:cardBackgroundColor="#f2f2f2"
             card_view:cardElevation="4dp"
             card_view:cardMaxElevation="6dp"
             app:cardCornerRadius="10dp"
             android:layout_margin="10dp"
             android:layout_alignParentTop="true"
-            app:cardBackgroundColor="#ffffff"
+            app:cardBackgroundColor="#f2f2f2"
             app:cardElevation="0dp"
             app:cardPreventCornerOverlap="false">
             <LinearLayout

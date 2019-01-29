@@ -95,6 +95,7 @@ public class newMCQ extends Activity {
         mScoreText_View = findViewById(R.id.score_mcq_card);
         mProgress_Bar = (ProgressBar) findViewById(R.id.progress_bar_mcq_card);
         mProgress_Bar.setProgressTintList(ColorStateList.valueOf(0xAA92D050));
+        mProgress_Bar.setProgressBackgroundTintList(ColorStateList.valueOf(0xFFE9E6E6));
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestHandle requestHandle = client.get(url, new JsonHttpResponseHandler() {
 
@@ -307,9 +308,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
-//                                teTag.setMaxLines(4);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -369,9 +370,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMaxLines(4);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMaxLines(4);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -603,9 +604,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
-//                                teTag.setMaxLines(4);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -670,9 +671,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
-//                                teTag.setMaxLines(4);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -907,9 +908,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
-//                                teTag.setMaxLines(4);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -976,9 +977,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
-//                                teTag.setMaxLines(4);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -1212,9 +1213,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
-//                                teTag.setMaxLines(4);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -1281,9 +1282,9 @@ public class newMCQ extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
-//                                teTag.setMaxLines(4);
-//                                teTag.setVerticalScrollBarEnabled(true);
-//                                teTag.setMovementMethod(new ScrollingMovementMethod());
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);

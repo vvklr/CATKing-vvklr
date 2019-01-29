@@ -11,7 +11,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_gk"
         android:layout_width="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:background="@color/colorPrimary"
         app:tabSelectedTextColor="#ff5722"
         app:tabTextColor="@android:color/white"

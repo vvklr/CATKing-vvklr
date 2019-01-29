@@ -11,6 +11,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -197,23 +198,6 @@ public class new_TF extends Activity {
                                         startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                 }
                             });
-//                            btnshare.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//
-//                                }
-//                            });
-//                            AlertDialog.Builder alert = new AlertDialog.Builder(new_TF.this);
-//                            alert.setTitle("Quiz is done");
-//                            alert.setCancelable(false);
-//                            alert.setMessage("You scored " + m_Score + " points out of " + myQuestionData.length);
-//                            alert.setPositiveButton("Close Quiz", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    finish();
-//                                }
-//                            });
-//                            alert.show();
                         }
                         mQuestion = myQuestionData[m_Index];
                         mQuestionTextView.setText(mQuestion);
@@ -240,6 +224,8 @@ public class new_TF extends Activity {
                         ll.removeView(child3);
                         final LinearLayout child4 = (LinearLayout) mm.findViewById(R.id.emptyText_layout);
                         mm.removeView(child4);
+//                        final LinearLayout child5 = (LinearLayout) mm.findViewById(R.id.bottTF_bar);
+//                        mm.removeView(child5);
                     }
 
                     private void checkAnswer(String userSelection) {
@@ -284,6 +270,9 @@ public class new_TF extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -344,6 +333,9 @@ public class new_TF extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -637,6 +629,9 @@ public class new_TF extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
                                 teTag.setTextSize(18);
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -696,6 +691,9 @@ public class new_TF extends Activity {
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
                                 teTag.setTextSize(18);
+                                teTag.setMaxLines(4);
+                                teTag.setVerticalScrollBarEnabled(true);
+                                teTag.setMovementMethod(new ScrollingMovementMethod());
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);

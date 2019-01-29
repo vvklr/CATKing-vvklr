@@ -2,12 +2,12 @@
     <corners
         android:topLeftRadius="8dp"
         android:topRightRadius="8dp"
-        android:bottomRightRadius="8dp"
-        android:bottomLeftRadius="8dp">
+        android:bottomRightRadius="0dp"
+        android:bottomLeftRadius="0dp">
     </corners>
     <gradient
-        android:angle="270"
-        android:startColor="#ffffff"
-        android:endColor="#ffffff">
+        android:angle="180"
+        android:startColor="#201B53"
+        android:endColor="#201B53">
     </gradient>
 </shape>

@@ -4,22 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_width="match_parent"
+    android:background="#FFFFFF"
     android:layout_height="match_parent">
-
-    <ListView
-        android:id="@+id/listQuiz"
+    <include
+        layout="@layout/app_bar_all"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#25042e"
-        android:divider="#F5F5F5"
-        android:dividerHeight="1dp"
-        android:visibility="visible"
-        />
+        android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="60dp"
+        android:orientation="vertical">
 
+        <ListView
+            android:id="@+id/listQuiz"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:divider="#F5F5F5"
+            android:dividerHeight="1dp"
+            android:visibility="visible" />
+
+    </LinearLayout>
     <ProgressBar
         android:id="@+id/Qloader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:outlineAmbientShadowColor="@color/material_blue_900"
         android:layout_centerInParent="true"/>
 
 

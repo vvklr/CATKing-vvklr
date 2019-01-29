@@ -4,20 +4,17 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:background="#25042e"
+    android:background="#FFFFFF"
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical"
     app:layout_constraintCircleRadius="15dp"
     android:layout_weight="7"
     android:padding="5dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/text_container"
-        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/text_container"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
@@ -27,7 +24,7 @@
                 android:gravity="center_horizontal"
                 android:fontFamily="@font/tondo_regular"
                 android:text=""
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="8dp" />
             <TextView
             android:id="@+id/quiz"
@@ -38,7 +35,7 @@
             android:fontFamily="@font/tondo_bold"
             android:text="Name of the Quiz"
             android:gravity="center_horizontal"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="25dp" />
             <TextView
                 android:layout_width="match_parent"
@@ -59,7 +56,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/material_grey_600"/>
+                android:background="#FFFFFF"/>
 
         </LinearLayout>
         <LinearLayout
@@ -85,7 +82,7 @@
                 android:gravity="center_horizontal"
                 android:fontFamily="@font/tondo_regular"
                 android:text="Take this quiz >"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="15dp" />
             <TextView
                 android:layout_width="match_parent"
@@ -97,8 +94,5 @@
                 android:text=""
                 android:textColor="#000000"
                 android:textSize="6dp" />
-
-        </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>
