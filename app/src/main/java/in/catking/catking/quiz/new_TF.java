@@ -91,7 +91,7 @@ public class new_TF extends Activity {
                 mQuestionTextView.setText(mQuestion);
                 mQuestion_Number.setText("Question No: "+m_Qn);
 
-                m_Qr = (myQuestionData.length -1)-m_Index;
+                m_Qr = (myQuestionData.length)-m_Index;
                 mScoreTextView.setText(myQuestionData.length+" question to go.");
                 //mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
 
@@ -111,8 +111,6 @@ public class new_TF extends Activity {
                     private void updateQuestion() {
                         m_Index = (m_Index + 1) % myQuestionData.length;
                         m_Qn = m_Qn+1;
-                        m_Count = (m_Count+1);
-                        m_Qr = (myQuestionData.length -1)-m_Count;
                         if (m_Index == 0) {
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
@@ -217,13 +215,6 @@ public class new_TF extends Activity {
 //                            });
 //                            alert.show();
                         }
-                        if(m_Qr==0){
-                            mScoreTextView.setText("Hurray 100% progress. You are done!");
-                        }else if(m_Qr<0){
-                            mScoreTextView.setText("Hurray 100% progress. You are done!");
-                        }else{
-                            mScoreTextView.setText(m_Qr+" more question to go.");
-                        }
                         mQuestion = myQuestionData[m_Index];
                         mQuestionTextView.setText(mQuestion);
                         mQuestion_Number.setText("Question No: "+m_Qn);
@@ -255,6 +246,15 @@ public class new_TF extends Activity {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestionData.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreTextView.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreTextView.setText("Hurray 100% progress. You are done!");
+                            }else{
+                                mScoreTextView.setText(m_Qr+" more question to go.");
+                            }
                             mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mTrueButton.setBackgroundColor(0xAA81c784);
                             mQuestion_Number.setText("Hurray!\n" + "You got it right");
@@ -308,6 +308,15 @@ public class new_TF extends Activity {
                                 }
                             });
                         }else{
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestionData.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreTextView.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreTextView.setText("Hurray 100% progress. You are done!");
+                            }else{
+                                mScoreTextView.setText(m_Qr+" more question to go.");
+                            }
                             mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mTrueButton.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
@@ -392,8 +401,6 @@ public class new_TF extends Activity {
                     private void updateQuestion() {
                         m_Index = (m_Index + 1) % myQuestionData.length;
                         m_Qn = m_Qn+1;
-                        m_Count = (m_Count+1);
-                        m_Qr = (myQuestionData.length -1)-m_Count;
                         if (m_Index == 0) {
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
@@ -561,13 +568,6 @@ public class new_TF extends Activity {
 //                            });
 //                            alert.show();
                         }
-                        if(m_Qr==0){
-                            mScoreTextView.setText("Hurray 100% progress. You are done!");
-                        }else if(m_Qr<0){
-                            mScoreTextView.setText("Hurray 100% progress. You are done!");
-                        }else {
-                            mScoreTextView.setText(m_Qr+" more question to go.");
-                        }
                         mQuestion = myQuestionData[m_Index];
                         mQuestionTextView.setText(mQuestion);
                         mQuestion_Number.setText("Question No: "+m_Qn);
@@ -599,6 +599,15 @@ public class new_TF extends Activity {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestionData.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreTextView.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreTextView.setText("Hurray 100% progress. You are done!");
+                            }else {
+                                mScoreTextView.setText(m_Qr+" more question to go.");
+                            }
                             mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mFalseButton.setBackgroundColor(0xAA81c784);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
@@ -652,6 +661,15 @@ public class new_TF extends Activity {
                                 }
                             });
                         }else{
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestionData.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreTextView.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreTextView.setText("Hurray 100% progress. You are done!");
+                            }else {
+                                mScoreTextView.setText(m_Qr+" more question to go.");
+                            }
                             mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mFalseButton.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));

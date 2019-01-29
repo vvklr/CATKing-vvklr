@@ -149,8 +149,6 @@ public class newMCQ extends Activity {
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
                         m_Qn = m_Qn+1;
-                        m_Count = (m_Count+1);
-                        m_Qr = (myQuestion_Data.length -1)-m_Count;
                         if(m_Index==0){
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
@@ -238,13 +236,6 @@ public class newMCQ extends Activity {
                                 }
                             });
                         }
-                        if(m_Qr==0){
-                            mScoreText_View.setText("Hurray 100% progress. You are done!");
-                        }else if(m_Qr<0){
-                            mScoreText_View.setText("Hurray 100% progress. You are done!");
-                        }else{
-                            mScoreText_View.setText(m_Qr+" more question to go.");
-                        }
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
                         mQuestion_Number.setText("Question No: "+m_Qn);
@@ -262,7 +253,7 @@ public class newMCQ extends Activity {
                         mOption_B.setEnabled(true);
                         mOption_C.setEnabled(true);
                         mOption_D.setEnabled(true);
-                        mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
+                         //progress bar will fill 8 out of 100
 
                         LinearLayout ll = findViewById(R.id.p_layout);
                         LinearLayout mm = findViewById(R.id.quiz_layout);
@@ -280,6 +271,16 @@ public class newMCQ extends Activity {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestion_Data.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else{
+                                mScoreText_View.setText(m_Qr+" more question to go.");
+                            }
+                            mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mOption_A.setBackgroundColor(0xAA81c784);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             mQuestion_Number.setText("Hurray!\n" + "You got it right");
@@ -333,6 +334,16 @@ public class newMCQ extends Activity {
                                 }
                             });
                         }else{
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestion_Data.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else{
+                                mScoreText_View.setText(m_Qr+" more question to go.");
+                            }
+                            mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mOption_A.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             mQuestion_Number.setText("Oops!\n" + "You got it wrong");
@@ -433,8 +444,6 @@ public class newMCQ extends Activity {
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
                         m_Qn = m_Qn+1;
-                        m_Count = (m_Count+1);
-                        m_Qr = (myQuestion_Data.length -1)-m_Count;
                         if(m_Index==0){
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
@@ -522,13 +531,6 @@ public class newMCQ extends Activity {
                                 }
                             });
                         }
-                        if(m_Qr==0){
-                            mScoreText_View.setText("Hurray 100% progress. You are done!");
-                        }else if(m_Qr<0){
-                            mScoreText_View.setText("Hurray 100% progress. You are done!");
-                        }else{
-                            mScoreText_View.setText(m_Qr+" more question to go.");
-                        }
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
                         mQuestion_Number.setText("Question No: "+m_Qn);
@@ -546,7 +548,7 @@ public class newMCQ extends Activity {
                         mOption_B.setEnabled(true);
                         mOption_C.setEnabled(true);
                         mOption_D.setEnabled(true);
-                        mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
+                        //mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
 
                         LinearLayout ll = findViewById(R.id.p_layout);
                         LinearLayout mm = findViewById(R.id.quiz_layout);
@@ -564,6 +566,16 @@ public class newMCQ extends Activity {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestion_Data.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else{
+                                mScoreText_View.setText(m_Qr+" more question to go.");
+                            }
+                            mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mOption_B.setBackgroundColor(0xAA81c784);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             mQuestion_Number.setText("Hurray!\n" + "You got it right");
@@ -618,6 +630,16 @@ public class newMCQ extends Activity {
                                 }
                             });
                         }else{
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestion_Data.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else{
+                                mScoreText_View.setText(m_Qr+" more question to go.");
+                            }
+                            mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
                             mOption_B.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             mQuestion_Number.setText("Oops!\n" + "You got it wrong");
@@ -723,8 +745,6 @@ public class newMCQ extends Activity {
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
                         m_Qn = m_Qn+1;
-                        m_Count = (m_Count+1);
-                        m_Qr = (myQuestion_Data.length -1)-m_Count;
                         if(m_Index==0){
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
@@ -812,13 +832,6 @@ public class newMCQ extends Activity {
                                 }
                             });
                         }
-                        if(m_Qr==0){
-                            mScoreText_View.setText("Hurray 100% progress. You are done!");
-                        }else if(m_Qr<0){
-                            mScoreText_View.setText("Hurray 100% progress. You are done!");
-                        }else{
-                            mScoreText_View.setText(m_Qr+" more question to go.");
-                        }
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
                         mQuestion_Number.setText("Question No: "+m_Qn);
@@ -836,7 +849,7 @@ public class newMCQ extends Activity {
                         mOption_B.setEnabled(true);
                         mOption_C.setEnabled(true);
                         mOption_D.setEnabled(true);
-                        mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
+                        //mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
 
                         LinearLayout ll = findViewById(R.id.p_layout);
                         LinearLayout mm = findViewById(R.id.quiz_layout);
@@ -855,6 +868,18 @@ public class newMCQ extends Activity {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestion_Data.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else{
+                                mScoreText_View.setText(m_Qr+" more question to go.");
+                            }
+                            mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
+
+
                             mOption_C.setBackgroundColor(0xAA81c784);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             mQuestion_Number.setText("Hurray!\n" + "You got it right");
@@ -909,6 +934,18 @@ public class newMCQ extends Activity {
                                 }
                             });
                         }else{
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestion_Data.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else{
+                                mScoreText_View.setText(m_Qr+" more question to go.");
+                            }
+                            mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
+
+
                             mOption_C.setBackgroundColor(0xAAe57272);
                             //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             mQuestion_Number.setText("Oops!\n" + "You got it wrong");
@@ -1014,8 +1051,6 @@ public class newMCQ extends Activity {
                     private void updateQuestion() {
                         m_Index = (m_Index+1)% myQuestion_Data.length;
                         m_Qn = m_Qn+1;
-                        m_Count = (m_Count+1);
-                        m_Qr = (myQuestion_Data.length -1)-m_Count;
                         if(m_Index==0){
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
@@ -1103,13 +1138,6 @@ public class newMCQ extends Activity {
                                 }
                             });
                         }
-                        if(m_Qr==0){
-                            mScoreText_View.setText("Hurray 100% progress. You are done!");
-                        }else if(m_Qr<0){
-                            mScoreText_View.setText("Hurray 100% progress. You are done!");
-                        }else{
-                            mScoreText_View.setText(m_Qr+" more question to go.");
-                        }
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
                         mQuestion_Number.setText("Question No: "+m_Qn);
@@ -1127,7 +1155,7 @@ public class newMCQ extends Activity {
                         mOption_B.setEnabled(true);
                         mOption_C.setEnabled(true);
                         mOption_D.setEnabled(true);
-                        mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
+                        //mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
 
                         LinearLayout ll = findViewById(R.id.p_layout);
                         LinearLayout mm = findViewById(R.id.quiz_layout);
@@ -1145,6 +1173,18 @@ public class newMCQ extends Activity {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestion_Data.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else{
+                                mScoreText_View.setText(m_Qr+" more question to go.");
+                            }
+                            mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
+
+
                             mOption_D.setBackgroundColor(0xAA81c784);
                             //mOption_D.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             mQuestion_Number.setText("Hurray!\n" + "You got it right");
@@ -1199,6 +1239,18 @@ public class newMCQ extends Activity {
                                 }
                             });
                         }else{
+                            m_Count = (m_Count+1);
+                            m_Qr = (myQuestion_Data.length)-m_Count;
+                            if(m_Qr==0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else if(m_Qr<0){
+                                mScoreText_View.setText("Hurray 100% progress. You are done!");
+                            }else{
+                                mScoreText_View.setText(m_Qr+" more question to go.");
+                            }
+                            mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
+
+
                             mOption_D.setBackgroundColor(0xAAe57272);
                             //mOption_D.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                             mQuestion_Number.setText("Oops!\n" + "You got it wrong");
