@@ -123,9 +123,6 @@ public class newMCQ extends Activity {
 
                 m_Qr = (myQuestion_Data.length -1)-m_Index;
                 mScoreText_View.setText(m_Qr+" question to go.");
-
-
-
                 //==================================================================================
                 //listening to buttons now for correct answer
                 mOption_A.setOnClickListener(new View.OnClickListener() {
@@ -439,17 +436,98 @@ public class newMCQ extends Activity {
                         m_Count = (m_Count+1);
                         m_Qr = (myQuestion_Data.length -1)-m_Count;
                         if(m_Index==0){
-                            AlertDialog.Builder alert = new AlertDialog.Builder(newMCQ.this);
-                            alert.setTitle("Quiz is done");
-                            alert.setCancelable(false);
-                            alert.setMessage("You scored " +m_Score+ " points out of "+myQuestion_Data.length);
-                            alert.setPositiveButton("Close Quiz", new DialogInterface.OnClickListener() {
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+                            LinearLayout empty_layout_1 =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+                            //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.quiz_layout);
+                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bott);
+
+
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            parent_layout.removeAllViewsInLayout();
+
+                            TextView greet = new TextView(getApplicationContext());
+                            greet.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            greet.setPadding(60,40,35,0);
+                            greet.setTextSize(30);
+                            Typeface face = Typeface.createFromAsset(getAssets(), "fonts/tondo_regular.ttf");
+                            greet.setTypeface(face);
+                            greet.setBackgroundColor(0xAAFFC000);
+                            greet.setGravity(Gravity.CENTER);
+                            greet.setText("Congratulations!");
+
+                            TextView greet_2 = new TextView(getApplicationContext());
+                            greet_2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            greet_2.setPadding(60,0,30,40);
+                            greet_2.setTextSize(20);
+                            greet_2.setTypeface(face);
+                            greet_2.setBackgroundColor(0xAAFFC000);
+                            greet_2.setGravity(Gravity.CENTER);
+                            greet_2.setText("You completed  the quiz");
+
+
+                            Button btnshare = new Button(getApplicationContext());
+                            btnshare.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnshare.setText("Click to share your success Stories with friends");
+                            btnshare.setTextSize(18);
+                            btnshare.setPadding(20,30,20,30);
+                            btnshare.setTextColor(0xFF000000);
+                            btnshare.setBackgroundColor(0xFFdedede);
+                            btnshare.setAllCaps(false);
+//                            btnshare.setBackground(null);
+
+                            TextView teScore = new TextView(getApplicationContext());
+                            teScore.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            teScore.setPadding(60,20,30,40);
+                            teScore.setTextSize(20);
+                            teScore.setTypeface(face);
+                            teScore.setBackgroundColor(0xAAFFFFFF);
+                            teScore.setText("You got "+ m_Score+" questions correct out of " + myQuestion_Data.length+" questions");
+
+                            parent_layout.addView(greet);
+                            parent_layout.addView(greet_2);
+                            parent_layout.addView(empty_layout_1,cp);
+                            parent_layout.addView(teScore);
+                            parent_layout.addView(btnshare);
+
+
+                            //progress_layout.addView(empty_layout,cp);
+                            Button btnfinish = new Button(getApplicationContext());
+                            btnfinish.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnfinish.setText("Next Quiz >");
+                            btnfinish.setTextColor(0xAAFFFFFF);
+                            btnfinish.setBackgroundColor(0xAAA6A6A6);
+                            progress_layout.addView(btnfinish);
+                            btnfinish.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(View v) {
                                     finish();
                                 }
                             });
-                            alert.show();
+                            btnshare.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                                    share.setType("text/plain");
+
+                                    share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
+                                            " questions\n Install GK App to keep your General Knowledge up to date");
+                                    share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
+                                            " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/");
+
+                                    startActivity(Intent.createChooser(share, "Share your result with friends using"));
+                                }
+                            });
+                        }
+                        if(m_Qr==0){
+                            mScoreText_View.setText("Hurray 100% progress. You are done!");
+                        }else if(m_Qr<0){
+                            mScoreText_View.setText("Hurray 100% progress. You are done!");
+                        }else{
+                            mScoreText_View.setText(m_Qr+" more question to go.");
                         }
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
@@ -469,15 +547,15 @@ public class newMCQ extends Activity {
                         mOption_C.setEnabled(true);
                         mOption_D.setEnabled(true);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
-                        mScoreText_View.setText("Score " + m_Score+ "/"+ myQuestion_Data.length);
 
                         LinearLayout ll = findViewById(R.id.p_layout);
+                        LinearLayout mm = findViewById(R.id.quiz_layout);
                         final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
                         ll.removeView(child);
-                        final LinearLayout child2 = (LinearLayout) ll.findViewById(R.id.des_layout);
-                        ll.removeView(child2);
-                        final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
-                        ll.removeView(child3);
+                        final LinearLayout child2 = (LinearLayout) mm.findViewById(R.id.des_layout);
+                        mm.removeView(child2);
+                        final LinearLayout child3 = (LinearLayout) mm.findViewById(R.id.divider_layout);
+                        mm.removeView(child3);
                         final LinearLayout child4 = (LinearLayout) ll.findViewById(R.id.emptyText_layout);
                         ll.removeView(child4);
                     }
@@ -498,16 +576,17 @@ public class newMCQ extends Activity {
                             LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+                            LinearLayout quiz_layout = (LinearLayout) findViewById(R.id.quiz_layout);
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                             String des = myDescription_data[m_Index];
                             String check ="";
                             boolean de = check.equalsIgnoreCase(des);
                             if(de == false){
-                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
-                                parent_layout.addView(divider_layout,cp);
+                                //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                //parent_layout.addView(divider_layout,cp);
 
-                                parent_layout.addView(description_layout,cp);
+                                quiz_layout.addView(description_layout,cp);
                                 TextView teTag = new TextView(getApplicationContext());
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
@@ -550,20 +629,21 @@ public class newMCQ extends Activity {
                             LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+                            LinearLayout quiz_layout = (LinearLayout) findViewById(R.id.quiz_layout);
 
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             String des = myDescription_data[m_Index];
                             String check ="";
                             boolean de = check.equalsIgnoreCase(des);
                             if(de == false){
-                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
-                                parent_layout.addView(divider_layout,cp);
+                                //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                //parent_layout.addView(divider_layout,cp);
 //                                ImageView divider = new ImageView(getApplicationContext());
 //                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //                                lp.setMargins(0, 0, 0, 0);
 //                                divider.setLayoutParams(lp);
 //                                divider.setBackgroundColor(0xAAAAAAAA);
-                                parent_layout.addView(description_layout,cp);
+                                quiz_layout.addView(description_layout,cp);
                                 TextView teTag = new TextView(getApplicationContext());
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
@@ -646,17 +726,98 @@ public class newMCQ extends Activity {
                         m_Count = (m_Count+1);
                         m_Qr = (myQuestion_Data.length -1)-m_Count;
                         if(m_Index==0){
-                            AlertDialog.Builder alert = new AlertDialog.Builder(newMCQ.this);
-                            alert.setTitle("Quiz is done");
-                            alert.setCancelable(false);
-                            alert.setMessage("You scored " +m_Score+ " points out of "+myQuestion_Data.length);
-                            alert.setPositiveButton("Close Quiz", new DialogInterface.OnClickListener() {
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+                            LinearLayout empty_layout_1 =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+                            //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.quiz_layout);
+                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bott);
+
+
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            parent_layout.removeAllViewsInLayout();
+
+                            TextView greet = new TextView(getApplicationContext());
+                            greet.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            greet.setPadding(60,40,35,0);
+                            greet.setTextSize(30);
+                            Typeface face = Typeface.createFromAsset(getAssets(), "fonts/tondo_regular.ttf");
+                            greet.setTypeface(face);
+                            greet.setBackgroundColor(0xAAFFC000);
+                            greet.setGravity(Gravity.CENTER);
+                            greet.setText("Congratulations!");
+
+                            TextView greet_2 = new TextView(getApplicationContext());
+                            greet_2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            greet_2.setPadding(60,0,30,40);
+                            greet_2.setTextSize(20);
+                            greet_2.setTypeface(face);
+                            greet_2.setBackgroundColor(0xAAFFC000);
+                            greet_2.setGravity(Gravity.CENTER);
+                            greet_2.setText("You completed  the quiz");
+
+
+                            Button btnshare = new Button(getApplicationContext());
+                            btnshare.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnshare.setText("Click to share your success Stories with friends");
+                            btnshare.setTextSize(18);
+                            btnshare.setPadding(20,30,20,30);
+                            btnshare.setTextColor(0xFF000000);
+                            btnshare.setBackgroundColor(0xFFdedede);
+                            btnshare.setAllCaps(false);
+//                            btnshare.setBackground(null);
+
+                            TextView teScore = new TextView(getApplicationContext());
+                            teScore.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            teScore.setPadding(60,20,30,40);
+                            teScore.setTextSize(20);
+                            teScore.setTypeface(face);
+                            teScore.setBackgroundColor(0xAAFFFFFF);
+                            teScore.setText("You got "+ m_Score+" questions correct out of " + myQuestion_Data.length+" questions");
+
+                            parent_layout.addView(greet);
+                            parent_layout.addView(greet_2);
+                            parent_layout.addView(empty_layout_1,cp);
+                            parent_layout.addView(teScore);
+                            parent_layout.addView(btnshare);
+
+
+                            //progress_layout.addView(empty_layout,cp);
+                            Button btnfinish = new Button(getApplicationContext());
+                            btnfinish.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnfinish.setText("Next Quiz >");
+                            btnfinish.setTextColor(0xAAFFFFFF);
+                            btnfinish.setBackgroundColor(0xAAA6A6A6);
+                            progress_layout.addView(btnfinish);
+                            btnfinish.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(View v) {
                                     finish();
                                 }
                             });
-                            alert.show();
+                            btnshare.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                                    share.setType("text/plain");
+
+                                    share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
+                                            " questions\n Install GK App to keep your General Knowledge up to date");
+                                    share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
+                                            " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/");
+
+                                    startActivity(Intent.createChooser(share, "Share your result with friends using"));
+                                }
+                            });
+                        }
+                        if(m_Qr==0){
+                            mScoreText_View.setText("Hurray 100% progress. You are done!");
+                        }else if(m_Qr<0){
+                            mScoreText_View.setText("Hurray 100% progress. You are done!");
+                        }else{
+                            mScoreText_View.setText(m_Qr+" more question to go.");
                         }
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
@@ -676,15 +837,15 @@ public class newMCQ extends Activity {
                         mOption_C.setEnabled(true);
                         mOption_D.setEnabled(true);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
-                        mScoreText_View.setText("Score " + m_Score+ "/"+ myQuestion_Data.length);
 
                         LinearLayout ll = findViewById(R.id.p_layout);
+                        LinearLayout mm = findViewById(R.id.quiz_layout);
                         final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
                         ll.removeView(child);
-                        final LinearLayout child2 = (LinearLayout) ll.findViewById(R.id.des_layout);
-                        ll.removeView(child2);
-                        final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
-                        ll.removeView(child3);
+                        final LinearLayout child2 = (LinearLayout) mm.findViewById(R.id.des_layout);
+                        mm.removeView(child2);
+                        final LinearLayout child3 = (LinearLayout) mm.findViewById(R.id.divider_layout);
+                        mm.removeView(child3);
                         final LinearLayout child4 = (LinearLayout) ll.findViewById(R.id.emptyText_layout);
                         ll.removeView(child4);
 
@@ -706,16 +867,17 @@ public class newMCQ extends Activity {
                             LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+                            LinearLayout quiz_layout = (LinearLayout) findViewById(R.id.quiz_layout);
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                             String des = myDescription_data[m_Index];
                             String check ="";
                             boolean de = check.equalsIgnoreCase(des);
                             if(de == false){
-                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
-                                parent_layout.addView(divider_layout,cp);
+                                //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                //parent_layout.addView(divider_layout,cp);
 
-                                parent_layout.addView(description_layout,cp);
+                                quiz_layout.addView(description_layout,cp);
                                 TextView teTag = new TextView(getApplicationContext());
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
@@ -758,20 +920,21 @@ public class newMCQ extends Activity {
                             LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+                            LinearLayout quiz_layout = (LinearLayout) findViewById(R.id.quiz_layout);
 
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             String des = myDescription_data[m_Index];
                             String check ="";
                             boolean de = check.equalsIgnoreCase(des);
                             if(de == false){
-                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
-                                parent_layout.addView(divider_layout,cp);
+                                //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                //parent_layout.addView(divider_layout,cp);
 //                                ImageView divider = new ImageView(getApplicationContext());
 //                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //                                lp.setMargins(0, 0, 0, 0);
 //                                divider.setLayoutParams(lp);
 //                                divider.setBackgroundColor(0xAAAAAAAA);
-                                parent_layout.addView(description_layout,cp);
+                                quiz_layout.addView(description_layout,cp);
                                 TextView teTag = new TextView(getApplicationContext());
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);
@@ -854,17 +1017,98 @@ public class newMCQ extends Activity {
                         m_Count = (m_Count+1);
                         m_Qr = (myQuestion_Data.length -1)-m_Count;
                         if(m_Index==0){
-                            AlertDialog.Builder alert = new AlertDialog.Builder(newMCQ.this);
-                            alert.setTitle("Quiz is done");
-                            alert.setCancelable(false);
-                            alert.setMessage("You scored " +m_Score+ " points out of "+myQuestion_Data.length);
-                            alert.setPositiveButton("Close Quiz", new DialogInterface.OnClickListener() {
+                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+                            LinearLayout empty_layout_1 =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
+                            //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.quiz_layout);
+                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bott);
+
+
+                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            parent_layout.removeAllViewsInLayout();
+
+                            TextView greet = new TextView(getApplicationContext());
+                            greet.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            greet.setPadding(60,40,35,0);
+                            greet.setTextSize(30);
+                            Typeface face = Typeface.createFromAsset(getAssets(), "fonts/tondo_regular.ttf");
+                            greet.setTypeface(face);
+                            greet.setBackgroundColor(0xAAFFC000);
+                            greet.setGravity(Gravity.CENTER);
+                            greet.setText("Congratulations!");
+
+                            TextView greet_2 = new TextView(getApplicationContext());
+                            greet_2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            greet_2.setPadding(60,0,30,40);
+                            greet_2.setTextSize(20);
+                            greet_2.setTypeface(face);
+                            greet_2.setBackgroundColor(0xAAFFC000);
+                            greet_2.setGravity(Gravity.CENTER);
+                            greet_2.setText("You completed  the quiz");
+
+
+                            Button btnshare = new Button(getApplicationContext());
+                            btnshare.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnshare.setText("Click to share your success Stories with friends");
+                            btnshare.setTextSize(18);
+                            btnshare.setPadding(20,30,20,30);
+                            btnshare.setTextColor(0xFF000000);
+                            btnshare.setBackgroundColor(0xFFdedede);
+                            btnshare.setAllCaps(false);
+//                            btnshare.setBackground(null);
+
+                            TextView teScore = new TextView(getApplicationContext());
+                            teScore.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            teScore.setPadding(60,20,30,40);
+                            teScore.setTextSize(20);
+                            teScore.setTypeface(face);
+                            teScore.setBackgroundColor(0xAAFFFFFF);
+                            teScore.setText("You got "+ m_Score+" questions correct out of " + myQuestion_Data.length+" questions");
+
+                            parent_layout.addView(greet);
+                            parent_layout.addView(greet_2);
+                            parent_layout.addView(empty_layout_1,cp);
+                            parent_layout.addView(teScore);
+                            parent_layout.addView(btnshare);
+
+
+                            //progress_layout.addView(empty_layout,cp);
+                            Button btnfinish = new Button(getApplicationContext());
+                            btnfinish.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            btnfinish.setText("Next Quiz >");
+                            btnfinish.setTextColor(0xAAFFFFFF);
+                            btnfinish.setBackgroundColor(0xAAA6A6A6);
+                            progress_layout.addView(btnfinish);
+                            btnfinish.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(View v) {
                                     finish();
                                 }
                             });
-                            alert.show();
+                            btnshare.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                                    share.setType("text/plain");
+
+                                    share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
+                                            " questions\n Install GK App to keep your General Knowledge up to date");
+                                    share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
+                                            " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/");
+
+                                    startActivity(Intent.createChooser(share, "Share your result with friends using"));
+                                }
+                            });
+                        }
+                        if(m_Qr==0){
+                            mScoreText_View.setText("Hurray 100% progress. You are done!");
+                        }else if(m_Qr<0){
+                            mScoreText_View.setText("Hurray 100% progress. You are done!");
+                        }else{
+                            mScoreText_View.setText(m_Qr+" more question to go.");
                         }
                         m_Question = myQuestion_Data[m_Index];
                         mQuestionText_View.setText(m_Question);
@@ -884,15 +1128,15 @@ public class newMCQ extends Activity {
                         mOption_C.setEnabled(true);
                         mOption_D.setEnabled(true);
                         mProgress_Bar.incrementProgressBy(PROGRESS_BAR_INCREMENT); //progress bar will fill 8 out of 100
-                        mScoreText_View.setText("Score " + m_Score+ "/"+ myQuestion_Data.length);
 
                         LinearLayout ll = findViewById(R.id.p_layout);
+                        LinearLayout mm = findViewById(R.id.quiz_layout);
                         final LinearLayout child = (LinearLayout) ll.findViewById(R.id.button_layout);
                         ll.removeView(child);
-                        final LinearLayout child2 = (LinearLayout) ll.findViewById(R.id.des_layout);
-                        ll.removeView(child2);
-                        final LinearLayout child3 = (LinearLayout) ll.findViewById(R.id.divider_layout);
-                        ll.removeView(child3);
+                        final LinearLayout child2 = (LinearLayout) mm.findViewById(R.id.des_layout);
+                        mm.removeView(child2);
+                        final LinearLayout child3 = (LinearLayout) mm.findViewById(R.id.divider_layout);
+                        mm.removeView(child3);
                         final LinearLayout child4 = (LinearLayout) ll.findViewById(R.id.emptyText_layout);
                         ll.removeView(child4);
                     }
@@ -913,16 +1157,17 @@ public class newMCQ extends Activity {
                             LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+                            LinearLayout quiz_layout = (LinearLayout) findViewById(R.id.quiz_layout);
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                             String des = myDescription_data[m_Index];
                             String check ="";
                             boolean de = check.equalsIgnoreCase(des);
                             if(de == false){
-                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
-                                parent_layout.addView(divider_layout,cp);
+                                //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                //parent_layout.addView(divider_layout,cp);
 
-                                parent_layout.addView(description_layout,cp);
+                                quiz_layout.addView(description_layout,cp);
                                 TextView teTag = new TextView(getApplicationContext());
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(60,5,30,5);
@@ -965,20 +1210,21 @@ public class newMCQ extends Activity {
                             LinearLayout emptyTextview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
 
                             LinearLayout parent_layout = (LinearLayout) findViewById(R.id.p_layout);
+                            LinearLayout quiz_layout = (LinearLayout) findViewById(R.id.quiz_layout);
 
                             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             String des = myDescription_data[m_Index];
                             String check ="";
                             boolean de = check.equalsIgnoreCase(des);
                             if(de == false){
-                                LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
-                                parent_layout.addView(divider_layout,cp);
+                                //LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
+                                //parent_layout.addView(divider_layout,cp);
 //                                ImageView divider = new ImageView(getApplicationContext());
 //                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //                                lp.setMargins(0, 0, 0, 0);
 //                                divider.setLayoutParams(lp);
 //                                divider.setBackgroundColor(0xAAAAAAAA);
-                                parent_layout.addView(description_layout,cp);
+                                quiz_layout.addView(description_layout,cp);
                                 TextView teTag = new TextView(getApplicationContext());
                                 teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                 teTag.setPadding(70,5,40,5);

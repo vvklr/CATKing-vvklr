@@ -92,7 +92,7 @@ public class new_TF extends Activity {
                 mQuestion_Number.setText("Question No: "+m_Qn);
 
                 m_Qr = (myQuestionData.length -1)-m_Index;
-                mScoreTextView.setText(m_Qr+" question to go.");
+                mScoreTextView.setText(myQuestionData.length+" question to go.");
                 //mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
 
 
@@ -128,7 +128,7 @@ public class new_TF extends Activity {
 
                             TextView greet = new TextView(getApplicationContext());
                             greet.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            greet.setPadding(60,5,30,5);
+                            greet.setPadding(60,40,30,0);
                             greet.setTextSize(30);
                             Typeface face = Typeface.createFromAsset(getAssets(), "fonts/tondo_regular.ttf");
                             greet.setTypeface(face);
@@ -138,7 +138,7 @@ public class new_TF extends Activity {
 
                             TextView greet_2 = new TextView(getApplicationContext());
                             greet_2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            greet_2.setPadding(60,5,30,5);
+                            greet_2.setPadding(60,0,30,40);
                             greet_2.setTextSize(20);
                             greet_2.setTypeface(face);
                             greet_2.setBackgroundColor(0xAAFFC000);
@@ -409,7 +409,7 @@ public class new_TF extends Activity {
 
                             TextView greet = new TextView(getApplicationContext());
                             greet.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            greet.setPadding(60,5,30,5);
+                            greet.setPadding(60,40,30,0);
                             greet.setTextSize(30);
                             Typeface face = Typeface.createFromAsset(getAssets(), "fonts/tondo_regular.ttf");
                             greet.setTypeface(face);
@@ -419,7 +419,7 @@ public class new_TF extends Activity {
 
                             TextView greet_2 = new TextView(getApplicationContext());
                             greet_2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            greet_2.setPadding(60,5,30,5);
+                            greet_2.setPadding(60,0,30,40);
                             greet_2.setTextSize(20);
                             greet_2.setTypeface(face);
                             greet_2.setBackgroundColor(0xAAFFC000);
