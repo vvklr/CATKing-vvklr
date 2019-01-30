@@ -5,12 +5,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -105,8 +107,8 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
             m_Index = 0;
             m_Qn = 1;
             m_Count =0;
-
         }
+
         GifImageView gifImageView = (GifImageView) findViewById(R.id.Gif_View);
         gifImageView.setGifImageResource(R.drawable.smartphone_drib);
 
@@ -1012,5 +1014,16 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
         outState.putInt("ScoreKey", m_Score);
         outState.putInt("IndexKey",m_Index);
         outState.putInt("Question_Number",m_Qn);
+    }
+
+    public static void setM_Index(String key, String value, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+    public static String getM_Index(String key, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(key, null);
     }
 }
