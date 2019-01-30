@@ -15,6 +15,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -66,6 +67,7 @@ public class new_TF extends Activity {
             m_Count =0;
 
         }
+
         mTrueButton = (Button) findViewById(R.id.button_option_true);
         mFalseButton = (Button) findViewById(R.id.button_option_false);
         mQuestion_Number = findViewById(R.id.tf_qn_view_card);
@@ -205,8 +207,8 @@ public class new_TF extends Activity {
 
                         mQuestion_Number.setBackground(null);
                         mQuestion_Number.setTextColor(0xFF000000);
-                        mTrueButton.setBackgroundColor(0xFFffffff);
-                        mFalseButton.setBackgroundColor(0xFFffffff);
+                        mTrueButton.setBackgroundColor(0xFFf2f2f2);
+                        mFalseButton.setBackgroundColor(0xFFf2f2f2);
 
                         mTrueButton.setEnabled(true);
                         mFalseButton.setEnabled(true);
@@ -273,6 +275,25 @@ public class new_TF extends Activity {
                                 teTag.setMaxLines(4);
                                 teTag.setVerticalScrollBarEnabled(true);
                                 teTag.setMovementMethod(new ScrollingMovementMethod());
+                                parent_layout.setOnTouchListener(new View.OnTouchListener() {
+
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        findViewById(R.id.p_layout).getParent()
+                                                .requestDisallowInterceptTouchEvent(false);
+                                        return false;
+                                    }
+                                });
+
+                                teTag.setOnTouchListener(new View.OnTouchListener() {
+
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        // Disallow the touch request for parent scroll on touch of  child view
+                                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                                        return false;
+                                    }
+                                });
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -336,6 +357,25 @@ public class new_TF extends Activity {
                                 teTag.setMaxLines(4);
                                 teTag.setVerticalScrollBarEnabled(true);
                                 teTag.setMovementMethod(new ScrollingMovementMethod());
+                                parent_layout.setOnTouchListener(new View.OnTouchListener() {
+
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        findViewById(R.id.p_layout).getParent()
+                                                .requestDisallowInterceptTouchEvent(false);
+                                        return false;
+                                    }
+                                });
+
+                                teTag.setOnTouchListener(new View.OnTouchListener() {
+
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        // Disallow the touch request for parent scroll on touch of  child view
+                                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                                        return false;
+                                    }
+                                });
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -350,7 +390,7 @@ public class new_TF extends Activity {
                             progress_layout.addView(emptyTextview_layout,cp);
                             final Button btnTag = new Button(getApplicationContext());
                             btnTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            btnTag.setText("Next Question >");
+                            btnTag.setText("Next Question");
                             btnTag.setTextColor(0xAAFFFFFF);
                             btnTag.setBackgroundColor(0xAAA6A6A6);
                             activity_layout.addView(btnTag);
@@ -479,86 +519,6 @@ public class new_TF extends Activity {
                                     startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                 }
                             });
-
-//                            inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//                            //LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
-//                            LinearLayout empty_Textview_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
-//                            LinearLayout parent_layout = (LinearLayout) findViewById(R.id.tf_layout);
-//                            LinearLayout progress_layout = (LinearLayout) findViewById(R.id.bottTF);
-//
-//                            LinearLayout ll = (LinearLayout)findViewById(R.id.tf_layout);
-//                            ll.removeAllViewsInLayout();
-//
-//                            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-//                            //parent_layout.addView(description_layout,cp);
-//                            TextView teTag = new TextView(getApplicationContext());
-//                            teTag.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//                            teTag.setPadding(60,5,30,5);
-//                            teTag.setTextSize(20);
-//                            Typeface face = Typeface.createFromAsset(getAssets(),
-//                                    "fonts/tondo_regular.ttf");
-//                            teTag.setTypeface(face);
-//                            teTag.setBackgroundColor(0xAAFFC000);
-//                            teTag.setGravity(Gravity.CENTER);
-//                            //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
-//                            teTag.setText("Congratulations!\n" + "You completed  the quiz");
-////                            description_layout.addView(teTag);
-////                            parent_layout.addView(description_layout,cp);
-//                            Button btnshare = new Button(getApplicationContext());
-//                            btnshare.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//                            btnshare.setText("Click to share your success Stories with friends");
-//                            btnshare.setTextSize(18);
-//                            btnshare.setTextColor(0xAAFFFFFF);
-//                            btnshare.setAllCaps(false);
-//                            btnshare.setBackgroundColor(0xAAA6A6A6);
-//
-//                            TextView teScore = new TextView(getApplicationContext());
-//                            teScore.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//                            teScore.setPadding(60,5,30,5);
-//                            teScore.setTextSize(20);
-//                            Typeface re_face = Typeface.createFromAsset(getAssets(),
-//                                    "fonts/tondo_regular.ttf");
-//                            teScore.setTypeface(re_face);
-//                            teScore.setBackgroundColor(0xAAFFFFFF);
-//                            //teTag.setTypeface(Typeface.create("tondo_bold", Typeface.NORMAL));
-//                            teScore.setText("You got "+ m_Score+" questions correct out of " + myQuestionData.length+" questions");
-//
-////                            description_layout.addView(teTag);
-////                            parent_layout.addView(description_layout,cp);
-//                            parent_layout.addView(teTag);
-//                            parent_layout.addView(teScore);
-//                            LinearLayout divider_layout = (LinearLayout)inflater.inflate(R.layout.add_divider_layout,null);
-//                            parent_layout.addView(divider_layout,cp);
-//                            parent_layout.addView(btnshare);
-//                            parent_layout.addView(divider_layout,cp);
-//                            mScoreTextView.setText("Hurray 100% progress. You are done!");
-
-                            //progress_layout.addView(activity_layout,cp);
-//                            progress_layout.addView(empty_Textview_layout,cp);
-//                            Button btnfinish = new Button(getApplicationContext());
-//                            btnfinish.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//                            btnfinish.setText("Next Quiz >");
-//                            btnfinish.setTextColor(0xAAFFFFFF);
-//                            btnfinish.setBackgroundColor(0xAAA6A6A6);
-//                            progress_layout.addView(btnfinish);
-//                            btnfinish.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    finish();
-//                                }
-//                            });
-//                            AlertDialog.Builder alert = new AlertDialog.Builder(new_TF.this);
-//                            alert.setTitle("Quiz is done");
-//                            alert.setCancelable(false);
-//                            alert.setMessage("You scored " + m_Score + " points out of " + myQuestionData.length);
-//                            alert.setPositiveButton("Close Quiz", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    finish();
-//                                }
-//                            });
-//                            alert.show();
                         }
                         mQuestion = myQuestionData[m_Index];
                         mQuestionTextView.setText(mQuestion);
@@ -566,8 +526,8 @@ public class new_TF extends Activity {
 
                         mQuestion_Number.setBackground(null);
                         mQuestion_Number.setTextColor(0xFF000000);
-                        mTrueButton.setBackgroundColor(0xFFffffff);
-                        mFalseButton.setBackgroundColor(0xFFffffff);
+                        mTrueButton.setBackgroundColor(0xFFf2f2f2);
+                        mFalseButton.setBackgroundColor(0xFFf2f2f2);
 
                         mTrueButton.setEnabled(true);
                         mFalseButton.setEnabled(true);
@@ -632,6 +592,25 @@ public class new_TF extends Activity {
                                 teTag.setMaxLines(4);
                                 teTag.setVerticalScrollBarEnabled(true);
                                 teTag.setMovementMethod(new ScrollingMovementMethod());
+                                parent_layout.setOnTouchListener(new View.OnTouchListener() {
+
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        findViewById(R.id.p_layout).getParent()
+                                                .requestDisallowInterceptTouchEvent(false);
+                                        return false;
+                                    }
+                                });
+
+                                teTag.setOnTouchListener(new View.OnTouchListener() {
+
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        // Disallow the touch request for parent scroll on touch of  child view
+                                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                                        return false;
+                                    }
+                                });
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);
@@ -694,6 +673,25 @@ public class new_TF extends Activity {
                                 teTag.setMaxLines(4);
                                 teTag.setVerticalScrollBarEnabled(true);
                                 teTag.setMovementMethod(new ScrollingMovementMethod());
+                                parent_layout.setOnTouchListener(new View.OnTouchListener() {
+
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        findViewById(R.id.p_layout).getParent()
+                                                .requestDisallowInterceptTouchEvent(false);
+                                        return false;
+                                    }
+                                });
+
+                                teTag.setOnTouchListener(new View.OnTouchListener() {
+
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        // Disallow the touch request for parent scroll on touch of  child view
+                                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                                        return false;
+                                    }
+                                });
                                 Typeface face = Typeface.createFromAsset(getAssets(),
                                         "fonts/tondo_regular.ttf");
                                 teTag.setTypeface(face);

@@ -25,6 +25,8 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 import in.catking.catking.pdf_sheet_name;
+import in.catking.catking.quiz.QuizList;
+import in.catking.catking.quiz.TF_QuizList;
 
 public class MainActivity extends AppCompatActivity
 
@@ -52,28 +54,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-       // pdf_sheet_name cls = new pdf_sheet_name();
-        //cls.pdf_sheet_name();
-//
-//
-//        Science_1 = cls.getScience();
-//        Geography_1 = pdf_sheet_name.getGeography();
-//        Books_and_Authors_1 = pdf_sheet_name.getBooks_and_Authors();
-//        Olympics_1 = pdf_sheet_name.getOlympics();
-//        Sports_and_Achievements_1 = pdf_sheet_name.getSports_and_Achievements();
-//        Art_and_Culture_1 = pdf_sheet_name.getArt_and_Culture();
-//        History_1 = pdf_sheet_name.getHistory();
-//        Politics_1 = pdf_sheet_name.getPolitics();
-//        Constitution_of_India_1 = pdf_sheet_name.getConstitution_of_India();
-//        Miscellaneous_1 = pdf_sheet_name.getMiscellaneous();
-//        Funfacts_1 = pdf_sheet_name.getFunfacts();
-//        DynamicGK_1 = pdf_sheet_name.getDynamicGK();
-//        Economics_1 = pdf_sheet_name.getEconomics();
-//
-//        Log.d("CAT_PDF","This is for gk: "+DynamicGK_1);
-//        Log.d("CAT_PDF","This is for Science: "+Science_1);
-
-//        new LetsCollectJSON("https://script.google.com/macros/s/AKfycbxlRWQK1ypdlapRhFWoI1WY3B5ccQsYduZp7EVCIiBGz1vrcNI/exec?MAT477-BuRhAq-xS2vtUhjkwhP7cC3CUJ");
         String url = "https://script.google.com/macros/s/AKfycbwfvXAADSw7PCH36Rjiut9cqOOzOCjGXp2qg0S8jTMMa7eAaGU/exec?MQK1hyOY2ysqc29O-nnehdEwhP7cC3CUJ";
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestHandle requestHandle = client.get(url, new JsonHttpResponseHandler() {
@@ -154,43 +134,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-////        MenuInflater inflater = getMenuInflater();        //this inflates navigation in setting menu
-////        inflater.inflate(R.menu.activity_main_drawer, menu);
-////        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-////        switch(item.getItemId()) {
-////            case R.id.menu_quiz_tf:
-////                Intent intent = new Intent(this, quiz_true_false.class);
-////                this.startActivity(intent);
-////                break;
-//////            case R.id.menu_quiz_mcq:
-//////                // another startActivity, this is for item with id "menu_item2"
-//////                break;
-////            default:
-////                return super.onOptionsItemSelected(item);
-////        }
-////
-////        return true;
-//         //Handle action bar item clicks here. The action bar will
-//         //automatically handle clicks on the Home/Up button, so long
-//       //  as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -287,11 +230,11 @@ public class MainActivity extends AppCompatActivity
             //history
         }else if (id == R.id.menu_quiz_tf) {
 
-            Intent intent = new Intent(this, test4.class);
+            Intent intent = new Intent(this, TF_QuizList.class);
             this.startActivity(intent);
             //true false quiz
         }else if (id == R.id.menu_quiz_mcq) {
-            Intent intent = new Intent(this, test3.class);
+            Intent intent = new Intent(this, QuizList.class);
             this.startActivity(intent);
             //multiple choice question quiz
         } else if (id == R.id.menu_sport_achievement) {
@@ -323,121 +266,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        if (id == R.id.menu_books_author) {
-//            Intent intent = new Intent(this, view_BooksAndAuthor.class);
-//            intent.putExtra("booksandauthor","BooksAndAuthor");
-//            intent.putExtra("BooksAndAuthor",Books_and_Authors_1);
-//            this.startActivity(intent);
-//            // books and author
-//        } else if (id == R.id.menu_art_culture) {
-//            Intent intent = new Intent(this, view_ArtAndCulture.class);
-//            intent.putExtra("artandculture","ArtAndCulture");
-//            intent.putExtra("ArtAndCulture",Art_and_Culture_1);
-//            this.startActivity(intent);
-//            // art and culture
-//        } else if (id == R.id.menu_constitution_of_india) {
-//            Intent intent = new Intent(this, view_ConstitutionOfIndia.class);
-//            intent.putExtra("constitutionofindia","ConstitutionOfIndia");
-//            intent.putExtra("ConstitutionOfIndia",Constitution_of_India_1);
-//            this.startActivity(intent);
-//            // constitution of india
-//        } else if (id == R.id.menu_dynamic_gk) {
-//            Intent intent = new Intent(this, view_DynamicGK.class);
-//            intent.putExtra("dynamicgk","DynamicGk");
-//            intent.putExtra("DynamicGK",DynamicGK_1);
-//            this.startActivity(intent);
-//            //dynamic gk
-//        } else if (id == R.id.menu_olympics) {
-//            Intent intent = new Intent(this, view_Olympics.class);
-//            intent.putExtra("olympics","Olympics");
-//            intent.putExtra("Olympics",Olympics_1);
-//            this.startActivity(intent);
-//            //olympics
-//        }else if (id == R.id.menu_economics) {
-//            Intent intent = new Intent(this, view_Economics.class);
-//            intent.putExtra("economics","Economics");
-//            intent.putExtra("Economics",Economics_1);
-//            this.startActivity(intent);
-//            //economics
-//        }else if (id == R.id.menu_science) {
-//            Intent intent = new Intent(this, view_Science.class);
-//            intent.putExtra("science","Science");
-//            intent.putExtra("Science",Science_1);
-//            Log.d("View_science","This is the value of science: "+Science_1);
-//            this.startActivity(intent);
-//            //science
-//        }else if (id == R.id.menu_miscellaneous) {
-//            Intent intent = new Intent(this, view_Miscellaneous.class);
-//            intent.putExtra("miscellaneous","Miscellaneous");
-//            intent.putExtra("Miscellaneous",Miscellaneous_1);
-//            this.startActivity(intent);
-//            //miscellaneous
-//        }else if (id == R.id.menu_fun_facts) {
-//            Intent intent = new Intent(this, view_FunFacts.class);
-//            intent.putExtra("funfacts","FunFacts");
-//            intent.putExtra("FunFacts",Funfacts_1);
-//            this.startActivity(intent);
-//            //fun facts
-//        }else if (id == R.id.menu_geography) {
-//            Intent intent = new Intent(this, view_Geography.class);
-//            intent.putExtra("geography","Geography");
-//            intent.putExtra("Geography",Geography_1);
-//            this.startActivity(intent);
-//            //geography
-//        }else if (id == R.id.menu_politics) {
-//            Intent intent = new Intent(this, view_Politics.class);
-//            intent.putExtra("politics","Politics");
-//            intent.putExtra("Politics",Politics_1);
-//            this.startActivity(intent);
-//            //politics
-//        }else if (id == R.id.menu_history) {
-//            Intent intent = new Intent(this, view_History.class);
-//            intent.putExtra("history","History");
-//            intent.putExtra("History",History_1);//1cdiOhKalAJgP2jVixBWJwnuGKdDH4m5v
-//            this.startActivity(intent);
-//            //history
-//        }else if (id == R.id.menu_quiz_tf) {
-//
-//            Intent intent = new Intent(this, test4.class);
-//            this.startActivity(intent);
-//            //true false quiz
-//        }else if (id == R.id.menu_quiz_mcq) {
-//            Intent intent = new Intent(this, test3.class);
-//            this.startActivity(intent);
-//            //multiple choice question quiz
-//        } else if (id == R.id.menu_sport_achievement) {
-//            Intent intent = new Intent(this, view_Sport_Achievement.class);
-//            intent.putExtra("sports", "Sports");
-//            intent.putExtra("Sports",Sports_and_Achievements_1);//1cdiOhKalAJgP2jVixBWJwnuGKdDH4m5v
-//            this.startActivity(intent);
-//            //sports and achievements 1wNJXKzxqi9k0US1L7qEeZk7DtENitswy
-//        } else if (id == R.id.nav_share) {
-//            Intent SLink = new Intent(Intent.ACTION_SEND);
-//            SLink.setType("text/plain");
-//            SLink.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL"); // Email 's Subject
-//            SLink.putExtra(Intent.EXTRA_TEXT, "https://www.catking.in/appDownload");  //Email 's Greeting text
-//            startActivity(Intent.createChooser(SLink, "CATKing App link"));
-//
-//        } else if (id == R.id.nav_send) {
-//            Intent Email = new Intent(Intent.ACTION_SEND);
-//            Email.setType("text/email");
-//            Email.putExtra(Intent.EXTRA_EMAIL,
-//                    new String[]{"vronpc@gmail.com"});  //developer 's email
-//            Email.putExtra(Intent.EXTRA_SUBJECT,
-//                    "My Suggestions to Admin"); // Email 's Subject
-//            Email.putExtra(Intent.EXTRA_TEXT, "Dear CATKing," + "");  //Email 's Greeting text
-//            startActivity(Intent.createChooser(Email, "Send Feedback:"));
-//
-//        }
-//
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
-    //TODO:let collect json data for questions
 
 }

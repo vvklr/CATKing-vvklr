@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,8 @@ import com.loopj.android.http.RequestHandle;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import in.catking.catking.quiz.QuizList;
+import in.catking.catking.quiz.TF_QuizList;
 
 public class view_History extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +44,8 @@ public class view_History extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_doc_activity);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         String url = "https://script.google.com/macros/s/AKfycbwfvXAADSw7PCH36Rjiut9cqOOzOCjGXp2qg0S8jTMMa7eAaGU/exec?MQK1hyOY2ysqc29O-nnehdEwhP7cC3CUJ";
         AsyncHttpClient client = new AsyncHttpClient();
@@ -79,6 +85,13 @@ public class view_History extends AppCompatActivity
         //String a ="http://docs.google.com/gview?embedded=true&url=";
         //String b = "https://docs.google.com/presentation/d/1wjMlJQPFd_J8w9X-DUqQfJw23sQbkyb7yddxdZJoa6c/edit?usp=sharing";
         webview.loadUrl(plink+value);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -250,11 +263,11 @@ public class view_History extends AppCompatActivity
             //history
         }else if (id == R.id.menu_quiz_tf) {
 
-            Intent intent = new Intent(this, test4.class);
+            Intent intent = new Intent(this, TF_QuizList.class);
             this.startActivity(intent);
             //true false quiz
         }else if (id == R.id.menu_quiz_mcq) {
-            Intent intent = new Intent(this, test3.class);
+            Intent intent = new Intent(this, QuizList.class);
             this.startActivity(intent);
             //multiple choice question quiz
         } else if (id == R.id.menu_sport_achievement) {
