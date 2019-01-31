@@ -1,0 +1,77 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/rq_layout">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="We found your quiz progress"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:fontFamily="@font/tondo_bold"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingLeft="16dp"
+            android:paddingRight="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="Do you want to continue or start fresh?"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:fontFamily="@font/tondo_bold"
+            android:background="?android:attr/selectableItemBackground"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <Button
+            android:id="@+id/button_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:gravity="left|center_vertical"
+            android:background="#f2f2f2"
+            android:fontFamily="@font/tondo_regular"
+            android:textSize="16dp"
+            android:text="Yes Continue"
+            android:textAllCaps="false"
+            android:textColor="#121111" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <Button
+            android:id="@+id/button_sf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:fontFamily="@font/tondo_regular"
+            android:background="#f2f2f2"
+            android:paddingLeft="16dp"
+            android:textSize="16dp"
+            android:text="Start Fresh"
+
+            android:textAllCaps="false"
+            android:textColor="#121111"/>
+
+    </LinearLayout>
+</LinearLayout>
