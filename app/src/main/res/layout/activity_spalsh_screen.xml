@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:background="@drawable/login_back"
-        android:src="@drawable/login_pagelogo"
+        android:src="@drawable/login_p_logo"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         tools:ignore="SpUsage"/>

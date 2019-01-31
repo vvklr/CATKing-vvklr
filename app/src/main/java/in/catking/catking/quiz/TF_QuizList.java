@@ -183,6 +183,7 @@ public class TF_QuizList extends AppCompatActivity implements NavigationView.OnN
                                             int position, long id) {
                         Intent i = new Intent(getApplicationContext(), new_TF.class);
                         i.putExtra("url", dataList.get(+position).get(KEY_QUIZAPI));
+                        i.putExtra("UID",dataList.get(+position).get(KEY_NO));
                         startActivity(i);
                     }
                 });

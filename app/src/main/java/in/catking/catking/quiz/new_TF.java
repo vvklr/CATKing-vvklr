@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SearchRecentSuggestionsProvider;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -84,6 +85,7 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
     int m_Index; //will increase after answer selection
     String mQuestion;
     String URL = "";
+    String uniqueID;
     int m_Score;  //will increase with correct answer
     int m_Qn;
     int m_Qr;
@@ -96,24 +98,14 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
         setContentView(R.layout.activity_load_quiz_card);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        URL = intent.getStringExtra("url");
+        uniqueID = intent.getStringExtra("UID");
 
-        if (savedInstanceState != null) {
-            m_Score = savedInstanceState.getInt("ScoreKey");
-            m_Index = savedInstanceState.getInt("IndexKey");
-            m_Qn = savedInstanceState.getInt("Question_Number");
-
-        } else {
-            m_Score = 0;
-            m_Index = 0;
-            m_Qn = 1;
-            m_Count =0;
-        }
 
         GifImageView gifImageView = (GifImageView) findViewById(R.id.Gif_View);
         gifImageView.setGifImageResource(R.drawable.smartphone_drib);
 
-        Intent intent = getIntent();
-        URL = intent.getStringExtra("url");
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestHandle requestHandle = client.get(URL, new JsonHttpResponseHandler() {
             @Override
@@ -122,6 +114,16 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                 final String[] myQuestionData = tf_QuestionData.fromJsonQ(response);
                 final String[] myA_Data = tf_QuestionData.fromJsonA(response);
                 final String[] myDesData = tf_QuestionData.fromJsonDes(response);
+
+
+                SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                m_Index  = sp.getInt(uniqueID+"_MINDEX", 0);
+                m_Score = sp.getInt(uniqueID+"_MSCORE",0);
+                m_Qn = sp.getInt(uniqueID+"_MQN",1);
+                m_Qr = sp.getInt(uniqueID+"_MQR",0);
+                m_Count = sp.getInt(uniqueID+"_MCOUNT",0);
+
+                Log.d("TFC_resq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
 
                 final int PROGRESS_BAR_INCREMENT = (int) Math.ceil(100.0 / myQuestionData.length);
                 LinearLayout dd = findViewById(R.id.loaded_quiz);
@@ -142,13 +144,18 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                 mProgressBar = (ProgressBar) findViewById(R.id.progress_bar_tf_card);
                 mProgressBar.setProgressTintList(ColorStateList.valueOf(0xAA92D050));
                 mProgressBar.setProgressBackgroundTintList(ColorStateList.valueOf(0xFFE9E6E6));//(getResources().getDrawable(R.drawable.text_container))//.setColorFilter(0xAA92D050, PorterDuff.Mode.SRC_IN);
+                mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT*(m_Index)); //progress bar will fill 8 out of 100
 
                 mQuestion = myQuestionData[m_Index];
                 mQuestionTextView.setText(mQuestion);
+                Log.d("TFC_qn", String.valueOf(m_Qn));
                 mQuestion_Number.setText("Question No: "+m_Qn);
 
-                m_Qr = (myQuestionData.length)-m_Index;
-                mScoreTextView.setText(myQuestionData.length+" question to go.");
+                if(m_Qr ==0 ){
+                    m_Qr = (myQuestionData.length)-m_Index;
+                    Log.d("TFC_qr", String.valueOf(m_Qr));
+                }
+                mScoreTextView.setText(m_Qr+" question to go.");
                 //mScoreTextView.setText("Score" + m_Score + "/" + myQuestionData.length);
 
 
@@ -161,12 +168,21 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                         setAnswer(a);
 
                         checkAnswer("t");
+                        //resQ(m_Index,m_Score,m_Qr,m_Qn,m_Count,getApplicationContext());
+                        Log.d("TFC_cleared","cleared shared prefs to mIndex:"+m_Index+" mScore:"+m_Score+" mQn:"+m_Qn+" mQr:"+m_Qr+" mCount:"+m_Count);
 
                     }
 
                     private void updateQuestion() {
                         m_Index = (m_Index + 1) % myQuestionData.length;
                         m_Qn = m_Qn+1;
+                        final SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                        editor.commit();
+                        Log.d("TFC_funUQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
+
                         if (m_Index == 0) {
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout empty_layout =(LinearLayout) inflater.inflate(R.layout.add_empty_textview, null);
@@ -236,6 +252,9 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                             btnfinish.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    SharedPreferences.Editor editor = sp.edit();
+                                    editor.clear();
+                                    editor.commit();
                                     finish();
                                 }
                             });
@@ -283,13 +302,29 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
 //                        final LinearLayout child5 = (LinearLayout) mm.findViewById(R.id.bottTF_bar);
 //                        mm.removeView(child5);
                     }
+                    public void resQ(int mIndex, int mScore,int mQn,int mQr, int mCount,Context context) {
+                        SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putInt(uniqueID+"_MINDEX", mIndex);
+                        editor.putInt(uniqueID+"_MSCORE", mScore);
+                        editor.putInt(uniqueID+"_MQN", mQn);
+                        editor.putInt(uniqueID+"_MQR", mQr);
+                        editor.putInt(uniqueID+"_MCOUNT",mCount);
+                        editor.commit();
+                    }
 
                     private void checkAnswer(String userSelection) {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
                             m_Count = (m_Count+1);
-                            m_Qr = (myQuestionData.length)-m_Count;
+                            Log.d("TFC_mcount", String.valueOf(m_Count));
+                            m_Qr = myQuestionData.length-m_Count;
+                            Log.d("TFC_mqr", String.valueOf(m_Qr));
+                            SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putInt(uniqueID+"_MQR", m_Qr);
+                            editor.putInt(uniqueID+"_MCOUNT",m_Count);
                             if(m_Qr==0){
                                 mScoreTextView.setText("Hurray 100% progress. You are done!");
                             }else if(m_Qr<0){
@@ -303,6 +338,9 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                             mQuestion_Number.setTextColor(0xAA385723);
                             mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
                             m_Score = m_Score+1;
+
+                            editor.putInt(uniqueID+"_MSCORE", m_Score);
+                            editor.commit();
 
                             inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
@@ -364,8 +402,26 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
 
                             if(m_Qr==0){
                                 btnTag.setText("Finish Quiz >");
+                                editor.clear();
+                                editor.commit();
+                                SharedPreferences dd = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                                int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
+                                int m_S = dd.getInt(uniqueID+"_MSCORE",0);
+                                int m_Q = dd.getInt(uniqueID+"_MQN",1);
+                                int m_QRRR = dd.getInt(uniqueID+"_MQR",0);
+                                int m_C = dd.getInt(uniqueID+"_MCOUNT",0);
+                                Log.d("TFC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                             }else if(m_Qr<0){
                                 btnTag.setText("Finish Quiz >");
+                                editor.clear();
+                                editor.commit();
+                                SharedPreferences dd = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                                int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
+                                int m_S = dd.getInt(uniqueID+"_MSCORE",0);
+                                int m_Q = dd.getInt(uniqueID+"_MQN",1);
+                                int m_QRRR = dd.getInt(uniqueID+"_MQR",0);
+                                int m_C = dd.getInt(uniqueID+"_MCOUNT",0);
+                                Log.d("TFC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                             }else{
                                 btnTag.setText("Next Question >");
                             }
@@ -377,11 +433,21 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                                 @Override
                                 public void onClick(View v) {
                                     updateQuestion();
+                                    Log.d("TFC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                 }
                             });
                         }else{
                             m_Count = (m_Count+1);
-                            m_Qr = (myQuestionData.length)-m_Count;
+                            Log.d("TFC_mcount", String.valueOf(m_Count));
+                            m_Qr = myQuestionData.length-m_Count;
+                            Log.d("TFC_mqr", String.valueOf(m_Qr));
+                            SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putInt(uniqueID+"_MQR", m_Qr);
+                            editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                            editor.commit();
+//                            m_Count = (m_Count+1);
+//                            m_Qr = m_Qr-m_Count;
                             if(m_Qr==0){
                                 mScoreTextView.setText("Hurray 100% progress. You are done!");
                             }else if(m_Qr<0){
@@ -455,8 +521,26 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
 
                             if(m_Qr==0){
                                 btnTag.setText("Finish Quiz >");
+                                editor.clear();
+                                editor.commit();
+                                SharedPreferences dd = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                                int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
+                                int m_S = dd.getInt(uniqueID+"_MSCORE",0);
+                                int m_Q = dd.getInt(uniqueID+"_MQN",1);
+                                int m_QRRR = dd.getInt(uniqueID+"_MQR",0);
+                                int m_C = dd.getInt(uniqueID+"_MCOUNT",0);
+                                Log.d("TFC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                             }else if(m_Qr<0){
                                 btnTag.setText("Finish Quiz >");
+                                editor.clear();
+                                editor.commit();
+                                SharedPreferences dd = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                                int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
+                                int m_S = dd.getInt(uniqueID+"_MSCORE",0);
+                                int m_Q = dd.getInt(uniqueID+"_MQN",1);
+                                int m_QRRR = dd.getInt(uniqueID+"_MQR",0);
+                                int m_C = dd.getInt(uniqueID+"_MCOUNT",0);
+                                Log.d("TFC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                             }else{
                                 btnTag.setText("Next Question >");
                             }
@@ -469,6 +553,7 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                                 public void onClick(View v) {
                                     btnTag.setEnabled(false);
                                     updateQuestion();
+                                    Log.d("TFC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                 }
                             });
                         }
@@ -615,12 +700,22 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                         mm.removeView(child4);
                     }
 
+                    public void resQ(int mIndex, int mScore,int mQr,int mQn, Context context) {
+                        SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putInt(uniqueID+"_MINDEX", mIndex);
+                        editor.putInt(uniqueID+"_MSCORE", mScore);
+                        editor.putInt(uniqueID+"_MQR", mQr);
+                        editor.putInt(uniqueID+"_MQN", mQn);
+                        editor.commit();
+                    }
+
                     private void checkAnswer(String userSelection) {
                         String correctAnswer = myA_Data[m_Index];
                         boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                         if(Aa== true){
                             m_Count = (m_Count+1);
-                            m_Qr = (myQuestionData.length)-m_Count;
+                            m_Qr = m_Qr-m_Count;
                             if(m_Qr==0){
                                 mScoreTextView.setText("Hurray 100% progress. You are done!");
                             }else if(m_Qr<0){
@@ -708,11 +803,13 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                                 @Override
                                 public void onClick(View v) {
                                     updateQuestion();
+                                    resQ(m_Index,m_Score,m_Qr,m_Qn,getApplicationContext());
+
                                 }
                             });
                         }else{
                             m_Count = (m_Count+1);
-                            m_Qr = (myQuestionData.length)-m_Count;
+                            m_Qr = m_Qr-m_Count;
                             if(m_Qr==0){
                                 mScoreTextView.setText("Hurray 100% progress. You are done!");
                             }else if(m_Qr<0){
@@ -799,6 +896,7 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                                 public void onClick(View v) {
                                     btnTag.setEnabled(false);
                                     updateQuestion();
+                                    resQ(m_Index,m_Score,m_Qr,m_Qn,getApplicationContext());
                                 }
                             });
                         }
@@ -1016,14 +1114,4 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
         outState.putInt("Question_Number",m_Qn);
     }
 
-    public static void setM_Index(String key, String value, Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }
-    public static String getM_Index(String key, Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(key, null);
-    }
 }

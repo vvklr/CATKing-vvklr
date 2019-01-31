@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:background="@drawable/login_back"
-        android:src="@drawable/login_pagelogo"
+        android:src="@drawable/login_p_logo"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         tools:ignore="SpUsage"/>
@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_weight="0"
+            android:backgroundTint="#201B53"
             android:hint="Enter Your Name"
             android:fontFamily="@font/tondo_regular"
             android:textColorHint="#dedede"
@@ -65,6 +66,7 @@
             android:fontFamily="@font/tondo_regular"
             android:inputType="phone"
             android:maxLength="10"
+            android:backgroundTint="#201B53"
             android:textColorHint="#dedede"
             android:textCursorDrawable="@null"
             android:textColor="#201B53"/>
@@ -88,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_weight="0"
+            android:backgroundTint="#201B53"
             android:hint="Enter Your Email"
             android:fontFamily="@font/tondo_regular"
             android:textColorHint="#dedede"

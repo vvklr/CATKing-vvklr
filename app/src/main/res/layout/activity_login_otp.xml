@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:background="@drawable/login_back"
-        android:src="@drawable/login_pagelogo"
+        android:src="@drawable/login_p_logo"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         tools:ignore="SpUsage"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,6 +54,7 @@
             android:layout_marginLeft="16dp"
             android:layout_weight="0"
             android:hint="Enter OTP"
+            android:backgroundTint="#201B53"
             android:fontFamily="@font/tondo_regular"
             android:inputType="number"
             android:maxLength="6"
