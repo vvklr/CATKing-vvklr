@@ -187,6 +187,7 @@ public class QuizList extends AppCompatActivity implements NavigationView.OnNavi
                                             int position, long id) {
                         Intent i = new Intent(getApplicationContext(), newMCQ.class);
                         i.putExtra("url", dataList.get(+position).get(KEY_QUIZAPI));
+                        i.putExtra("UID",dataList.get(+position).get(KEY_NO));
                         startActivity(i);
 
                     }

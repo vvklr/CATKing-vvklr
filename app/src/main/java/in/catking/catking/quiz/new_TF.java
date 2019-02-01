@@ -313,6 +313,7 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                                 Log.d("TFC_mcount", String.valueOf(m_Count));
                                 m_Qr = myQuestionData.length-m_Count;
                                 Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -435,7 +436,6 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
 //                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
 //                                        editor.putInt(uniqueID+"_MQN", m_Qn);
 //                                        editor.commit();
-
                                         updateQuestion();
                                         Log.d("TFC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
@@ -1029,6 +1029,7 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                             m_Count = sp.getInt(uniqueID+"_MCOUNT",0);
                             LinearLayout dd = findViewById(R.id.loaded_quiz);
                             dd.removeAllViews();
+
                             LinearLayout activity_stQ = (LinearLayout) inflater.inflate(R.layout.activity_tf_quizcard_layout, null);
                             dd.addView(activity_stQ,de);
                             mTrueButton = (Button) findViewById(R.id.button_option_true);
@@ -1917,6 +1918,7 @@ public class new_TF extends AppCompatActivity implements NavigationView.OnNaviga
                             m_Count = 0;
                             LinearLayout dd = findViewById(R.id.loaded_quiz);
                             dd.removeAllViews();
+
                             LinearLayout activity_stQ = (LinearLayout) inflater.inflate(R.layout.activity_tf_quizcard_layout, null);
                             dd.addView(activity_stQ,de);
                             mTrueButton = (Button) findViewById(R.id.button_option_true);
