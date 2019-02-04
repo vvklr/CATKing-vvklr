@@ -1,78 +1,67 @@
 package in.catking.catking;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.ProgressBar;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestHandle;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
+import in.catking.catking.quiz.MICAT_mcqList;
+import in.catking.catking.quiz.MICAT_tfList;
 import in.catking.catking.quiz.QuizList;
 import in.catking.catking.quiz.TF_QuizList;
 
-/**
- * vvklr
- */
-
-public class DetailsActivity extends AppCompatActivity {
+public class miCat_sa extends AppCompatActivity {
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
     List<MenuModel> headerList = new ArrayList<>();
     HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
-    WebView webView;
-    ProgressBar loader;
-    String URL = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_mi_cat_sa);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Button TFQuiz = (Button) findViewById(R.id.buttonTFQuiz);
+        Button MCQuiz = (Button) findViewById(R.id.buttonMultiQuiz);
+        Button AboutMICAT = (Button) findViewById(R.id.button_about_A_gk);
+
+
+        TFQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTF();
+            }
+        });
+
+        MCQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startMCQ();
+            }
+        });
+
+        AboutMICAT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startfAboutMicat();
+            }
+        });
+
         expandableListView = findViewById(R.id.expandableListView);
         prepareMenuData();
         populateExpandableList();
-
-
-
-        Intent intent = getIntent();
-        URL = intent.getStringExtra("url");
-        loader = (ProgressBar) findViewById(R.id.loader);
-        webView = (WebView) findViewById(R.id.webView);
-        webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setDisplayZoomControls(false);
-        webView.loadUrl(URL);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient() {
-            public void onProgressChanged(WebView view, int progress) {
-                if (progress == 100) {
-                    loader.setVisibility(View.GONE);
-                } else {
-                    loader.setVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -80,7 +69,22 @@ public class DetailsActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
     }
+    public void startTF(){
+        Intent intentC = new Intent(getApplicationContext(), MICAT_tfList.class);
+        startActivity(intentC);
+    }
+    public void startMCQ(){
+        Intent intentD = new Intent(getApplicationContext(), MICAT_mcqList.class);
+        startActivity(intentD);
+    }
+    public void startfAboutMicat(){
+        Intent intentE = new Intent(getApplicationContext(),DetailsActivity.class);
+        intentE.putExtra("url","https://catking.in/micat-exam/");
+        startActivity(intentE);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -91,7 +95,6 @@ public class DetailsActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 
     private void prepareMenuData() {
 
@@ -215,7 +218,11 @@ public class DetailsActivity extends AppCompatActivity {
                     if (!headerList.get(groupPosition).hasChildren) {
                         Intent intentC = new Intent(getApplicationContext(),headerList.get(groupPosition).activity.getClass());
                         startActivity(intentC);
+                        //webView.loadUrl(model.url);
                         onBackPressed();
+//                        WebView webView = findViewById(R.id.webView);
+//                        webView.loadUrl(headerList.get(groupPosition).url);
+//                        onBackPressed();
                     }
                 }
 
@@ -239,5 +246,4 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
     }
-
 }

@@ -1,6 +1,7 @@
 package in.catking.catking;
 //Vishal Raut
 //Email me on vr.iitb@gmail.com if you come across any problem
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -42,20 +43,19 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
-
-    private String Science_1;
-    private String Geography_1;
-    private String Books_and_Authors_1;
-    private String Olympics_1;
-    private String Sports_and_Achievements_1;
-    private String Art_and_Culture_1;
-    private String History_1;
-    private String Politics_1;
-    private String Constitution_of_India_1;
-    private String Miscellaneous_1;
-    private String Funfacts_1;
-    private String DynamicGK_1;
-    private String Economics_1;
+//    private String Science_1;
+//    private String Geography_1;
+//    private String Books_and_Authors_1;
+//    private String Olympics_1;
+//    private String Sports_and_Achievements_1;
+//    private String Art_and_Culture_1;
+//    private String History_1;
+//    private String Politics_1;
+//    private String Constitution_of_India_1;
+//    private String Miscellaneous_1;
+//    private String Funfacts_1;
+//    private String DynamicGK_1;
+//    private String Economics_1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,34 +68,34 @@ public class MainActivity extends AppCompatActivity {
         prepareMenuData();
         populateExpandableList();
 
-        String url = "https://script.google.com/macros/s/AKfycbwfvXAADSw7PCH36Rjiut9cqOOzOCjGXp2qg0S8jTMMa7eAaGU/exec?MQK1hyOY2ysqc29O-nnehdEwhP7cC3CUJ";
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestHandle requestHandle = client.get(url, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("CATKing", "Successful JSON data collection " + response.toString());
-                final String[] mySheetID_Data = pdf_SheetData.fromJson_pdfID(response);
-                Science_1 = mySheetID_Data[0];
-                Geography_1 = mySheetID_Data[1];
-                Books_and_Authors_1 = mySheetID_Data[2];
-                Olympics_1 = mySheetID_Data[3];
-                Sports_and_Achievements_1 = mySheetID_Data[4];
-                Art_and_Culture_1 = mySheetID_Data[5];
-                History_1 = mySheetID_Data[6];
-                Politics_1 = mySheetID_Data[7];
-                Constitution_of_India_1 = mySheetID_Data[8];
-                Miscellaneous_1 = mySheetID_Data[9];
-                Funfacts_1 = mySheetID_Data[10];
-                DynamicGK_1 = mySheetID_Data[11];
-                Economics_1 = mySheetID_Data[12];
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject responce) {
-                Log.e("CATKing", "Fail JSON" + e.toString());
-                Log.d("CATKING", " Fail Status Code" + statusCode);
-            }
-
-        });
+//        String url = "https://script.google.com/macros/s/AKfycbwfvXAADSw7PCH36Rjiut9cqOOzOCjGXp2qg0S8jTMMa7eAaGU/exec?MQK1hyOY2ysqc29O-nnehdEwhP7cC3CUJ";
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        final RequestHandle requestHandle = client.get(url, new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                Log.d("CATKing", "Successful JSON data collection " + response.toString());
+//                final String[] mySheetID_Data = pdf_SheetData.fromJson_pdfID(response);
+//                Science_1 = mySheetID_Data[0];
+//                Geography_1 = mySheetID_Data[1];
+//                Books_and_Authors_1 = mySheetID_Data[2];
+//                Olympics_1 = mySheetID_Data[3];
+//                Sports_and_Achievements_1 = mySheetID_Data[4];
+//                Art_and_Culture_1 = mySheetID_Data[5];
+//                History_1 = mySheetID_Data[6];
+//                Politics_1 = mySheetID_Data[7];
+//                Constitution_of_India_1 = mySheetID_Data[8];
+//                Miscellaneous_1 = mySheetID_Data[9];
+//                Funfacts_1 = mySheetID_Data[10];
+//                DynamicGK_1 = mySheetID_Data[11];
+//                Economics_1 = mySheetID_Data[12];
+//            }
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject responce) {
+//                Log.e("CATKing", "Fail JSON" + e.toString());
+//                Log.d("CATKING", " Fail Status Code" + statusCode);
+//            }
+//
+//        });
 
 
 
@@ -114,14 +114,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(Email, "Send Feedback:"));
             }
         });
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -283,101 +275,106 @@ public class MainActivity extends AppCompatActivity {
 
     private void prepareMenuData() {
 
-        MenuModel menuModel = new MenuModel("MBA GK", true, true, "");
+        MenuModel menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
         List<MenuModel> childModelsList = new ArrayList<>();
-        MenuModel childModel = new MenuModel("MICAT", false, false, "https://www.journaldev.com/7153/core-java-tutorial");
+        MenuModel childModel = new MenuModel("SNAP", false, false, new activity_coming_soon());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("SNAP", false, false, "https://www.journaldev.com/19187/java-fileinputstream");
+        childModel = new MenuModel("XAT", false, false,new activity_coming_soon());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("XAT", false, false, "https://www.journaldev.com/19115/java-filereader");
+        childModel = new MenuModel("IIFT", false, false, new activity_coming_soon());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("IIFT", false, false, "https://www.journaldev.com/19115/java-filereader");
+        childModel = new MenuModel("CMAT", false, false, new activity_coming_soon());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("CMAT", false, false, "https://www.journaldev.com/19115/java-filereader");
+        childModel = new MenuModel("MAT", false, false, new activity_coming_soon());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("MAT", false, false, "https://www.journaldev.com/19115/java-filereader");
-        childModelsList.add(childModel);
-
-
-        if (menuModel.hasChildren) {
-            Log.d("API123","here");
-            childList.put(menuModel, childModelsList);
-        }
-
-        childModelsList = new ArrayList<>();
-        menuModel = new MenuModel("RRB GK", true, true, "");
-        headerList.add(menuModel);
-        childModel = new MenuModel("RRB Officer Scale", false, false, "https://www.journaldev.com/19243/python-ast-abstract-syntax-tree");
-        childModelsList.add(childModel);
-
-        childModel = new MenuModel("RRB Office Assistant", false, false, "https://www.journaldev.com/19226/python-fractions");
-        childModelsList.add(childModel);
 
         if (menuModel.hasChildren) {
             childList.put(menuModel, childModelsList);
         }
 
-        childModelsList = new ArrayList<>();
-        menuModel = new MenuModel("IBPS GK", true, true, "");
-        headerList.add(menuModel);
-        childModel = new MenuModel("IBPS PO", false, false, "https://www.journaldev.com/19243/python-ast-abstract-syntax-tree");
-        childModelsList.add(childModel);
-
-        childModel = new MenuModel("IBPS Clerk", false, false, "https://www.journaldev.com/19226/python-fractions");
-        childModelsList.add(childModel);
-
-        if (menuModel.hasChildren) {
-            childList.put(menuModel, childModelsList);
-        }
-
-        childModelsList = new ArrayList<>();
-        menuModel = new MenuModel("RBI GK", true, true, "");
-        headerList.add(menuModel);
-        childModel = new MenuModel("RBI Grade B Officer", false, false, "https://www.journaldev.com/19243/python-ast-abstract-syntax-tree");
-        childModelsList.add(childModel);
-
-        childModel = new MenuModel("RBI Office Assistant", false, false, "https://www.journaldev.com/19226/python-fractions");
-        childModelsList.add(childModel);
-
-        if (menuModel.hasChildren) {
-            childList.put(menuModel, childModelsList);
-        }
-
-        childModelsList = new ArrayList<>();
-        menuModel = new MenuModel("SBI GK", true, true, "");
-        headerList.add(menuModel);
-        childModel = new MenuModel("SBI PO", false, false, "https://www.journaldev.com/19243/python-ast-abstract-syntax-tree");
-        childModelsList.add(childModel);
-
-        childModel = new MenuModel("SBI Clerk", false, false, "https://www.journaldev.com/19226/python-fractions");
-        childModelsList.add(childModel);
-
-        if (menuModel.hasChildren) {
-            childList.put(menuModel, childModelsList);
-        }
-
-
-        menuModel = new MenuModel("Statick GK", true, false, "https://www.journaldev.com/9333/android-webview-example-tutorial"); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("MICAT", true, false, new miCat_sa());
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Current Affairs", true, false, "https://www.journaldev.com/9333/android-webview-example-tutorial"); //Menu of Android Tutorial. No sub menus
+
+
+        childModelsList = new ArrayList<>();
+        menuModel = new MenuModel("RRB GK", true, true, new activity_coming_soon());
+        headerList.add(menuModel);
+        childModel = new MenuModel("RRB Officer Scale", false, false, new activity_coming_soon());
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("RRB Office Assistant", false, false, new activity_coming_soon());
+        childModelsList.add(childModel);
+
+        if (menuModel.hasChildren) {
+            childList.put(menuModel, childModelsList);
+        }
+
+        childModelsList = new ArrayList<>();
+        menuModel = new MenuModel("IBPS GK", true, true, new activity_coming_soon());
+        headerList.add(menuModel);
+        childModel = new MenuModel("IBPS PO", false, false, new activity_coming_soon());
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("IBPS Clerk", false, false, new activity_coming_soon());
+        childModelsList.add(childModel);
+
+        if (menuModel.hasChildren) {
+            childList.put(menuModel, childModelsList);
+        }
+
+        childModelsList = new ArrayList<>();
+        menuModel = new MenuModel("RBI GK", true, true, new activity_coming_soon());
+        headerList.add(menuModel);
+        childModel = new MenuModel("RBI Grade B Officer", false, false, new activity_coming_soon());
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("RBI Office Assistant", false, false, new activity_coming_soon());
+        childModelsList.add(childModel);
+
+        if (menuModel.hasChildren) {
+            childList.put(menuModel, childModelsList);
+        }
+
+        childModelsList = new ArrayList<>();
+        menuModel = new MenuModel("SBI GK", true, true, new activity_coming_soon());
+        headerList.add(menuModel);
+        childModel = new MenuModel("SBI PO", false, false, new activity_coming_soon());
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("SBI Clerk", false, false, new activity_coming_soon());
+        childModelsList.add(childModel);
+
+        if (menuModel.hasChildren) {
+            childList.put(menuModel, childModelsList);
+        }
+
+
+        menuModel = new MenuModel("Statick GK", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Buy GK Course", true, false, "https://www.journaldev.com/9333/android-webview-example-tutorial"); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Current Affairs", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
+        headerList.add(menuModel);
+
+        if (!menuModel.hasChildren) {
+            childList.put(menuModel, null);
+        }
+
+        menuModel = new MenuModel("Buy GK Course", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
@@ -396,9 +393,13 @@ public class MainActivity extends AppCompatActivity {
 
                 if (headerList.get(groupPosition).isGroup) {
                     if (!headerList.get(groupPosition).hasChildren) {
-                        WebView webView = findViewById(R.id.webView);
-                        webView.loadUrl(headerList.get(groupPosition).url);
+                        Intent intentC = new Intent(getApplicationContext(),headerList.get(groupPosition).activity.getClass());
+                        startActivity(intentC);
+                        //webView.loadUrl(model.url);
                         onBackPressed();
+//                        WebView webView = findViewById(R.id.webView);
+//                        webView.loadUrl(headerList.get(groupPosition).url);
+//                        onBackPressed();
                     }
                 }
 
@@ -412,11 +413,10 @@ public class MainActivity extends AppCompatActivity {
 
                 if (childList.get(headerList.get(groupPosition)) != null) {
                     MenuModel model = childList.get(headerList.get(groupPosition)).get(childPosition);
-                    if (model.url.length() > 0) {
-                        WebView webView = findViewById(R.id.webView);
-                        webView.loadUrl(model.url);
+                    Intent intentC = new Intent(getApplicationContext(),model.activity.getClass());
+                    startActivity(intentC);
+                        //webView.loadUrl(model.url);
                         onBackPressed();
-                    }
                 }
 
                 return false;

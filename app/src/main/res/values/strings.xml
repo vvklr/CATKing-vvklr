@@ -19,8 +19,8 @@
     <string name="Multi_quiz">MCQ Questions</string>
 
 
-    <string name ="resendOTP_text">Did not receive OTP? Click here to resend</string>
-    <string name ="reenterNo_text">Incorrect No.? Click here to update</string>
+    <string name="resendOTP_text">Did not receive OTP? Click here to resend</string>
+    <string name="reenterNo_text">Incorrect No.? Click here to update</string>
 
 
     <string name="incorrect_toast">Wrong!</string>

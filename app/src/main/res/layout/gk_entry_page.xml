@@ -1,0 +1,90 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:layout_marginTop="60dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:card_view="http://schemas.android.com/tools"
+            android:gravity="top"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonMultiQuiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:background="@drawable/login_button_new"
+                android:fontFamily="@font/tondo_bold"
+                android:text="MCQ Questions"
+                android:padding="10dp"
+                android:textAllCaps="false"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/buttonTFQuiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:padding="10dp"
+                android:layout_below="@+id/buttonMultiQuiz"
+                android:background="@drawable/login_button_new"
+                android:fontFamily="@font/tondo_bold"
+                android:text="True or False Questions"
+                android:textAllCaps="false"
+                android:textSize="18dp" />
+            <Button
+                android:id="@+id/button_about_A_gk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="130dp"
+                android:padding="10dp"
+                android:layout_below="@+id/buttonMultiQuiz"
+                android:background="@drawable/login_button_new"
+                android:fontFamily="@font/tondo_bold"
+                android:text="About MICAT"
+                android:textAllCaps="false"
+                android:textSize="18dp" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:layout_alignParentTop="true"
+                app:cardBackgroundColor="#f2f2f2"
+                app:cardElevation="0dp"
+                app:cardPreventCornerOverlap="false">
+                <TextView
+                    android:id="@+id/gk_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="MICAT GK"
+                    android:padding="20dp"
+                    android:textColor="#000000"
+                    android:textSize="18dp"
+                    android:fontFamily="@font/tondo_bold"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15sp"
+                    android:layout_marginRight="15sp"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/tondo_regular"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="250dp" />
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

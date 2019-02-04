@@ -13,6 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".miCat_sa"></activity>
+        <activity android:name=".activity_coming_soon" />
         <activity
             android:name=".Entry_To_CATKing"
             android:label="@string/app_name"
@@ -44,16 +46,18 @@
         <activity android:name=".view_FunFacts" />
         <activity android:name=".view_DynamicGK" />
         <activity android:name=".Login_Mobile" />
-        <activity android:name=".quiz.QuizList"/>
-        <activity android:name=".quiz.TF_QuizList"/>
+        <activity android:name=".quiz.QuizList" />
+        <activity android:name=".quiz.TF_QuizList" />
+        <activity android:name=".quiz.MICAT_tfList"/>
+        <activity android:name=".quiz.MICAT_mcqList"/>
         <activity android:name=".Splash_Screen_otp" />
         <activity android:name=".Login_otp" />
-        <activity android:name=".quiz.newMCQ"/>
-        <activity android:name=".quiz.new_TF"/>
-        <activity android:name=".t_and_c"/>
-        <activity android:name=".List_view_quiz_selection"/>
-        <activity android:name=".splash_loadquiz"/>
-        <activity android:name=".spalsh_screen"></activity>
+        <activity android:name=".quiz.newMCQ" />
+        <activity android:name=".quiz.new_TF" />
+        <activity android:name=".t_and_c" />
+        <activity android:name=".List_view_quiz_selection" />
+        <activity android:name=".splash_loadquiz" />
+        <activity android:name=".spalsh_screen" />
     </application>
 
 </manifest>
