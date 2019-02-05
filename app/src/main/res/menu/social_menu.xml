@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_f"
+        android:title="Science"/>
+    <item
+        android:id="@+id/menu_i"
+        android:title="Geography"/>
+    <item
+        android:id="@+id/menu_y"
+        android:title="Books and Authors" />
+    <item
+        android:id="@+id/menu_q"
+        android:title="Olympics" />
+</menu>

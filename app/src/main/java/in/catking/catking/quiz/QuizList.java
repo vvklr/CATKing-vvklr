@@ -1,7 +1,11 @@
 package in.catking.catking.quiz;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -113,6 +117,66 @@ public class QuizList extends AppCompatActivity{
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        View navFooter1 = findViewById(R.id.imageButton_f);
+        navFooter1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo("com.facebook.katana", 0);
+                    if (applicationInfo.enabled) {
+                        // http://stackoverflow.com/a/24547437/1048340
+                        Uri uri = Uri.parse("fb://facewebmodal/f?href=" + "https://www.facebook.com/rahulcatking/");
+                        Intent i = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(i);
+                    }
+                } catch (PackageManager.NameNotFoundException ignored) {
+                }
+                //newFacebookIntent(getApplicationContext().getPackageManager(),"https://www.facebook.com/rahulcatking/");
+            }
+        });
+
+        View navFooter2 = findViewById(R.id.imageButton_i);
+        navFooter2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("http://instagram.com/_u/rahul_catking");
+                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                likeIng.setPackage("com.instagram.android");
+
+                try {
+                    startActivity(likeIng);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/rahul_catking")));
+                }
+            }
+        });
+
+
+        View navFooter3 = findViewById(R.id.imageButton_y);
+        navFooter3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + "k5PwQ1n2x4U"));
+                Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.youtube.com/channel/UC4eEFUtZeW6iOqH8e9e0CyQ"));
+                try {
+                    startActivity(appIntent);
+                } catch (ActivityNotFoundException ex) {
+                    startActivity(webIntent);
+                }
+            }
+        });
+
+        View navFooter4 = findViewById(R.id.imageButton_q);
+        navFooter4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.quora.com/profile/Rahul-Singh-6180"));
+                startActivity(webIntent);
+            }
+        });
 
     }
     class DownloadNews extends AsyncTask<String, Void, String> {

@@ -4,17 +4,13 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -22,35 +18,24 @@ import android.webkit.WebViewClient;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestHandle;
-
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
-import in.catking.catking.quiz.QuizList;
-import in.catking.catking.quiz.TF_QuizList;
+public class buy_gk_course extends AppCompatActivity {
 
-/**
- * vvklr
- */
-
-public class DetailsActivity extends AppCompatActivity {
-    ExpandableListAdapter expandableListAdapter;
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_buy_gk_course);
+//    }
+ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
     List<MenuModel> headerList = new ArrayList<>();
     HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
     WebView webView;
     ProgressBar loader;
-    String URL = "";
-    String ShowOrHideWebViewInitialUse = "show";
-    private WebView webview ;
-    private ProgressBar spinner;
+    String URL = "http://www.courses.catking.in/gk";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +47,6 @@ public class DetailsActivity extends AppCompatActivity {
         populateExpandableList();
 
 
-
-        Intent intent = getIntent();
-        URL = intent.getStringExtra("url");
         loader = (ProgressBar) findViewById(R.id.loader);
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setBuiltInZoomControls(true);
@@ -87,8 +69,6 @@ public class DetailsActivity extends AppCompatActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-
         View navFooter1 = findViewById(R.id.imageButton_f);
         navFooter1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,29 +129,8 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+
     }
-//    private class CustomWebViewClient extends WebViewClient {
-//
-//        @Override
-//        public void onPageStarted(WebView webview, String url, Bitmap favicon) {
-//
-//            // only make it invisible the FIRST time the app is run
-//            if (ShowOrHideWebViewInitialUse.equals("show")) {
-//                webview.setVisibility(webview.INVISIBLE);
-//            }
-//        }
-//
-//        @Override
-//        public void onPageFinished(WebView view, String url) {
-//
-//            ShowOrHideWebViewInitialUse = "hide";
-//            spinner.setVisibility(View.GONE);
-//
-//            view.setVisibility(webview.VISIBLE);
-//            super.onPageFinished(view, url);
-//
-//        }
-//    }
 
     @Override
     public void onBackPressed() {
@@ -330,5 +289,4 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
     }
-
 }
