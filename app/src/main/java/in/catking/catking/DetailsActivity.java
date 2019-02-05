@@ -102,6 +102,7 @@ public class DetailsActivity extends AppCompatActivity {
                         startActivity(i);
                     }
                 } catch (PackageManager.NameNotFoundException ignored) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/rahulcatking/")));
                 }
                 //newFacebookIntent(getApplicationContext().getPackageManager(),"https://www.facebook.com/rahulcatking/");
             }
