@@ -341,21 +341,6 @@ public class newMCQ extends AppCompatActivity{
                             String correctAnswer = myA_Data[m_Index];
                             boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                             if(Aa== true){
-                                m_Score = m_Score+1;
-                                m_Count = (m_Count+1);
-                                m_Qr = (myQuestion_Data.length)-m_Count;
-
-                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                m_Qn = m_Qn+1;
-                                editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                editor.putInt(uniqueID+"_MQN", m_Qn);
-                                editor.putInt(uniqueID+"_MQR", m_Qr);
-                                editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                editor.commit();
-
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -432,8 +417,6 @@ public class newMCQ extends AppCompatActivity{
 
                                 if(m_Qr==0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -443,8 +426,6 @@ public class newMCQ extends AppCompatActivity{
                                     Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                 }else if(m_Qr<0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -466,11 +447,11 @@ public class newMCQ extends AppCompatActivity{
                                         Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
                                 });
-                            }else{
+
+                                m_Score = m_Score+1;
                                 m_Count = (m_Count+1);
-                                Log.d("MCQC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("MCQC_mqr", String.valueOf(m_Qr));
+                                m_Qr = (myQuestion_Data.length)-m_Count;
+
                                 SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -479,9 +460,10 @@ public class newMCQ extends AppCompatActivity{
                                 editor.putInt(uniqueID+"_MINDEX", m_Index);
                                 editor.putInt(uniqueID+"_MQN", m_Qn);
                                 editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.putInt(uniqueID+"_MSCORE", m_Score);
                                 editor.commit();
 
-
+                            }else{
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -557,8 +539,6 @@ public class newMCQ extends AppCompatActivity{
 
                                 if(m_Qr==0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -568,8 +548,6 @@ public class newMCQ extends AppCompatActivity{
                                     Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                 }else if(m_Qr<0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -592,6 +570,19 @@ public class newMCQ extends AppCompatActivity{
                                         Log.d("TFC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
                                 });
+                                m_Count = (m_Count+1);
+                                Log.d("MCQC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestion_Data.length-m_Count;
+                                Log.d("MCQC_mqr", String.valueOf(m_Qr));
+                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                m_Qn = m_Qn+1;
+                                editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                editor.putInt(uniqueID+"_MQN", m_Qn);
+                                editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.commit();
                             }
                         }
                         private void setAnswer(String cA){
@@ -754,23 +745,6 @@ public class newMCQ extends AppCompatActivity{
                             String correctAnswer = myA_Data[m_Index];
                             boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                             if(Aa== true){
-                                m_Score = m_Score+1;
-                                m_Count = (m_Count+1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
-
-                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                m_Qn = m_Qn+1;
-                                editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                editor.putInt(uniqueID+"_MQN", m_Qn);
-                                editor.putInt(uniqueID+"_MQR", m_Qr);
-                                editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                editor.commit();
-
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -850,8 +824,6 @@ public class newMCQ extends AppCompatActivity{
 
                                 if(m_Qr==0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -861,8 +833,6 @@ public class newMCQ extends AppCompatActivity{
                                     Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                 }else if(m_Qr<0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -883,11 +853,12 @@ public class newMCQ extends AppCompatActivity{
                                         updateQuestion();
                                     }
                                 });
-                            }else{
+                                m_Score = m_Score+1;
                                 m_Count = (m_Count+1);
                                 Log.d("TFC_mcount", String.valueOf(m_Count));
                                 m_Qr = myQuestion_Data.length-m_Count;
                                 Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -896,8 +867,9 @@ public class newMCQ extends AppCompatActivity{
                                 editor.putInt(uniqueID+"_MINDEX", m_Index);
                                 editor.putInt(uniqueID+"_MQN", m_Qn);
                                 editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.putInt(uniqueID+"_MSCORE", m_Score);
                                 editor.commit();
-
+                            }else{
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -978,8 +950,6 @@ public class newMCQ extends AppCompatActivity{
 
                                 if(m_Qr==0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -989,8 +959,6 @@ public class newMCQ extends AppCompatActivity{
                                     Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                 }else if(m_Qr<0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -1013,6 +981,20 @@ public class newMCQ extends AppCompatActivity{
                                         Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
                                 });
+
+                                m_Count = (m_Count+1);
+                                Log.d("TFC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestion_Data.length-m_Count;
+                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                m_Qn = m_Qn+1;
+                                editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                editor.putInt(uniqueID+"_MQN", m_Qn);
+                                editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.commit();
                             }
                         }
                         private void setAnswer(String cA){
@@ -1177,23 +1159,6 @@ public class newMCQ extends AppCompatActivity{
                             String correctAnswer = myA_Data[m_Index];
                             boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                             if(Aa== true){
-                                m_Score = m_Score+1;
-                                m_Count = (m_Count+1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
-
-                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                m_Qn = m_Qn+1;
-                                editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                editor.putInt(uniqueID+"_MQN", m_Qn);
-                                editor.putInt(uniqueID+"_MQR", m_Qr);
-                                editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                editor.commit();
-
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -1273,8 +1238,6 @@ public class newMCQ extends AppCompatActivity{
 
                                 if(m_Qr==0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -1284,8 +1247,6 @@ public class newMCQ extends AppCompatActivity{
                                     Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                 }else if(m_Qr<0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -1307,11 +1268,12 @@ public class newMCQ extends AppCompatActivity{
                                         Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
                                 });
-                            }else{
+                                m_Score = m_Score+1;
                                 m_Count = (m_Count+1);
                                 Log.d("TFC_mcount", String.valueOf(m_Count));
                                 m_Qr = myQuestion_Data.length-m_Count;
                                 Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -1320,8 +1282,9 @@ public class newMCQ extends AppCompatActivity{
                                 editor.putInt(uniqueID+"_MINDEX", m_Index);
                                 editor.putInt(uniqueID+"_MQN", m_Qn);
                                 editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.putInt(uniqueID+"_MSCORE", m_Score);
                                 editor.commit();
-
+                            }else{
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -1405,8 +1368,6 @@ public class newMCQ extends AppCompatActivity{
 
                                 if(m_Qr==0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -1416,8 +1377,6 @@ public class newMCQ extends AppCompatActivity{
                                     Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                 }else if(m_Qr<0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -1440,6 +1399,19 @@ public class newMCQ extends AppCompatActivity{
                                         Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
                                 });
+                                m_Count = (m_Count+1);
+                                Log.d("TFC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestion_Data.length-m_Count;
+                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                m_Qn = m_Qn+1;
+                                editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                editor.putInt(uniqueID+"_MQN", m_Qn);
+                                editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.commit();
                             }
                         }
                         private void setAnswer(String cA){
@@ -1602,23 +1574,6 @@ public class newMCQ extends AppCompatActivity{
                             String correctAnswer = myA_Data[m_Index];
                             boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                             if(Aa== true){
-                                m_Score = m_Score+1;
-                                m_Count = (m_Count+1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
-
-                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                m_Qn = m_Qn+1;
-                                editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                editor.putInt(uniqueID+"_MQN", m_Qn);
-                                editor.putInt(uniqueID+"_MQR", m_Qr);
-                                editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                editor.commit();
-
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -1699,8 +1654,6 @@ public class newMCQ extends AppCompatActivity{
 
                                 if(m_Qr==0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -1710,8 +1663,6 @@ public class newMCQ extends AppCompatActivity{
                                     Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                 }else if(m_Qr<0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -1733,11 +1684,12 @@ public class newMCQ extends AppCompatActivity{
                                         updateQuestion();
                                     }
                                 });
-                            }else{
+                                m_Score = m_Score+1;
                                 m_Count = (m_Count+1);
                                 Log.d("TFC_mcount", String.valueOf(m_Count));
                                 m_Qr = myQuestion_Data.length-m_Count;
                                 Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -1746,8 +1698,9 @@ public class newMCQ extends AppCompatActivity{
                                 editor.putInt(uniqueID+"_MINDEX", m_Index);
                                 editor.putInt(uniqueID+"_MQN", m_Qn);
                                 editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.putInt(uniqueID+"_MSCORE", m_Score);
                                 editor.commit();
-
+                            }else{
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -1833,8 +1786,6 @@ public class newMCQ extends AppCompatActivity{
 
                                 if(m_Qr==0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -1844,8 +1795,6 @@ public class newMCQ extends AppCompatActivity{
                                     Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                 }else if(m_Qr<0){
                                     btnTag.setText("Finish Quiz >");
-                                    editor.clear();
-                                    editor.commit();
                                     SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                     int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                     int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -1868,6 +1817,19 @@ public class newMCQ extends AppCompatActivity{
                                         Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
                                 });
+                                m_Count = (m_Count+1);
+                                Log.d("TFC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestion_Data.length-m_Count;
+                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                m_Qn = m_Qn+1;
+                                editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                editor.putInt(uniqueID+"_MQN", m_Qn);
+                                editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.commit();
                             }
                         }
                         private void setAnswer(String cA){
@@ -2087,21 +2049,6 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        m_Qr = (myQuestion_Data.length)-m_Count;
-
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                        editor.commit();
-
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -2178,8 +2125,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -2189,8 +2134,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -2212,11 +2155,11 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-                                    }else{
+
+                                        m_Score = m_Score+1;
                                         m_Count = (m_Count+1);
-                                        Log.d("MCQC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("MCQC_mqr", String.valueOf(m_Qr));
+                                        m_Qr = (myQuestion_Data.length)-m_Count;
+
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -2225,9 +2168,10 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MINDEX", m_Index);
                                         editor.putInt(uniqueID+"_MQN", m_Qn);
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
 
-
+                                    }else{
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -2303,8 +2247,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -2314,8 +2256,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -2338,6 +2278,19 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("TFC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
+                                        m_Count = (m_Count+1);
+                                        Log.d("MCQC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("MCQC_mqr", String.valueOf(m_Qr));
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -2500,23 +2453,6 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                        editor.commit();
-
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -2596,8 +2532,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -2607,8 +2541,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -2629,11 +2561,12 @@ public class newMCQ extends AppCompatActivity{
                                                 updateQuestion();
                                             }
                                         });
-                                    }else{
+                                        m_Score = m_Score+1;
                                         m_Count = (m_Count+1);
                                         Log.d("TFC_mcount", String.valueOf(m_Count));
                                         m_Qr = myQuestion_Data.length-m_Count;
                                         Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -2642,8 +2575,9 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MINDEX", m_Index);
                                         editor.putInt(uniqueID+"_MQN", m_Qn);
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
-
+                                    }else{
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -2724,8 +2658,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -2735,8 +2667,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -2759,6 +2689,20 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
+
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -2923,23 +2867,6 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                        editor.commit();
-
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -3019,8 +2946,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -3030,8 +2955,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -3053,11 +2976,12 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-                                    }else{
+                                        m_Score = m_Score+1;
                                         m_Count = (m_Count+1);
                                         Log.d("TFC_mcount", String.valueOf(m_Count));
                                         m_Qr = myQuestion_Data.length-m_Count;
                                         Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -3066,8 +2990,9 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MINDEX", m_Index);
                                         editor.putInt(uniqueID+"_MQN", m_Qn);
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
-
+                                    }else{
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -3151,8 +3076,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -3162,8 +3085,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -3186,6 +3107,19 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -3348,23 +3282,6 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                        editor.commit();
-
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -3445,8 +3362,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -3456,8 +3371,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -3479,11 +3392,12 @@ public class newMCQ extends AppCompatActivity{
                                                 updateQuestion();
                                             }
                                         });
-                                    }else{
+                                        m_Score = m_Score+1;
                                         m_Count = (m_Count+1);
                                         Log.d("TFC_mcount", String.valueOf(m_Count));
                                         m_Qr = myQuestion_Data.length-m_Count;
                                         Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -3492,8 +3406,9 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MINDEX", m_Index);
                                         editor.putInt(uniqueID+"_MQN", m_Qn);
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
-
+                                    }else{
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -3579,8 +3494,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -3590,8 +3503,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -3614,6 +3525,19 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -3830,21 +3754,6 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        m_Qr = (myQuestion_Data.length)-m_Count;
-
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                        editor.commit();
-
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -3921,8 +3830,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -3932,8 +3839,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -3955,11 +3860,11 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-                                    }else{
+
+                                        m_Score = m_Score+1;
                                         m_Count = (m_Count+1);
-                                        Log.d("MCQC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("MCQC_mqr", String.valueOf(m_Qr));
+                                        m_Qr = (myQuestion_Data.length)-m_Count;
+
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -3968,9 +3873,10 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MINDEX", m_Index);
                                         editor.putInt(uniqueID+"_MQN", m_Qn);
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
 
-
+                                    }else{
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -4046,8 +3952,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -4057,8 +3961,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -4081,6 +3983,19 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("TFC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
+                                        m_Count = (m_Count+1);
+                                        Log.d("MCQC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("MCQC_mqr", String.valueOf(m_Qr));
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -4243,23 +4158,6 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                        editor.commit();
-
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -4339,8 +4237,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -4350,8 +4246,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -4372,11 +4266,12 @@ public class newMCQ extends AppCompatActivity{
                                                 updateQuestion();
                                             }
                                         });
-                                    }else{
+                                        m_Score = m_Score+1;
                                         m_Count = (m_Count+1);
                                         Log.d("TFC_mcount", String.valueOf(m_Count));
                                         m_Qr = myQuestion_Data.length-m_Count;
                                         Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -4385,8 +4280,9 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MINDEX", m_Index);
                                         editor.putInt(uniqueID+"_MQN", m_Qn);
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
-
+                                    }else{
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -4467,8 +4363,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -4478,8 +4372,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -4502,6 +4394,20 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
+
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -4666,23 +4572,6 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                        editor.commit();
-
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -4762,8 +4651,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -4773,8 +4660,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -4796,11 +4681,12 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-                                    }else{
+                                        m_Score = m_Score+1;
                                         m_Count = (m_Count+1);
                                         Log.d("TFC_mcount", String.valueOf(m_Count));
                                         m_Qr = myQuestion_Data.length-m_Count;
                                         Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -4809,8 +4695,9 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MINDEX", m_Index);
                                         editor.putInt(uniqueID+"_MQN", m_Qn);
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
-
+                                    }else{
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -4894,8 +4781,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -4905,8 +4790,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -4929,6 +4812,19 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -5091,23 +4987,6 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
-                                        editor.commit();
-
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -5188,8 +5067,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -5199,8 +5076,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -5222,11 +5097,12 @@ public class newMCQ extends AppCompatActivity{
                                                 updateQuestion();
                                             }
                                         });
-                                    }else{
+                                        m_Score = m_Score+1;
                                         m_Count = (m_Count+1);
                                         Log.d("TFC_mcount", String.valueOf(m_Count));
                                         m_Qr = myQuestion_Data.length-m_Count;
                                         Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -5235,8 +5111,9 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MINDEX", m_Index);
                                         editor.putInt(uniqueID+"_MQN", m_Qn);
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
-
+                                    }else{
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -5322,8 +5199,6 @@ public class newMCQ extends AppCompatActivity{
 
                                         if(m_Qr==0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -5333,8 +5208,6 @@ public class newMCQ extends AppCompatActivity{
                                             Log.d("MCQC_cleared","cleared shared prefs to mIndex:"+m_I+" mScore:"+m_S+" mQn:"+m_Q+" mQr:"+m_QRRR+" mCount:"+m_C);
                                         }else if(m_Qr<0){
                                             btnTag.setText("Finish Quiz >");
-                                            editor.clear();
-                                            editor.commit();
                                             SharedPreferences dd = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                             int m_I  = dd.getInt(uniqueID+"_MINDEX", 0);
                                             int m_S = dd.getInt(uniqueID+"_MSCORE",0);
@@ -5357,6 +5230,19 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
