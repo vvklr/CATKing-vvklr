@@ -130,6 +130,16 @@ ExpandableListAdapter expandableListAdapter;
             }
         });
 
+        View nav_Head = findViewById(R.id.nav_head_image);
+        nav_Head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class );
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 

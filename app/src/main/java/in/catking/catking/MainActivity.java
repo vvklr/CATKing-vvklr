@@ -144,6 +144,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        View nav_Head = findViewById(R.id.nav_head_image);
+        nav_Head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class );
+                startActivity(intent);
+            }
+        });
+
+
         tabLayout = (TabLayout) findViewById(R.id.tab_gk);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());

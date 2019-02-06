@@ -39,6 +39,7 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 import in.catking.catking.ExpandableListAdapter;
 import in.catking.catking.Function;
+import in.catking.catking.MainActivity;
 import in.catking.catking.MenuModel;
 import in.catking.catking.R;
 import in.catking.catking.activity_coming_soon;
@@ -161,6 +162,15 @@ public class MICAT_tfList extends AppCompatActivity {
                 startActivity(webIntent);
             }
         });
+        View nav_Head = findViewById(R.id.nav_head_image);
+        nav_Head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class );
+                startActivity(intent);
+            }
+        });
+
     }
     class DownloadNews extends AsyncTask<String, Void, String> {
         @Override
