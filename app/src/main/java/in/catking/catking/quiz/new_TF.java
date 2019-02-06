@@ -178,16 +178,11 @@ public class new_TF extends AppCompatActivity {
                             setAnswer(a);
 
                             checkAnswer("t");
-                            //resQ(m_Index,m_Score,m_Qr,m_Qn,m_Count,getApplicationContext());
                             Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_Index + " mScore:" + m_Score + " mQn:" + m_Qn + " mQr:" + m_Qr + " mCount:" + m_Count);
 
                         }
 
                         private void updateQuestion() {
-//                            final SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = sp.edit();
-//                            editor.putInt(uniqueID+"_MSCORE", m_Score);
-//                            editor.commit();
                             Log.d("TFC_funUQ", "mIndex:" + m_Index + " mScore:" + m_Score + " mQr:" + m_Qr + " mQn:" + m_Qn + " mCount:" + m_Count);
 
                             if (m_Index == 0) {
@@ -314,8 +309,12 @@ public class new_TF extends AppCompatActivity {
                             String correctAnswer = myA_Data[m_Index];
                             boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                             if (Aa == true) {
-//                            m_Count = (m_Count+1);
-//                            m_Qr = m_Qr-m_Count;
+                                m_Score = m_Score + 1;
+                                m_Count = (m_Count + 1);
+                                Log.d("TFC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestionData.length - m_Count;
+                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 if (m_Qr == 0) {
                                     mScoreTextView.setText("Hurray 100% progress. You are done!");
                                 } else if (m_Qr < 0) {
@@ -324,8 +323,7 @@ public class new_TF extends AppCompatActivity {
                                     mScoreTextView.setText(m_Qr + " more question to go.");
                                 }
                                 mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
-                                mFalseButton.setBackgroundColor(0xAA81c784);
-                                //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
+                                mTrueButton.setBackgroundColor(0xAA81c784);
                                 mQuestion_Number.setText("Hurray!\n" + "You got it right");
                                 mQuestion_Number.setTextColor(0xAA385723);
                                 mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
@@ -398,7 +396,6 @@ public class new_TF extends AppCompatActivity {
                                     int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                     int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                     Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                 } else if (m_Qr < 0) {
                                     btnTag.setText("Finish Quiz >");
                                     SharedPreferences dd = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
@@ -408,10 +405,20 @@ public class new_TF extends AppCompatActivity {
                                     int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                     int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                     Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                 } else {
                                     btnTag.setText("Next Question >");
                                 }
+
+                                SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt(uniqueID + "_MCOUNT", m_Count);
+                                m_Index = (m_Index + 1) % myQuestionData.length;
+                                m_Qn = m_Qn + 1;
+                                editor.putInt(uniqueID + "_MINDEX", m_Index);
+                                editor.putInt(uniqueID + "_MQN", m_Qn);
+                                editor.putInt(uniqueID + "_MQR", m_Qr);
+                                editor.putInt(uniqueID + "_MSCORE", m_Score);
+                                editor.commit();
 
                                 btnTag.setTextColor(0xAAFFFFFF);
                                 btnTag.setBackgroundColor(0xAAA6A6A6);
@@ -420,25 +427,15 @@ public class new_TF extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         updateQuestion();
-
+                                        Log.d("TFC_updateq", "mIndex:" + m_Index + " mScore:" + m_Score + " mQr:" + m_Qr + " mQn:" + m_Qn + " mCount:" + m_Count);
                                     }
                                 });
-                                m_Score = m_Score + 1;
+                            } else {
                                 m_Count = (m_Count + 1);
                                 Log.d("TFC_mcount", String.valueOf(m_Count));
                                 m_Qr = myQuestionData.length - m_Count;
                                 Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                m_Index = (m_Index + 1) % myQuestionData.length;
-                                m_Qn = m_Qn + 1;
-                                editor.putInt(uniqueID + "_MINDEX", m_Index);
-                                editor.putInt(uniqueID + "_MQN", m_Qn);
-                                editor.putInt(uniqueID + "_MCOUNT", m_Count);
-                                editor.putInt(uniqueID + "_MQR", m_Qr);
-                                editor.putInt(uniqueID + "_MSCORE", m_Score);
-                                editor.commit();
-                            } else {
+
                                 if (m_Qr == 0) {
                                     mScoreTextView.setText("Hurray 100% progress. You are done!");
                                 } else if (m_Qr < 0) {
@@ -447,11 +444,12 @@ public class new_TF extends AppCompatActivity {
                                     mScoreTextView.setText(m_Qr + " more question to go.");
                                 }
                                 mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
-                                mFalseButton.setBackgroundColor(0xAAe57272);
+                                mTrueButton.setBackgroundColor(0xAAe57272);
                                 //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                                 mQuestion_Number.setText("Oops!\n" + "You got it wrong");
                                 mQuestion_Number.setTextColor(0xAAFFFFFF);
                                 mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
+
                                 inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                                 LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
                                 LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
@@ -518,7 +516,6 @@ public class new_TF extends AppCompatActivity {
                                     int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                     int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                     Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                 } else if (m_Qr < 0) {
                                     btnTag.setText("Finish Quiz >");
                                     SharedPreferences dd = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
@@ -528,33 +525,10 @@ public class new_TF extends AppCompatActivity {
                                     int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                     int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                     Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                 } else {
                                     btnTag.setText("Next Question >");
                                 }
 
-                                btnTag.setTextColor(0xAAFFFFFF);
-                                btnTag.setBackgroundColor(0xAAA6A6A6);
-                                activity_layout.addView(btnTag);
-                                btnTag.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        btnTag.setEnabled(false);
-//                                        m_Index = (m_Index + 1) % myQuestionData.length;
-//                                        m_Qn = m_Qn+1;
-//                                        final SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-//                                        SharedPreferences.Editor editor = sp.edit();
-//                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-//                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-//                                        editor.commit();
-                                        updateQuestion();
-                                        //resQ(m_Index,m_Score,m_Qr,m_Qn,getApplicationContext());
-                                    }
-                                });
-                                m_Count = (m_Count + 1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestionData.length - m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
                                 SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putInt(uniqueID + "_MCOUNT", m_Count);
@@ -564,6 +538,18 @@ public class new_TF extends AppCompatActivity {
                                 editor.putInt(uniqueID + "_MQN", m_Qn);
                                 editor.putInt(uniqueID + "_MQR", m_Qr);
                                 editor.commit();
+
+                                btnTag.setTextColor(0xAAFFFFFF);
+                                btnTag.setBackgroundColor(0xAAA6A6A6);
+                                activity_layout.addView(btnTag);
+                                btnTag.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        btnTag.setEnabled(false);
+                                        updateQuestion();
+                                        Log.d("TFC_updateQ", "mIndex:" + m_Index + " mScore:" + m_Score + " mQr:" + m_Qr + " mQn:" + m_Qn + " mCount:" + m_Count);
+                                    }
+                                });
                             }
                         }
 
@@ -581,7 +567,6 @@ public class new_TF extends AppCompatActivity {
                         }
                     });
                     //=======================================================================================
-
                     mFalseButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -720,6 +705,11 @@ public class new_TF extends AppCompatActivity {
                         }
 
                         private void checkAnswer(String userSelection) {
+                            m_Count = (m_Count + 1);
+                            Log.d("TFC_mcount", String.valueOf(m_Count));
+                            m_Qr = myQuestionData.length - m_Count;
+                            Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                             String correctAnswer = myA_Data[m_Index];
                             boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                             if (Aa == true) {
@@ -822,21 +812,8 @@ public class new_TF extends AppCompatActivity {
                                     btnTag.setText("Next Question >");
                                 }
 
-                                btnTag.setTextColor(0xAAFFFFFF);
-                                btnTag.setBackgroundColor(0xAAA6A6A6);
-                                activity_layout.addView(btnTag);
-                                btnTag.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        updateQuestion();
-
-                                    }
-                                });
                                 m_Score = m_Score + 1;
-                                m_Count = (m_Count + 1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestionData.length - m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 m_Index = (m_Index + 1) % myQuestionData.length;
@@ -847,7 +824,23 @@ public class new_TF extends AppCompatActivity {
                                 editor.putInt(uniqueID + "_MQR", m_Qr);
                                 editor.putInt(uniqueID + "_MSCORE", m_Score);
                                 editor.commit();
+
+                                btnTag.setTextColor(0xAAFFFFFF);
+                                btnTag.setBackgroundColor(0xAAA6A6A6);
+                                activity_layout.addView(btnTag);
+                                btnTag.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        updateQuestion();
+
+                                    }
+                                });
                             } else {
+                                m_Count = (m_Count + 1);
+                                Log.d("TFC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestionData.length - m_Count;
+                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 if (m_Qr == 0) {
                                     mScoreTextView.setText("Hurray 100% progress. You are done!");
                                 } else if (m_Qr < 0) {
@@ -942,6 +935,16 @@ public class new_TF extends AppCompatActivity {
                                     btnTag.setText("Next Question >");
                                 }
 
+                                SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt(uniqueID + "_MCOUNT", m_Count);
+                                m_Index = (m_Index + 1) % myQuestionData.length;
+                                m_Qn = m_Qn + 1;
+                                editor.putInt(uniqueID + "_MINDEX", m_Index);
+                                editor.putInt(uniqueID + "_MQN", m_Qn);
+                                editor.putInt(uniqueID + "_MQR", m_Qr);
+                                editor.commit();
+
                                 btnTag.setTextColor(0xAAFFFFFF);
                                 btnTag.setBackgroundColor(0xAAA6A6A6);
                                 activity_layout.addView(btnTag);
@@ -960,19 +963,6 @@ public class new_TF extends AppCompatActivity {
                                         //resQ(m_Index,m_Score,m_Qr,m_Qn,getApplicationContext());
                                     }
                                 });
-                                m_Count = (m_Count + 1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestionData.length - m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt(uniqueID + "_MCOUNT", m_Count);
-                                m_Index = (m_Index + 1) % myQuestionData.length;
-                                m_Qn = m_Qn + 1;
-                                editor.putInt(uniqueID + "_MINDEX", m_Index);
-                                editor.putInt(uniqueID + "_MQN", m_Qn);
-                                editor.putInt(uniqueID + "_MQR", m_Qr);
-                                editor.commit();
                             }
                         }
 
@@ -1045,16 +1035,11 @@ public class new_TF extends AppCompatActivity {
                                     setAnswer(a);
 
                                     checkAnswer("t");
-                                    //resQ(m_Index,m_Score,m_Qr,m_Qn,m_Count,getApplicationContext());
                                     Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_Index + " mScore:" + m_Score + " mQn:" + m_Qn + " mQr:" + m_Qr + " mCount:" + m_Count);
 
                                 }
 
                                 private void updateQuestion() {
-//                            final SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = sp.edit();
-//                            editor.putInt(uniqueID+"_MSCORE", m_Score);
-//                            editor.commit();
                                     Log.d("TFC_funUQ", "mIndex:" + m_Index + " mScore:" + m_Score + " mQr:" + m_Qr + " mQn:" + m_Qn + " mCount:" + m_Count);
 
                                     if (m_Index == 0) {
@@ -1181,8 +1166,12 @@ public class new_TF extends AppCompatActivity {
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if (Aa == true) {
-//                            m_Count = (m_Count+1);
-//                            m_Qr = m_Qr-m_Count;
+                                        m_Score = m_Score + 1;
+                                        m_Count = (m_Count + 1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestionData.length - m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if (m_Qr == 0) {
                                             mScoreTextView.setText("Hurray 100% progress. You are done!");
                                         } else if (m_Qr < 0) {
@@ -1191,8 +1180,7 @@ public class new_TF extends AppCompatActivity {
                                             mScoreTextView.setText(m_Qr + " more question to go.");
                                         }
                                         mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
-                                        mFalseButton.setBackgroundColor(0xAA81c784);
-                                        //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
+                                        mTrueButton.setBackgroundColor(0xAA81c784);
                                         mQuestion_Number.setText("Hurray!\n" + "You got it right");
                                         mQuestion_Number.setTextColor(0xAA385723);
                                         mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
@@ -1265,7 +1253,6 @@ public class new_TF extends AppCompatActivity {
                                             int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                             int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                             Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                         } else if (m_Qr < 0) {
                                             btnTag.setText("Finish Quiz >");
                                             SharedPreferences dd = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
@@ -1275,10 +1262,20 @@ public class new_TF extends AppCompatActivity {
                                             int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                             int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                             Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                         } else {
                                             btnTag.setText("Next Question >");
                                         }
+
+                                        SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID + "_MCOUNT", m_Count);
+                                        m_Index = (m_Index + 1) % myQuestionData.length;
+                                        m_Qn = m_Qn + 1;
+                                        editor.putInt(uniqueID + "_MINDEX", m_Index);
+                                        editor.putInt(uniqueID + "_MQN", m_Qn);
+                                        editor.putInt(uniqueID + "_MQR", m_Qr);
+                                        editor.putInt(uniqueID + "_MSCORE", m_Score);
+                                        editor.commit();
 
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
@@ -1287,25 +1284,15 @@ public class new_TF extends AppCompatActivity {
                                             @Override
                                             public void onClick(View v) {
                                                 updateQuestion();
-
+                                                Log.d("TFC_updateq", "mIndex:" + m_Index + " mScore:" + m_Score + " mQr:" + m_Qr + " mQn:" + m_Qn + " mCount:" + m_Count);
                                             }
                                         });
-                                        m_Score = m_Score + 1;
+                                    } else {
                                         m_Count = (m_Count + 1);
                                         Log.d("TFC_mcount", String.valueOf(m_Count));
                                         m_Qr = myQuestionData.length - m_Count;
                                         Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        m_Index = (m_Index + 1) % myQuestionData.length;
-                                        m_Qn = m_Qn + 1;
-                                        editor.putInt(uniqueID + "_MINDEX", m_Index);
-                                        editor.putInt(uniqueID + "_MQN", m_Qn);
-                                        editor.putInt(uniqueID + "_MCOUNT", m_Count);
-                                        editor.putInt(uniqueID + "_MQR", m_Qr);
-                                        editor.putInt(uniqueID + "_MSCORE", m_Score);
-                                        editor.commit();
-                                    } else {
+
                                         if (m_Qr == 0) {
                                             mScoreTextView.setText("Hurray 100% progress. You are done!");
                                         } else if (m_Qr < 0) {
@@ -1314,11 +1301,12 @@ public class new_TF extends AppCompatActivity {
                                             mScoreTextView.setText(m_Qr + " more question to go.");
                                         }
                                         mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
-                                        mFalseButton.setBackgroundColor(0xAAe57272);
+                                        mTrueButton.setBackgroundColor(0xAAe57272);
                                         //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                                         mQuestion_Number.setText("Oops!\n" + "You got it wrong");
                                         mQuestion_Number.setTextColor(0xAAFFFFFF);
                                         mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
+
                                         inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                                         LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
                                         LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
@@ -1385,7 +1373,6 @@ public class new_TF extends AppCompatActivity {
                                             int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                             int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                             Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                         } else if (m_Qr < 0) {
                                             btnTag.setText("Finish Quiz >");
                                             SharedPreferences dd = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
@@ -1395,33 +1382,10 @@ public class new_TF extends AppCompatActivity {
                                             int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                             int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                             Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                         } else {
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                btnTag.setEnabled(false);
-//                                        m_Index = (m_Index + 1) % myQuestionData.length;
-//                                        m_Qn = m_Qn+1;
-//                                        final SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-//                                        SharedPreferences.Editor editor = sp.edit();
-//                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-//                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-//                                        editor.commit();
-                                                updateQuestion();
-                                                //resQ(m_Index,m_Score,m_Qr,m_Qn,getApplicationContext());
-                                            }
-                                        });
-                                        m_Count = (m_Count + 1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestionData.length - m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
                                         SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID + "_MCOUNT", m_Count);
@@ -1431,6 +1395,18 @@ public class new_TF extends AppCompatActivity {
                                         editor.putInt(uniqueID + "_MQN", m_Qn);
                                         editor.putInt(uniqueID + "_MQR", m_Qr);
                                         editor.commit();
+
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                btnTag.setEnabled(false);
+                                                updateQuestion();
+                                                Log.d("TFC_updateQ", "mIndex:" + m_Index + " mScore:" + m_Score + " mQr:" + m_Qr + " mQn:" + m_Qn + " mCount:" + m_Count);
+                                            }
+                                        });
                                     }
                                 }
 
@@ -1448,7 +1424,6 @@ public class new_TF extends AppCompatActivity {
                                 }
                             });
                             //=======================================================================================
-
                             mFalseButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -1587,6 +1562,11 @@ public class new_TF extends AppCompatActivity {
                                 }
 
                                 private void checkAnswer(String userSelection) {
+                                    m_Count = (m_Count + 1);
+                                    Log.d("TFC_mcount", String.valueOf(m_Count));
+                                    m_Qr = myQuestionData.length - m_Count;
+                                    Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if (Aa == true) {
@@ -1689,21 +1669,8 @@ public class new_TF extends AppCompatActivity {
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                updateQuestion();
-
-                                            }
-                                        });
                                         m_Score = m_Score + 1;
-                                        m_Count = (m_Count + 1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestionData.length - m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         m_Index = (m_Index + 1) % myQuestionData.length;
@@ -1714,7 +1681,23 @@ public class new_TF extends AppCompatActivity {
                                         editor.putInt(uniqueID + "_MQR", m_Qr);
                                         editor.putInt(uniqueID + "_MSCORE", m_Score);
                                         editor.commit();
+
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                updateQuestion();
+
+                                            }
+                                        });
                                     } else {
+                                        m_Count = (m_Count + 1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestionData.length - m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if (m_Qr == 0) {
                                             mScoreTextView.setText("Hurray 100% progress. You are done!");
                                         } else if (m_Qr < 0) {
@@ -1809,6 +1792,16 @@ public class new_TF extends AppCompatActivity {
                                             btnTag.setText("Next Question >");
                                         }
 
+                                        SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID + "_MCOUNT", m_Count);
+                                        m_Index = (m_Index + 1) % myQuestionData.length;
+                                        m_Qn = m_Qn + 1;
+                                        editor.putInt(uniqueID + "_MINDEX", m_Index);
+                                        editor.putInt(uniqueID + "_MQN", m_Qn);
+                                        editor.putInt(uniqueID + "_MQR", m_Qr);
+                                        editor.commit();
+
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
                                         activity_layout.addView(btnTag);
@@ -1827,19 +1820,6 @@ public class new_TF extends AppCompatActivity {
                                                 //resQ(m_Index,m_Score,m_Qr,m_Qn,getApplicationContext());
                                             }
                                         });
-                                        m_Count = (m_Count + 1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestionData.length - m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID + "_MCOUNT", m_Count);
-                                        m_Index = (m_Index + 1) % myQuestionData.length;
-                                        m_Qn = m_Qn + 1;
-                                        editor.putInt(uniqueID + "_MINDEX", m_Index);
-                                        editor.putInt(uniqueID + "_MQN", m_Qn);
-                                        editor.putInt(uniqueID + "_MQR", m_Qr);
-                                        editor.commit();
                                     }
                                 }
 
@@ -1908,16 +1888,11 @@ public class new_TF extends AppCompatActivity {
                                     setAnswer(a);
 
                                     checkAnswer("t");
-                                    //resQ(m_Index,m_Score,m_Qr,m_Qn,m_Count,getApplicationContext());
                                     Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_Index + " mScore:" + m_Score + " mQn:" + m_Qn + " mQr:" + m_Qr + " mCount:" + m_Count);
 
                                 }
 
                                 private void updateQuestion() {
-//                            final SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = sp.edit();
-//                            editor.putInt(uniqueID+"_MSCORE", m_Score);
-//                            editor.commit();
                                     Log.d("TFC_funUQ", "mIndex:" + m_Index + " mScore:" + m_Score + " mQr:" + m_Qr + " mQn:" + m_Qn + " mCount:" + m_Count);
 
                                     if (m_Index == 0) {
@@ -2044,6 +2019,12 @@ public class new_TF extends AppCompatActivity {
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if (Aa == true) {
+                                        m_Score = m_Score + 1;
+                                        m_Count = (m_Count + 1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestionData.length - m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if (m_Qr == 0) {
                                             mScoreTextView.setText("Hurray 100% progress. You are done!");
                                         } else if (m_Qr < 0) {
@@ -2052,8 +2033,7 @@ public class new_TF extends AppCompatActivity {
                                             mScoreTextView.setText(m_Qr + " more question to go.");
                                         }
                                         mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
-                                        mFalseButton.setBackgroundColor(0xAA81c784);
-                                        //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_true));
+                                        mTrueButton.setBackgroundColor(0xAA81c784);
                                         mQuestion_Number.setText("Hurray!\n" + "You got it right");
                                         mQuestion_Number.setTextColor(0xAA385723);
                                         mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
@@ -2126,7 +2106,6 @@ public class new_TF extends AppCompatActivity {
                                             int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                             int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                             Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                         } else if (m_Qr < 0) {
                                             btnTag.setText("Finish Quiz >");
                                             SharedPreferences dd = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
@@ -2136,10 +2115,20 @@ public class new_TF extends AppCompatActivity {
                                             int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                             int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                             Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                         } else {
                                             btnTag.setText("Next Question >");
                                         }
+
+                                        SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID + "_MCOUNT", m_Count);
+                                        m_Index = (m_Index + 1) % myQuestionData.length;
+                                        m_Qn = m_Qn + 1;
+                                        editor.putInt(uniqueID + "_MINDEX", m_Index);
+                                        editor.putInt(uniqueID + "_MQN", m_Qn);
+                                        editor.putInt(uniqueID + "_MQR", m_Qr);
+                                        editor.putInt(uniqueID + "_MSCORE", m_Score);
+                                        editor.commit();
 
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
@@ -2148,25 +2137,15 @@ public class new_TF extends AppCompatActivity {
                                             @Override
                                             public void onClick(View v) {
                                                 updateQuestion();
-
+                                                Log.d("TFC_updateq", "mIndex:" + m_Index + " mScore:" + m_Score + " mQr:" + m_Qr + " mQn:" + m_Qn + " mCount:" + m_Count);
                                             }
                                         });
-                                        m_Score = m_Score + 1;
+                                    } else {
                                         m_Count = (m_Count + 1);
                                         Log.d("TFC_mcount", String.valueOf(m_Count));
                                         m_Qr = myQuestionData.length - m_Count;
                                         Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        m_Index = (m_Index + 1) % myQuestionData.length;
-                                        m_Qn = m_Qn + 1;
-                                        editor.putInt(uniqueID + "_MINDEX", m_Index);
-                                        editor.putInt(uniqueID + "_MQN", m_Qn);
-                                        editor.putInt(uniqueID + "_MCOUNT", m_Count);
-                                        editor.putInt(uniqueID + "_MQR", m_Qr);
-                                        editor.putInt(uniqueID + "_MSCORE", m_Score);
-                                        editor.commit();
-                                    } else {
+
                                         if (m_Qr == 0) {
                                             mScoreTextView.setText("Hurray 100% progress. You are done!");
                                         } else if (m_Qr < 0) {
@@ -2175,11 +2154,12 @@ public class new_TF extends AppCompatActivity {
                                             mScoreTextView.setText(m_Qr + " more question to go.");
                                         }
                                         mProgressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
-                                        mFalseButton.setBackgroundColor(0xAAe57272);
+                                        mTrueButton.setBackgroundColor(0xAAe57272);
                                         //mOption_A.setBackground(getResources().getDrawable(R.drawable.text_container_false));
                                         mQuestion_Number.setText("Oops!\n" + "You got it wrong");
                                         mQuestion_Number.setTextColor(0xAAFFFFFF);
                                         mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_false));
+
                                         inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                                         LinearLayout activity_layout = (LinearLayout) inflater.inflate(R.layout.add_extra_layout, null);
                                         LinearLayout description_layout = (LinearLayout) inflater.inflate(R.layout.add_des_layout, null);
@@ -2246,7 +2226,6 @@ public class new_TF extends AppCompatActivity {
                                             int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                             int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                             Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                         } else if (m_Qr < 0) {
                                             btnTag.setText("Finish Quiz >");
                                             SharedPreferences dd = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
@@ -2256,25 +2235,10 @@ public class new_TF extends AppCompatActivity {
                                             int m_QRRR = dd.getInt(uniqueID + "_MQR", 0);
                                             int m_C = dd.getInt(uniqueID + "_MCOUNT", 0);
                                             Log.d("TFC_cleared", "cleared shared prefs to mIndex:" + m_I + " mScore:" + m_S + " mQn:" + m_Q + " mQr:" + m_QRRR + " mCount:" + m_C);
-
                                         } else {
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                btnTag.setEnabled(false);
-                                                updateQuestion();
-                                            }
-                                        });
-                                        m_Count = (m_Count + 1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestionData.length - m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
                                         SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID + "_MCOUNT", m_Count);
@@ -2284,6 +2248,18 @@ public class new_TF extends AppCompatActivity {
                                         editor.putInt(uniqueID + "_MQN", m_Qn);
                                         editor.putInt(uniqueID + "_MQR", m_Qr);
                                         editor.commit();
+
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                btnTag.setEnabled(false);
+                                                updateQuestion();
+                                                Log.d("TFC_updateQ", "mIndex:" + m_Index + " mScore:" + m_Score + " mQr:" + m_Qr + " mQn:" + m_Qn + " mCount:" + m_Count);
+                                            }
+                                        });
                                     }
                                 }
 
@@ -2301,7 +2277,6 @@ public class new_TF extends AppCompatActivity {
                                 }
                             });
                             //=======================================================================================
-
                             mFalseButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -2440,6 +2415,11 @@ public class new_TF extends AppCompatActivity {
                                 }
 
                                 private void checkAnswer(String userSelection) {
+                                    m_Count = (m_Count + 1);
+                                    Log.d("TFC_mcount", String.valueOf(m_Count));
+                                    m_Qr = myQuestionData.length - m_Count;
+                                    Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if (Aa == true) {
@@ -2542,21 +2522,8 @@ public class new_TF extends AppCompatActivity {
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                updateQuestion();
-
-                                            }
-                                        });
                                         m_Score = m_Score + 1;
-                                        m_Count = (m_Count + 1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestionData.length - m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         m_Index = (m_Index + 1) % myQuestionData.length;
@@ -2567,7 +2534,23 @@ public class new_TF extends AppCompatActivity {
                                         editor.putInt(uniqueID + "_MQR", m_Qr);
                                         editor.putInt(uniqueID + "_MSCORE", m_Score);
                                         editor.commit();
+
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                updateQuestion();
+
+                                            }
+                                        });
                                     } else {
+                                        m_Count = (m_Count + 1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestionData.length - m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if (m_Qr == 0) {
                                             mScoreTextView.setText("Hurray 100% progress. You are done!");
                                         } else if (m_Qr < 0) {
@@ -2662,6 +2645,16 @@ public class new_TF extends AppCompatActivity {
                                             btnTag.setText("Next Question >");
                                         }
 
+                                        SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID + "_MCOUNT", m_Count);
+                                        m_Index = (m_Index + 1) % myQuestionData.length;
+                                        m_Qn = m_Qn + 1;
+                                        editor.putInt(uniqueID + "_MINDEX", m_Index);
+                                        editor.putInt(uniqueID + "_MQN", m_Qn);
+                                        editor.putInt(uniqueID + "_MQR", m_Qr);
+                                        editor.commit();
+
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
                                         activity_layout.addView(btnTag);
@@ -2680,19 +2673,6 @@ public class new_TF extends AppCompatActivity {
                                                 //resQ(m_Index,m_Score,m_Qr,m_Qn,getApplicationContext());
                                             }
                                         });
-                                        m_Count = (m_Count + 1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestionData.length - m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("quizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID + "_MCOUNT", m_Count);
-                                        m_Index = (m_Index + 1) % myQuestionData.length;
-                                        m_Qn = m_Qn + 1;
-                                        editor.putInt(uniqueID + "_MINDEX", m_Index);
-                                        editor.putInt(uniqueID + "_MQN", m_Qn);
-                                        editor.putInt(uniqueID + "_MQR", m_Qr);
-                                        editor.commit();
                                     }
                                 }
 

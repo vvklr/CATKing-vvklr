@@ -341,6 +341,10 @@ public class newMCQ extends AppCompatActivity{
                             String correctAnswer = myA_Data[m_Index];
                             boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                             if(Aa== true){
+                                m_Score = m_Score+1;
+                                m_Count = (m_Count+1);
+                                m_Qr = (myQuestion_Data.length)-m_Count;
+
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -437,21 +441,6 @@ public class newMCQ extends AppCompatActivity{
                                     btnTag.setText("Next Question >");
                                 }
 
-                                btnTag.setTextColor(0xAAFFFFFF);
-                                btnTag.setBackgroundColor(0xAAA6A6A6);
-                                activity_layout.addView(btnTag);
-                                btnTag.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        updateQuestion();
-                                        Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
-                                    }
-                                });
-
-                                m_Score = m_Score+1;
-                                m_Count = (m_Count+1);
-                                m_Qr = (myQuestion_Data.length)-m_Count;
-
                                 SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -463,7 +452,22 @@ public class newMCQ extends AppCompatActivity{
                                 editor.putInt(uniqueID+"_MSCORE", m_Score);
                                 editor.commit();
 
+                                btnTag.setTextColor(0xAAFFFFFF);
+                                btnTag.setBackgroundColor(0xAAA6A6A6);
+                                activity_layout.addView(btnTag);
+                                btnTag.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        updateQuestion();
+                                        Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
+                                    }
+                                });
                             }else{
+                                m_Count = (m_Count+1);
+                                Log.d("MCQC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestion_Data.length-m_Count;
+                                Log.d("MCQC_mqr", String.valueOf(m_Qr));
+
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -559,6 +563,16 @@ public class newMCQ extends AppCompatActivity{
                                     btnTag.setText("Next Question >");
                                 }
 
+                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                m_Qn = m_Qn+1;
+                                editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                editor.putInt(uniqueID+"_MQN", m_Qn);
+                                editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.commit();
+
                                 btnTag.setTextColor(0xAAFFFFFF);
                                 btnTag.setBackgroundColor(0xAAA6A6A6);
                                 activity_layout.addView(btnTag);
@@ -570,19 +584,6 @@ public class newMCQ extends AppCompatActivity{
                                         Log.d("TFC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
                                 });
-                                m_Count = (m_Count+1);
-                                Log.d("MCQC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("MCQC_mqr", String.valueOf(m_Qr));
-                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                m_Qn = m_Qn+1;
-                                editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                editor.putInt(uniqueID+"_MQN", m_Qn);
-                                editor.putInt(uniqueID+"_MQR", m_Qr);
-                                editor.commit();
                             }
                         }
                         private void setAnswer(String cA){
@@ -742,6 +743,12 @@ public class newMCQ extends AppCompatActivity{
                         }
 
                         private void checkAnswer(String userSelection) {
+                            m_Score = m_Score+1;
+                            m_Count = (m_Count+1);
+                            Log.d("TFC_mcount", String.valueOf(m_Count));
+                            m_Qr = myQuestion_Data.length-m_Count;
+                            Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                             String correctAnswer = myA_Data[m_Index];
                             boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                             if(Aa== true){
@@ -844,21 +851,6 @@ public class newMCQ extends AppCompatActivity{
                                     btnTag.setText("Next Question >");
                                 }
 
-                                btnTag.setTextColor(0xAAFFFFFF);
-                                btnTag.setBackgroundColor(0xAAA6A6A6);
-                                activity_layout.addView(btnTag);
-                                btnTag.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        updateQuestion();
-                                    }
-                                });
-                                m_Score = m_Score+1;
-                                m_Count = (m_Count+1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
-
                                 SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -869,7 +861,23 @@ public class newMCQ extends AppCompatActivity{
                                 editor.putInt(uniqueID+"_MQR", m_Qr);
                                 editor.putInt(uniqueID+"_MSCORE", m_Score);
                                 editor.commit();
+
+
+                                btnTag.setTextColor(0xAAFFFFFF);
+                                btnTag.setBackgroundColor(0xAAA6A6A6);
+                                activity_layout.addView(btnTag);
+                                btnTag.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        updateQuestion();
+                                    }
+                                });
                             }else{
+                                m_Count = (m_Count+1);
+                                Log.d("TFC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestion_Data.length-m_Count;
+                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -970,6 +978,16 @@ public class newMCQ extends AppCompatActivity{
                                     btnTag.setText("Next Question >");
                                 }
 
+                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                m_Qn = m_Qn+1;
+                                editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                editor.putInt(uniqueID+"_MQN", m_Qn);
+                                editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.commit();
+
                                 btnTag.setTextColor(0xAAFFFFFF);
                                 btnTag.setBackgroundColor(0xAAA6A6A6);
                                 activity_layout.addView(btnTag);
@@ -981,20 +999,6 @@ public class newMCQ extends AppCompatActivity{
                                         Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
                                 });
-
-                                m_Count = (m_Count+1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                m_Qn = m_Qn+1;
-                                editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                editor.putInt(uniqueID+"_MQN", m_Qn);
-                                editor.putInt(uniqueID+"_MQR", m_Qr);
-                                editor.commit();
                             }
                         }
                         private void setAnswer(String cA){
@@ -1159,6 +1163,12 @@ public class newMCQ extends AppCompatActivity{
                             String correctAnswer = myA_Data[m_Index];
                             boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                             if(Aa== true){
+                                m_Score = m_Score+1;
+                                m_Count = (m_Count+1);
+                                Log.d("TFC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestion_Data.length-m_Count;
+                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -1258,22 +1268,6 @@ public class newMCQ extends AppCompatActivity{
                                     btnTag.setText("Next Question >");
                                 }
 
-                                btnTag.setTextColor(0xAAFFFFFF);
-                                btnTag.setBackgroundColor(0xAAA6A6A6);
-                                activity_layout.addView(btnTag);
-                                btnTag.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        updateQuestion();
-                                        Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
-                                    }
-                                });
-                                m_Score = m_Score+1;
-                                m_Count = (m_Count+1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
-
                                 SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -1284,7 +1278,23 @@ public class newMCQ extends AppCompatActivity{
                                 editor.putInt(uniqueID+"_MQR", m_Qr);
                                 editor.putInt(uniqueID+"_MSCORE", m_Score);
                                 editor.commit();
+
+                                btnTag.setTextColor(0xAAFFFFFF);
+                                btnTag.setBackgroundColor(0xAAA6A6A6);
+                                activity_layout.addView(btnTag);
+                                btnTag.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        updateQuestion();
+                                        Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
+                                    }
+                                });
                             }else{
+                                m_Count = (m_Count+1);
+                                Log.d("TFC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestion_Data.length-m_Count;
+                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -1387,6 +1397,15 @@ public class newMCQ extends AppCompatActivity{
                                 }else{
                                     btnTag.setText("Next Question >");
                                 }
+                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                m_Qn = m_Qn+1;
+                                editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                editor.putInt(uniqueID+"_MQN", m_Qn);
+                                editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.commit();
 
                                 btnTag.setTextColor(0xAAFFFFFF);
                                 btnTag.setBackgroundColor(0xAAA6A6A6);
@@ -1399,19 +1418,6 @@ public class newMCQ extends AppCompatActivity{
                                         Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
                                 });
-                                m_Count = (m_Count+1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                m_Qn = m_Qn+1;
-                                editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                editor.putInt(uniqueID+"_MQN", m_Qn);
-                                editor.putInt(uniqueID+"_MQR", m_Qr);
-                                editor.commit();
                             }
                         }
                         private void setAnswer(String cA){
@@ -1574,6 +1580,12 @@ public class newMCQ extends AppCompatActivity{
                             String correctAnswer = myA_Data[m_Index];
                             boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                             if(Aa== true){
+                                m_Score = m_Score+1;
+                                m_Count = (m_Count+1);
+                                Log.d("TFC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestion_Data.length-m_Count;
+                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -1674,22 +1686,6 @@ public class newMCQ extends AppCompatActivity{
                                     btnTag.setText("Next Question >");
                                 }
 
-                                btnTag.setTextColor(0xAAFFFFFF);
-                                btnTag.setBackgroundColor(0xAAA6A6A6);
-                                activity_layout.addView(btnTag);
-                                btnTag.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
-                                        updateQuestion();
-                                    }
-                                });
-                                m_Score = m_Score+1;
-                                m_Count = (m_Count+1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
-
                                 SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -1700,7 +1696,23 @@ public class newMCQ extends AppCompatActivity{
                                 editor.putInt(uniqueID+"_MQR", m_Qr);
                                 editor.putInt(uniqueID+"_MSCORE", m_Score);
                                 editor.commit();
+
+                                btnTag.setTextColor(0xAAFFFFFF);
+                                btnTag.setBackgroundColor(0xAAA6A6A6);
+                                activity_layout.addView(btnTag);
+                                btnTag.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
+                                        updateQuestion();
+                                    }
+                                });
                             }else{
+                                m_Count = (m_Count+1);
+                                Log.d("TFC_mcount", String.valueOf(m_Count));
+                                m_Qr = myQuestion_Data.length-m_Count;
+                                Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                 if(m_Qr==0){
                                     mScoreText_View.setText("Hurray 100% progress. You are done!");
                                 }else if(m_Qr<0){
@@ -1806,6 +1818,16 @@ public class newMCQ extends AppCompatActivity{
                                     btnTag.setText("Next Question >");
                                 }
 
+                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                m_Qn = m_Qn+1;
+                                editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                editor.putInt(uniqueID+"_MQN", m_Qn);
+                                editor.putInt(uniqueID+"_MQR", m_Qr);
+                                editor.commit();
+
                                 btnTag.setTextColor(0xAAFFFFFF);
                                 btnTag.setBackgroundColor(0xAAA6A6A6);
                                 activity_layout.addView(btnTag);
@@ -1817,19 +1839,6 @@ public class newMCQ extends AppCompatActivity{
                                         Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                     }
                                 });
-                                m_Count = (m_Count+1);
-                                Log.d("TFC_mcount", String.valueOf(m_Count));
-                                m_Qr = myQuestion_Data.length-m_Count;
-                                Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                m_Qn = m_Qn+1;
-                                editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                editor.putInt(uniqueID+"_MQN", m_Qn);
-                                editor.putInt(uniqueID+"_MQR", m_Qr);
-                                editor.commit();
                             }
                         }
                         private void setAnswer(String cA){
@@ -2049,6 +2058,10 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
+                                        m_Score = m_Score+1;
+                                        m_Count = (m_Count+1);
+                                        m_Qr = (myQuestion_Data.length)-m_Count;
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -2145,21 +2158,6 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                updateQuestion();
-                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
-                                            }
-                                        });
-
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        m_Qr = (myQuestion_Data.length)-m_Count;
-
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -2171,7 +2169,22 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
 
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                updateQuestion();
+                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
+                                            }
+                                        });
                                     }else{
+                                        m_Count = (m_Count+1);
+                                        Log.d("MCQC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("MCQC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -2267,6 +2280,16 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
+
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
                                         activity_layout.addView(btnTag);
@@ -2278,19 +2301,6 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("TFC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-                                        m_Count = (m_Count+1);
-                                        Log.d("MCQC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("MCQC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -2450,6 +2460,12 @@ public class newMCQ extends AppCompatActivity{
                                 }
 
                                 private void checkAnswer(String userSelection) {
+                                    m_Score = m_Score+1;
+                                    m_Count = (m_Count+1);
+                                    Log.d("TFC_mcount", String.valueOf(m_Count));
+                                    m_Qr = myQuestion_Data.length-m_Count;
+                                    Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
@@ -2552,21 +2568,6 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                updateQuestion();
-                                            }
-                                        });
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -2577,7 +2578,23 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
                                         editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
+
+
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                updateQuestion();
+                                            }
+                                        });
                                     }else{
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -2678,6 +2695,16 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
+
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
                                         activity_layout.addView(btnTag);
@@ -2689,20 +2716,6 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -2867,6 +2880,12 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
+                                        m_Score = m_Score+1;
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -2966,22 +2985,6 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                updateQuestion();
-                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
-                                            }
-                                        });
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -2992,7 +2995,23 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
                                         editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
+
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                updateQuestion();
+                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
+                                            }
+                                        });
                                     }else{
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -3095,6 +3114,15 @@ public class newMCQ extends AppCompatActivity{
                                         }else{
                                             btnTag.setText("Next Question >");
                                         }
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
 
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
@@ -3107,19 +3135,6 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -3282,6 +3297,12 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
+                                        m_Score = m_Score+1;
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -3382,22 +3403,6 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
-                                                updateQuestion();
-                                            }
-                                        });
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -3408,7 +3413,23 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
                                         editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
+
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
+                                                updateQuestion();
+                                            }
+                                        });
                                     }else{
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -3514,6 +3535,16 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
+
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
                                         activity_layout.addView(btnTag);
@@ -3525,19 +3556,6 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -3754,6 +3772,10 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
+                                        m_Score = m_Score+1;
+                                        m_Count = (m_Count+1);
+                                        m_Qr = (myQuestion_Data.length)-m_Count;
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -3850,21 +3872,6 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                updateQuestion();
-                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
-                                            }
-                                        });
-
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        m_Qr = (myQuestion_Data.length)-m_Count;
-
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -3876,7 +3883,22 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
 
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                updateQuestion();
+                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
+                                            }
+                                        });
                                     }else{
+                                        m_Count = (m_Count+1);
+                                        Log.d("MCQC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("MCQC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -3972,6 +3994,16 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
+
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
                                         activity_layout.addView(btnTag);
@@ -3983,19 +4015,6 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("TFC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-                                        m_Count = (m_Count+1);
-                                        Log.d("MCQC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("MCQC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -4155,6 +4174,12 @@ public class newMCQ extends AppCompatActivity{
                                 }
 
                                 private void checkAnswer(String userSelection) {
+                                    m_Score = m_Score+1;
+                                    m_Count = (m_Count+1);
+                                    Log.d("TFC_mcount", String.valueOf(m_Count));
+                                    m_Qr = myQuestion_Data.length-m_Count;
+                                    Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
@@ -4257,21 +4282,6 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                updateQuestion();
-                                            }
-                                        });
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -4282,7 +4292,23 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
                                         editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
+
+
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                updateQuestion();
+                                            }
+                                        });
                                     }else{
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -4383,6 +4409,16 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
+
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
                                         activity_layout.addView(btnTag);
@@ -4394,20 +4430,6 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -4572,6 +4594,12 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
+                                        m_Score = m_Score+1;
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -4671,22 +4699,6 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                updateQuestion();
-                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
-                                            }
-                                        });
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -4697,7 +4709,23 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
                                         editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
+
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                updateQuestion();
+                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
+                                            }
+                                        });
                                     }else{
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -4800,6 +4828,15 @@ public class newMCQ extends AppCompatActivity{
                                         }else{
                                             btnTag.setText("Next Question >");
                                         }
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
 
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
@@ -4812,19 +4849,6 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
@@ -4987,6 +5011,12 @@ public class newMCQ extends AppCompatActivity{
                                     String correctAnswer = myA_Data[m_Index];
                                     boolean Aa = correctAnswer.equalsIgnoreCase(userSelection);
                                     if(Aa== true){
+                                        m_Score = m_Score+1;
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -5087,22 +5117,6 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
-                                        btnTag.setTextColor(0xAAFFFFFF);
-                                        btnTag.setBackgroundColor(0xAAA6A6A6);
-                                        activity_layout.addView(btnTag);
-                                        btnTag.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
-                                                updateQuestion();
-                                            }
-                                        });
-                                        m_Score = m_Score+1;
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-
                                         SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putInt(uniqueID+"_MCOUNT",m_Count);
@@ -5113,7 +5127,23 @@ public class newMCQ extends AppCompatActivity{
                                         editor.putInt(uniqueID+"_MQR", m_Qr);
                                         editor.putInt(uniqueID+"_MSCORE", m_Score);
                                         editor.commit();
+
+                                        btnTag.setTextColor(0xAAFFFFFF);
+                                        btnTag.setBackgroundColor(0xAAA6A6A6);
+                                        activity_layout.addView(btnTag);
+                                        btnTag.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Log.d("MCQC_updateq","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
+                                                updateQuestion();
+                                            }
+                                        });
                                     }else{
+                                        m_Count = (m_Count+1);
+                                        Log.d("TFC_mcount", String.valueOf(m_Count));
+                                        m_Qr = myQuestion_Data.length-m_Count;
+                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
+
                                         if(m_Qr==0){
                                             mScoreText_View.setText("Hurray 100% progress. You are done!");
                                         }else if(m_Qr<0){
@@ -5219,6 +5249,16 @@ public class newMCQ extends AppCompatActivity{
                                             btnTag.setText("Next Question >");
                                         }
 
+                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
+                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
+                                        m_Qn = m_Qn+1;
+                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
+                                        editor.putInt(uniqueID+"_MQN", m_Qn);
+                                        editor.putInt(uniqueID+"_MQR", m_Qr);
+                                        editor.commit();
+
                                         btnTag.setTextColor(0xAAFFFFFF);
                                         btnTag.setBackgroundColor(0xAAA6A6A6);
                                         activity_layout.addView(btnTag);
@@ -5230,19 +5270,6 @@ public class newMCQ extends AppCompatActivity{
                                                 Log.d("MCQC_updateQ","mIndex:"+m_Index+" mScore:"+m_Score+" mQr:"+m_Qr+" mQn:"+m_Qn+" mCount:"+m_Count);
                                             }
                                         });
-                                        m_Count = (m_Count+1);
-                                        Log.d("TFC_mcount", String.valueOf(m_Count));
-                                        m_Qr = myQuestion_Data.length-m_Count;
-                                        Log.d("TFC_mqr", String.valueOf(m_Qr));
-                                        SharedPreferences sp = getSharedPreferences("MCQquizProgress", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putInt(uniqueID+"_MCOUNT",m_Count);
-                                        m_Index = (m_Index + 1) % myQuestion_Data.length;
-                                        m_Qn = m_Qn+1;
-                                        editor.putInt(uniqueID+"_MINDEX", m_Index);
-                                        editor.putInt(uniqueID+"_MQN", m_Qn);
-                                        editor.putInt(uniqueID+"_MQR", m_Qr);
-                                        editor.commit();
                                     }
                                 }
                                 private void setAnswer(String cA){
