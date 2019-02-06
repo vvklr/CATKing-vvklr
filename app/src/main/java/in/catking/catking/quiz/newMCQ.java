@@ -5464,7 +5464,9 @@ public class newMCQ extends AppCompatActivity{
             }
         });
 
-        View nav_Head = findViewById(R.id.nav_head_image);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerview = navigationView.getHeaderView(0);
+        ImageView nav_Head = (ImageView) headerview.findViewById(R.id.nav_head_image);
         nav_Head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

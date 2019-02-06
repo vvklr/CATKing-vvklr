@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -179,7 +180,10 @@ public class QuizList extends AppCompatActivity{
                 startActivity(webIntent);
             }
         });
-        View nav_Head = findViewById(R.id.nav_head_image);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerview = navigationView.getHeaderView(0);
+        ImageView nav_Head = (ImageView) headerview.findViewById(R.id.nav_head_image);
         nav_Head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -3723,7 +3724,9 @@ public class new_TF extends AppCompatActivity {
             }
         });
 
-        View nav_Head = findViewById(R.id.nav_head_image);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerview = navigationView.getHeaderView(0);
+        ImageView nav_Head = (ImageView) headerview.findViewById(R.id.nav_head_image);
         nav_Head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

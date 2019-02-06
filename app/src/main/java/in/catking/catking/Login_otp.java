@@ -85,7 +85,7 @@ public class Login_otp extends AppCompatActivity {
                     PostForm postData = new PostForm();
                     postData.execute(URL,Aname,Aphone,Aemail);
                     setLogin("v_login","v_success",getApplicationContext());
-                    Intent intentD = new Intent(getApplicationContext(),MainActivity.class);
+                    Intent intentD = new Intent(getApplicationContext(),miCat_sa.class);
                     startActivity(intentD);
 
                 }else{

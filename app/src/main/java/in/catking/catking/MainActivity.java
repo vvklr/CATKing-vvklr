@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -144,7 +145,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        View nav_Head = findViewById(R.id.nav_head_image);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerview = navigationView.getHeaderView(0);
+        ImageView nav_Head = (ImageView) headerview.findViewById(R.id.nav_head_image);
         nav_Head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

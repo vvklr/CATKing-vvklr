@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +17,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -130,7 +132,10 @@ ExpandableListAdapter expandableListAdapter;
             }
         });
 
-        View nav_Head = findViewById(R.id.nav_head_image);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerview = navigationView.getHeaderView(0);
+        ImageView nav_Head = (ImageView) headerview.findViewById(R.id.nav_head_image);
         nav_Head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
