@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.catking.catking">
+    package="in.catking.gkapp">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,11 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".buy_gk_course"></activity>
-        <activity android:name=".miCat_sa" />
-        <activity android:name=".activity_coming_soon" />
+        <activity android:name="in.catking.gkapp.buy_gk_course"></activity>
+        <activity android:name="in.catking.gkapp.miCat_sa" />
+        <activity android:name="in.catking.gkapp.activity_coming_soon" />
         <activity
-            android:name=".Entry_To_CATKing"
+            android:name="in.catking.gkapp.Entry_To_CATKing"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,39 +26,39 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailsActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".view_Geography" />
-        <activity android:name=".view_History" />
-        <activity android:name=".view_doc_activity" />
-        <activity android:name=".test1" />
-        <activity android:name=".test2" />
-        <activity android:name=".test3" />
-        <activity android:name=".test4" />
-        <activity android:name=".view_Sport_Achievement" />
-        <activity android:name=".view_Science" />
-        <activity android:name=".view_BooksAndAuthor" />
-        <activity android:name=".view_Olympics" />
-        <activity android:name=".view_ArtAndCulture" />
-        <activity android:name=".view_Economics" />
-        <activity android:name=".view_Politics" />
-        <activity android:name=".view_ConstitutionOfIndia" />
-        <activity android:name=".view_Miscellaneous" />
-        <activity android:name=".view_FunFacts" />
-        <activity android:name=".view_DynamicGK" />
-        <activity android:name=".Login_Mobile" />
-        <activity android:name=".quiz.QuizList" />
-        <activity android:name=".quiz.TF_QuizList" />
-        <activity android:name=".quiz.MICAT_tfList" />
-        <activity android:name=".quiz.MICAT_mcqList" />
-        <activity android:name=".Splash_Screen_otp" />
-        <activity android:name=".Login_otp" />
-        <activity android:name=".quiz.newMCQ" />
-        <activity android:name=".quiz.new_TF" />
-        <activity android:name=".t_and_c" />
-        <activity android:name=".List_view_quiz_selection" />
-        <activity android:name=".splash_loadquiz" />
-        <activity android:name=".spalsh_screen" />
+        <activity android:name="in.catking.gkapp.DetailsActivity" />
+        <activity android:name="in.catking.gkapp.MainActivity" />
+        <activity android:name="in.catking.gkapp.view_Geography" />
+        <activity android:name="in.catking.gkapp.view_History" />
+        <activity android:name="in.catking.gkapp.view_doc_activity" />
+        <activity android:name="in.catking.gkapp.test1" />
+        <activity android:name="in.catking.gkapp.test2" />
+        <activity android:name="in.catking.gkapp.test3" />
+        <activity android:name="in.catking.gkapp.test4" />
+        <activity android:name="in.catking.gkapp.view_Sport_Achievement" />
+        <activity android:name="in.catking.gkapp.view_Science" />
+        <activity android:name="in.catking.gkapp.view_BooksAndAuthor" />
+        <activity android:name="in.catking.gkapp.view_Olympics" />
+        <activity android:name="in.catking.gkapp.view_ArtAndCulture" />
+        <activity android:name="in.catking.gkapp.view_Economics" />
+        <activity android:name="in.catking.gkapp.view_Politics" />
+        <activity android:name="in.catking.gkapp.view_ConstitutionOfIndia" />
+        <activity android:name="in.catking.gkapp.view_Miscellaneous" />
+        <activity android:name="in.catking.gkapp.view_FunFacts" />
+        <activity android:name="in.catking.gkapp.view_DynamicGK" />
+        <activity android:name="in.catking.gkapp.Login_Mobile" />
+        <activity android:name="in.catking.gkapp.quiz.QuizList" />
+        <activity android:name="in.catking.gkapp.quiz.TF_QuizList" />
+        <activity android:name="in.catking.gkapp.quiz.MICAT_tfList" />
+        <activity android:name="in.catking.gkapp.quiz.MICAT_mcqList" />
+        <activity android:name="in.catking.gkapp.Splash_Screen_otp" />
+        <activity android:name="in.catking.gkapp.Login_otp" />
+        <activity android:name="in.catking.gkapp.quiz.newMCQ" />
+        <activity android:name="in.catking.gkapp.quiz.new_TF" />
+        <activity android:name="in.catking.gkapp.t_and_c" />
+        <activity android:name="in.catking.gkapp.List_view_quiz_selection" />
+        <activity android:name="in.catking.gkapp.splash_loadquiz" />
+        <activity android:name="in.catking.gkapp.spalsh_screen" />
     </application>
 
 </manifest>

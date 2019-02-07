@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:background="#ffffff" >
-        <in.catking.catking.utils.GifImageView
+        <in.catking.gkapp.utils.GifImageView
             android:id="@+id/GifImageView"
             android:layout_marginTop="100dp"
             android:layout_width="wrap_content"

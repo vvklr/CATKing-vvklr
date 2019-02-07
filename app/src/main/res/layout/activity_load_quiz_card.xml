@@ -64,7 +64,7 @@
                         android:textColor="#000000"
                         android:textSize="20dp" />
 
-                    <in.catking.catking.utils.GifImageView
+                    <in.catking.gkapp.utils.GifImageView
                         android:id="@+id/Gif_View"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

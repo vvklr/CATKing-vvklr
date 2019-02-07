@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:background="#ffffff" >
-        <in.catking.catking.utils.GifImageView
+        <in.catking.gkapp.utils.GifImageView
             android:id="@+id/GifImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -167,15 +167,15 @@
     <!--android:background="#ffffff"-->
     <!--android:orientation="vertical" >-->
 
-    <!--<in.catking.GIFView-->
+    <!--<in.gkapp.GIFView-->
         <!--android:layout_gravity="center_horizontal"-->
         <!--android:layout_centerInParent="true"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:id="@+id/gifView">-->
-    <!--</in.catking.GIFView>-->
+    <!--</in.gkapp.GIFView>-->
 
-    <!--&lt;!&ndash;<in.catking.catking.view.kbv.KenBurnsView&ndash;&gt;-->
+    <!--&lt;!&ndash;<gkappw.kbv.KenBurnsView&ndash;&gt;-->
         <!--&lt;!&ndash;android:id="@+id/ken_burns_images"&ndash;&gt;-->
         <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
         <!--&lt;!&ndash;android:src="@drawable/splash_back"&ndash;&gt;-->
@@ -187,7 +187,7 @@
     <!--to become larger if user has set larger text in global-->
     <!--settings. &ndash;&gt;-->
 
-    <!--&lt;!&ndash;<in.catking.catking.view.ImageView&ndash;&gt;-->
+    <!--&lt;!&ndash;<gkappw.ImageView&ndash;&gt;-->
         <!--&lt;!&ndash;android:id="@+id/splash_logo"&ndash;&gt;-->
         <!--&lt;!&ndash;android:layout_width="381dp"&ndash;&gt;-->
         <!--&lt;!&ndash;android:layout_height="381dp"&ndash;&gt;-->
@@ -195,7 +195,7 @@
         <!--&lt;!&ndash;android:alpha="0.0"&ndash;&gt;-->
         <!--&lt;!&ndash;android:src="@drawable/splash_screen" />&ndash;&gt;-->
 
-    <!--&lt;!&ndash;<in.catking.catking.font.RobotoTextView&ndash;&gt;-->
+    <!--&lt;!&ndash;<gkappt.RobotoTextView&ndash;&gt;-->
         <!--&lt;!&ndash;android:id="@+id/Sending_OTP_text"&ndash;&gt;-->
         <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
         <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
