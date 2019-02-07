@@ -37,6 +37,7 @@ import in.catking.gkapp.MainActivity;
 import in.catking.gkapp.MenuModel;
 import in.catking.gkapp.R;
 import in.catking.gkapp.activity_coming_soon;
+import in.catking.gkapp.buy_gk_course;
 import in.catking.gkapp.miCat_sa;
 
 
@@ -334,7 +335,7 @@ public class MICAT_tfList extends AppCompatActivity {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Buy GK Course", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Buy GK Course", true, false, new buy_gk_course()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

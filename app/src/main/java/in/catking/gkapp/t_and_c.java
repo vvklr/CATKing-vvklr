@@ -20,7 +20,7 @@ public class t_and_c extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        url = "https://gkapp.in/privacy-policy/";
+        url = "https://catking.in/privacy-policy/";
         loader = (ProgressBar) findViewById(R.id.loader);
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setBuiltInZoomControls(true);

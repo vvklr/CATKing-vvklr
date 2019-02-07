@@ -5,30 +5,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
+    android:background="#FFFFFF"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
     <include
         layout="@layout/app_bar_all"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingTop="60dp">
-        <WebView
-            android:id="@+id/webView"
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:background="#FFFFFF"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/loader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:outlineAmbientShadowColor="@color/material_blue_900"
-            android:layout_centerInParent="true"
-            />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <WebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/loader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:outlineAmbientShadowColor="@color/material_blue_900"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

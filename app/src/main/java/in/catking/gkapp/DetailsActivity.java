@@ -54,6 +54,7 @@ public class DetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         URL = intent.getStringExtra("url");
         loader = (ProgressBar) findViewById(R.id.loader);
+        loader.setVisibility(View.VISIBLE);
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
@@ -64,8 +65,6 @@ public class DetailsActivity extends AppCompatActivity {
             public void onProgressChanged(WebView view, int progress) {
                 if (progress == 100) {
                     loader.setVisibility(View.GONE);
-                } else {
-                    loader.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -286,7 +285,7 @@ public class DetailsActivity extends AppCompatActivity {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Buy GK Course", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Buy GK Course", true, false, new buy_gk_course()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

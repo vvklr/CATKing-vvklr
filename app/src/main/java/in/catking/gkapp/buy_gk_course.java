@@ -26,18 +26,13 @@ import java.util.List;
 
 public class buy_gk_course extends AppCompatActivity {
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_buy_gk_course);
-//    }
 ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
     List<MenuModel> headerList = new ArrayList<>();
     HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
     WebView webView;
     ProgressBar loader;
-    String URL = "http://www.courses.gkapp.in/gk";
+    String URL = "http://www.courses.catking.in/gk";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -260,7 +255,7 @@ ExpandableListAdapter expandableListAdapter;
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Buy GK Course", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Buy GK Course", true, false, new buy_gk_course()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

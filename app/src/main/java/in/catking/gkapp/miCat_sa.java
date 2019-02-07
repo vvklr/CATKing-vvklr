@@ -157,7 +157,7 @@ public class miCat_sa extends AppCompatActivity {
     }
     public void startfAboutMicat(){
         Intent intentE = new Intent(getApplicationContext(),DetailsActivity.class);
-        intentE.putExtra("url","https://gkapp.in/micat-exam/");
+        intentE.putExtra("url","https://catking.in/micat-exam/");
         startActivity(intentE);
     }
 
@@ -273,7 +273,7 @@ public class miCat_sa extends AppCompatActivity {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Buy GK Course", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Buy GK Course", true, false, new buy_gk_course()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

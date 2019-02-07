@@ -105,7 +105,7 @@ public class Login_otp extends AppCompatActivity {
                 RequestParams param = new RequestParams();
                 param.put("authkey",AUTH_KEY);
                 param.put("otp",OTP);
-                param.put("message","Your OTP for logging into CATKing app is: "+OTP+". Check out our courses at our website https://www.courses.gkapp.in");
+                param.put("message","Your OTP for logging into CATKing app is: "+OTP+". Check out our courses at our website https://www.courses.catking.in");
                 param.put("sender","CATKing");
                 param.put("mobile",mobileText);
                 AsyncHttpClient client = new AsyncHttpClient();
