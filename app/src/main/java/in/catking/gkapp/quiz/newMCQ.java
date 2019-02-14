@@ -1,4 +1,10 @@
 package in.catking.gkapp.quiz;
+
+
+// please do not change variables which are already there
+//editing this file may result in failed quiz section
+
+
 //Vishal Raut
 //Email me on vr.iitb@gmail.com if you come across any problem
 import android.content.ActivityNotFoundException;
@@ -41,7 +47,21 @@ import in.catking.gkapp.R;
 import in.catking.gkapp.activity_coming_soon;
 import in.catking.gkapp.buy_gk_course;
 import in.catking.gkapp.mcq_QuestionData;
-import in.catking.gkapp.miCat_sa;
+import in.catking.gkapp.menuItems.cmat_sa;
+import in.catking.gkapp.menuItems.ibps_clerk_sa;
+import in.catking.gkapp.menuItems.ibps_po_sa;
+import in.catking.gkapp.menuItems.iift_sa;
+import in.catking.gkapp.menuItems.mat_sa;
+import in.catking.gkapp.menuItems.miCat_sa;
+import in.catking.gkapp.menuItems.rbi_gbo_sa;
+import in.catking.gkapp.menuItems.rbi_oa_sa;
+import in.catking.gkapp.menuItems.rrb_oa_sa;
+import in.catking.gkapp.menuItems.rrb_os_sa;
+import in.catking.gkapp.menuItems.sbi_clerk_sa;
+import in.catking.gkapp.menuItems.sbi_po_sa;
+import in.catking.gkapp.menuItems.snap_sa;
+import in.catking.gkapp.menuItems.staticGK_sa;
+import in.catking.gkapp.menuItems.xat_sa;
 import in.catking.gkapp.utils.GifImageView;
 
 import android.os.Bundle;
@@ -262,7 +282,7 @@ public class newMCQ extends AppCompatActivity{
                                         share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                 " questions\n Install GK App to keep your General Knowledge up to date");
                                         share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                         startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                     }
@@ -666,7 +686,7 @@ public class newMCQ extends AppCompatActivity{
                                         share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                 " questions\n Install GK App to keep your General Knowledge up to date");
                                         share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                         startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                     }
@@ -1068,7 +1088,7 @@ public class newMCQ extends AppCompatActivity{
                                         share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                 " questions\n Install GK App to keep your General Knowledge up to date");
                                         share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                         startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                     }
@@ -1486,7 +1506,7 @@ public class newMCQ extends AppCompatActivity{
                                         share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                 " questions\n Install GK App to keep your General Knowledge up to date");
                                         share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                         startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                     }
@@ -1954,7 +1974,7 @@ public class newMCQ extends AppCompatActivity{
                                                 share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                         " questions\n Install GK App to keep your General Knowledge up to date");
                                                 share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                                 startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                             }
@@ -2358,7 +2378,7 @@ public class newMCQ extends AppCompatActivity{
                                                 share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                         " questions\n Install GK App to keep your General Knowledge up to date");
                                                 share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                                 startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                             }
@@ -2760,7 +2780,7 @@ public class newMCQ extends AppCompatActivity{
                                                 share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                         " questions\n Install GK App to keep your General Knowledge up to date");
                                                 share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                                 startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                             }
@@ -3178,7 +3198,7 @@ public class newMCQ extends AppCompatActivity{
                                                 share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                         " questions\n Install GK App to keep your General Knowledge up to date");
                                                 share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                                 startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                             }
@@ -3643,7 +3663,7 @@ public class newMCQ extends AppCompatActivity{
                                                 share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                         " questions\n Install GK App to keep your General Knowledge up to date");
                                                 share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                                 startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                             }
@@ -4047,7 +4067,7 @@ public class newMCQ extends AppCompatActivity{
                                                 share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                         " questions\n Install GK App to keep your General Knowledge up to date");
                                                 share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                                 startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                             }
@@ -4449,7 +4469,7 @@ public class newMCQ extends AppCompatActivity{
                                                 share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                         " questions\n Install GK App to keep your General Knowledge up to date");
                                                 share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                                 startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                             }
@@ -4867,7 +4887,7 @@ public class newMCQ extends AppCompatActivity{
                                                 share.putExtra(Intent.EXTRA_SUBJECT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
                                                         " questions\n Install GK App to keep your General Knowledge up to date");
                                                 share.putExtra(Intent.EXTRA_TEXT, "I got "+m_Score+" questions correct out of "+myQuestion_Data.length+
-                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://gkapp.in/");
+                                                        " questions\n Install GK App to keep your General Knowledge up to date "+"https://catking.in/gk-app");
 
                                                 startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                             }
@@ -5304,25 +5324,27 @@ public class newMCQ extends AppCompatActivity{
         outState.putInt("Question_Number",m_Qn);
     }
 
-
     private void prepareMenuData() {
 
         MenuModel menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
         List<MenuModel> childModelsList = new ArrayList<>();
-        MenuModel childModel = new MenuModel("SNAP", false, false, new activity_coming_soon());
+        MenuModel childModel = new MenuModel("SNAP", false, false, new snap_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("XAT", false, false,new activity_coming_soon());
+        childModel = new MenuModel("XAT", false, false,new xat_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("IIFT", false, false, new activity_coming_soon());
+        childModel = new MenuModel("MICAT", false, false,new miCat_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("CMAT", false, false, new activity_coming_soon());
+        childModel = new MenuModel("IIFT", false, false, new iift_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("MAT", false, false, new activity_coming_soon());
+        childModel = new MenuModel("CMAT", false, false, new cmat_sa());
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("MAT", false, false, new mat_sa());
         childModelsList.add(childModel);
 
 
@@ -5330,22 +5352,14 @@ public class newMCQ extends AppCompatActivity{
             childList.put(menuModel, childModelsList);
         }
 
-        menuModel = new MenuModel("MICAT", true, false, new miCat_sa());
-        headerList.add(menuModel);
-
-        if (!menuModel.hasChildren) {
-            childList.put(menuModel, null);
-        }
-
-
 
         childModelsList = new ArrayList<>();
         menuModel = new MenuModel("RRB GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
-        childModel = new MenuModel("RRB Officer Scale", false, false, new activity_coming_soon());
+        childModel = new MenuModel("RRB Officer Scale", false, false, new rrb_os_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("RRB Office Assistant", false, false, new activity_coming_soon());
+        childModel = new MenuModel("RRB Office Assistant", false, false, new rrb_oa_sa());
         childModelsList.add(childModel);
 
         if (menuModel.hasChildren) {
@@ -5355,10 +5369,10 @@ public class newMCQ extends AppCompatActivity{
         childModelsList = new ArrayList<>();
         menuModel = new MenuModel("IBPS GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
-        childModel = new MenuModel("IBPS PO", false, false, new activity_coming_soon());
+        childModel = new MenuModel("IBPS PO", false, false, new ibps_po_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("IBPS Clerk", false, false, new activity_coming_soon());
+        childModel = new MenuModel("IBPS Clerk", false, false, new ibps_clerk_sa());
         childModelsList.add(childModel);
 
         if (menuModel.hasChildren) {
@@ -5368,10 +5382,10 @@ public class newMCQ extends AppCompatActivity{
         childModelsList = new ArrayList<>();
         menuModel = new MenuModel("RBI GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
-        childModel = new MenuModel("RBI Grade B Officer", false, false, new activity_coming_soon());
+        childModel = new MenuModel("RBI Grade B Officer", false, false, new rbi_gbo_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("RBI Office Assistant", false, false, new activity_coming_soon());
+        childModel = new MenuModel("RBI Office Assistant", false, false, new rbi_oa_sa());
         childModelsList.add(childModel);
 
         if (menuModel.hasChildren) {
@@ -5381,10 +5395,10 @@ public class newMCQ extends AppCompatActivity{
         childModelsList = new ArrayList<>();
         menuModel = new MenuModel("SBI GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
-        childModel = new MenuModel("SBI PO", false, false, new activity_coming_soon());
+        childModel = new MenuModel("SBI PO", false, false, new sbi_po_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("SBI Clerk", false, false, new activity_coming_soon());
+        childModel = new MenuModel("SBI Clerk", false, false, new sbi_clerk_sa());
         childModelsList.add(childModel);
 
         if (menuModel.hasChildren) {
@@ -5392,7 +5406,7 @@ public class newMCQ extends AppCompatActivity{
         }
 
 
-        menuModel = new MenuModel("Statick GK", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Statick GK", true, false, new staticGK_sa()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

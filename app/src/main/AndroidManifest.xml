@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="in.catking.gkapp.buy_gk_course"></activity>
-        <activity android:name="in.catking.gkapp.miCat_sa" />
+        <activity android:name="in.catking.gkapp.menuItems.miCat_sa" />
         <activity android:name="in.catking.gkapp.activity_coming_soon" />
         <activity
             android:name="in.catking.gkapp.Entry_To_CATKing"
@@ -49,8 +49,8 @@
         <activity android:name="in.catking.gkapp.Login_Mobile" />
         <activity android:name="in.catking.gkapp.quiz.QuizList" />
         <activity android:name="in.catking.gkapp.quiz.TF_QuizList" />
-        <activity android:name="in.catking.gkapp.quiz.MICAT_tfList" />
-        <activity android:name="in.catking.gkapp.quiz.MICAT_mcqList" />
+        <activity android:name="in.catking.gkapp.quiz.micat.MICAT_tfList" />
+        <activity android:name="in.catking.gkapp.quiz.micat.MICAT_mcqList" />
         <activity android:name="in.catking.gkapp.Splash_Screen_otp" />
         <activity android:name="in.catking.gkapp.Login_otp" />
         <activity android:name="in.catking.gkapp.quiz.newMCQ" />
@@ -59,6 +59,55 @@
         <activity android:name="in.catking.gkapp.List_view_quiz_selection" />
         <activity android:name="in.catking.gkapp.splash_loadquiz" />
         <activity android:name="in.catking.gkapp.spalsh_screen" />
+        <activity android:name=".menuItems.cmat_sa"/>
+        <activity android:name=".menuItems.ibps_clerk_sa"/>
+        <activity android:name=".menuItems.ibps_po_sa"/>
+        <activity android:name=".menuItems.iift_sa"/>
+        <activity android:name=".menuItems.mat_sa"/>
+        <activity android:name=".menuItems.rbi_gbo_sa"/>
+        <activity android:name=".menuItems.rbi_oa_sa"/>
+        <activity android:name=".menuItems.rrb_oa_sa"/>
+        <activity android:name=".menuItems.rrb_os_sa"/>
+        <activity android:name=".menuItems.sbi_clerk_sa"/>
+        <activity android:name=".menuItems.sbi_po_sa"/>
+        <activity android:name=".menuItems.snap_sa"/>
+        <activity android:name=".menuItems.staticGK_sa"/>
+        <activity android:name=".menuItems.xat_sa"/>
+        <activity android:name=".quiz.CMAT.CMAT_tfList"/>
+        <activity android:name=".quiz.CMAT.CMAT_mcqList"/>
+        <activity android:name=".quiz.IBPS_PO.IBPS_po_tfList"/>
+        <activity android:name=".quiz.IBPS_PO.IBPS_po_mcqList"/>
+        <activity android:name=".quiz.IBPS_Clerk.IBPS_c_mcqList"/>
+        <activity android:name=".quiz.IBPS_Clerk.IBPS_c_tfList"/>
+        <activity android:name=".quiz.IIFT.IIFT_mcqList"/>
+        <activity android:name=".quiz.IIFT.IIFT_tfList"/>
+        <activity android:name=".quiz.MAT.MAT_tfList"/>
+        <activity android:name=".quiz.MAT.MAT_mcqList"/>
+        <activity android:name=".quiz.RBI_GBO.RBI_GBO_mcqList"/>
+        <activity android:name=".quiz.RBI_GBO.RBI_GBO_tfList"/>
+        <activity android:name=".quiz.RBI_OA.RBI_OA_mcqList"/>
+        <activity android:name=".quiz.RBI_OA.RBI_OA_tfList"/>
+        <activity android:name=".quiz.RRB_OS.RRB_OS_mcqList"/>
+        <activity android:name=".quiz.RRB_OS.RRB_OS_tfList"/>
+        <activity android:name=".quiz.RRB_OA.RRB_OA_mcqList"/>
+        <activity android:name=".quiz.RRB_OA.RRB_OA_tfList"/>
+        <activity android:name=".quiz.SBI_Clerk.SBI_Clerk_mcqList"/>
+        <activity android:name=".quiz.SBI_Clerk.SBI_Clerk_tfList"/>
+        <activity android:name=".quiz.SBI_PO.SBI_PO_mcqList"/>
+        <activity android:name=".quiz.SBI_PO.SBI_PO_tfList"/>
+        <activity android:name=".quiz.SNAP.SNAP_mcqList"/>
+        <activity android:name=".quiz.SNAP.SNAP_tfList"/>
+        <activity android:name=".quiz.StaticGK.StaticGK_mcqList"/>
+        <activity android:name=".quiz.StaticGK.StaticGK_tfList"/>
+        <activity android:name=".quiz.XAT.XAT_mcqList"/>
+        <activity android:name=".quiz.XAT.XAT_tfList"/>
+
+
+
+
+
+
+
     </application>
 
 </manifest>

@@ -17,7 +17,7 @@ public class Entry_To_CATKing extends AppCompatActivity {
         String Bb = "v_success";
         boolean Aa = Bb.equalsIgnoreCase(C_login);
         if (Aa == true) {
-            activityIntent = new Intent(this, miCat_sa.class);
+            activityIntent = new Intent(this, MainActivity.class);
         } else {
             activityIntent = new Intent(this, Login_Mobile.class);
         }

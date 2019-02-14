@@ -1,4 +1,4 @@
-package in.catking.gkapp.quiz;
+package in.catking.gkapp.quiz.MAT;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -38,16 +38,33 @@ import in.catking.gkapp.MenuModel;
 import in.catking.gkapp.R;
 import in.catking.gkapp.activity_coming_soon;
 import in.catking.gkapp.buy_gk_course;
-import in.catking.gkapp.miCat_sa;
+import in.catking.gkapp.menuItems.cmat_sa;
+import in.catking.gkapp.menuItems.ibps_clerk_sa;
+import in.catking.gkapp.menuItems.ibps_po_sa;
+import in.catking.gkapp.menuItems.iift_sa;
+import in.catking.gkapp.menuItems.mat_sa;
+import in.catking.gkapp.menuItems.miCat_sa;
+import in.catking.gkapp.menuItems.rbi_gbo_sa;
+import in.catking.gkapp.menuItems.rbi_oa_sa;
+import in.catking.gkapp.menuItems.rrb_oa_sa;
+import in.catking.gkapp.menuItems.rrb_os_sa;
+import in.catking.gkapp.menuItems.sbi_clerk_sa;
+import in.catking.gkapp.menuItems.sbi_po_sa;
+import in.catking.gkapp.menuItems.snap_sa;
+import in.catking.gkapp.menuItems.staticGK_sa;
+import in.catking.gkapp.menuItems.xat_sa;
+import in.catking.gkapp.quiz.ListQuizAdapter;
+import in.catking.gkapp.quiz.newMCQ;
 
+public class MAT_tfList extends AppCompatActivity {
 
-public class MICAT_tfList extends AppCompatActivity {
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
     List<MenuModel> headerList = new ArrayList<>();
     HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
 
-    String QUIZ_SOURCE = "https://script.google.com/macros/s/AKfycbwm84iK95_vK_fgPXo-hrBty7ubrSIQMZLCT_2Py1s6L8xEEWA/exec?MOfh6t9etWJcRGh8nZe9-3EwhP7cC3CUJ";
+
+    String QUIZ_SOURCE = "https://script.google.com/macros/s/AKfycbyloSff8MbfFl7WNPt5P9x0ufaHJ-Ra7AfKZn9UAMFyXwLNJLWt/exec?MkyivFuO887V1Zqm41zNEkJCgur5ISDmC";
 
     private ArrayList<HashMap<String, String>> dataList = new ArrayList<HashMap<String, String>>();
     static final String KEY_NO = "no";
@@ -62,6 +79,10 @@ public class MICAT_tfList extends AppCompatActivity {
         setContentView(R.layout.fragment_ql);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        expandableListView = findViewById(R.id.expandableListView);
+        prepareMenuData();
+        populateExpandableList();
+
 
         listQuiz = findViewById(R.id.listQuiz);
         loader = findViewById(R.id.Qloader);
@@ -71,32 +92,28 @@ public class MICAT_tfList extends AppCompatActivity {
         listQuiz.setDivider(null);
         Resources r = getResources();
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                8, r.getDisplayMetrics());
+                0, r.getDisplayMetrics());
         listQuiz.setDividerHeight(px);
         listQuiz.setFadingEdgeLength(0);
         listQuiz.setFitsSystemWindows(true);
-        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12,
+        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0,
                 r.getDisplayMetrics());
         listQuiz.setPadding(px, px, px, px);
         listQuiz.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
 
         if(Function.isNetworkAvailable(getApplicationContext()))
         {
-            MICAT_tfList.DownloadNews quizTask = new DownloadNews();
+            MAT_tfList.DownloadNews quizTask = new MAT_tfList.DownloadNews();
             quizTask.execute();
         }else{
             Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
         }
 
-        expandableListView = findViewById(R.id.expandableListView);
-        prepareMenuData();
-        populateExpandableList();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         View navFooter1 = findViewById(R.id.imageButton_f);
         navFooter1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,9 +155,9 @@ public class MICAT_tfList extends AppCompatActivity {
         navFooter3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + "k5PwQ1n2x4U"));
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + "k5PwQ1n2x4U")); // redirecting to youtube app.
                 Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://www.youtube.com/channel/UC4eEFUtZeW6iOqH8e9e0CyQ"));
+                        Uri.parse("https://www.youtube.com/channel/UC4eEFUtZeW6iOqH8e9e0CyQ")); // will redirect to web browser if application is not present.
                 try {
                     startActivity(appIntent);
                 } catch (ActivityNotFoundException ex) {
@@ -157,6 +174,7 @@ public class MICAT_tfList extends AppCompatActivity {
                 startActivity(webIntent);
             }
         });
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
         ImageView nav_Head = (ImageView) headerview.findViewById(R.id.nav_head_image);
@@ -203,16 +221,17 @@ public class MICAT_tfList extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Unexpected error", Toast.LENGTH_SHORT).show();
                 }
 
-                TF_ListQuizAdapter adapter = new TF_ListQuizAdapter(getApplicationContext(), dataList);
+                ListQuizAdapter adapter = new ListQuizAdapter(getApplicationContext(), dataList);
                 listQuiz.setAdapter(adapter);
 
                 listQuiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
-                        Intent i = new Intent(getApplicationContext(), new_TF.class);
+                        Intent i = new Intent(getApplicationContext(), newMCQ.class);
                         i.putExtra("url", dataList.get(+position).get(KEY_QUIZAPI));
                         i.putExtra("UID",dataList.get(+position).get(KEY_NO));
                         startActivity(i);
+
                     }
                 });
 
@@ -220,10 +239,8 @@ public class MICAT_tfList extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "No news found", Toast.LENGTH_SHORT).show();
             }
         }
-
-
-
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -239,19 +256,22 @@ public class MICAT_tfList extends AppCompatActivity {
         MenuModel menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
         List<MenuModel> childModelsList = new ArrayList<>();
-        MenuModel childModel = new MenuModel("SNAP", false, false, new activity_coming_soon());
+        MenuModel childModel = new MenuModel("SNAP", false, false, new snap_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("XAT", false, false,new activity_coming_soon());
+        childModel = new MenuModel("XAT", false, false,new xat_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("IIFT", false, false, new activity_coming_soon());
+        childModel = new MenuModel("MICAT", false, false,new miCat_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("CMAT", false, false, new activity_coming_soon());
+        childModel = new MenuModel("IIFT", false, false, new iift_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("MAT", false, false, new activity_coming_soon());
+        childModel = new MenuModel("CMAT", false, false, new cmat_sa());
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("MAT", false, false, new mat_sa());
         childModelsList.add(childModel);
 
 
@@ -259,22 +279,14 @@ public class MICAT_tfList extends AppCompatActivity {
             childList.put(menuModel, childModelsList);
         }
 
-        menuModel = new MenuModel("MICAT", true, false, new miCat_sa());
-        headerList.add(menuModel);
-
-        if (!menuModel.hasChildren) {
-            childList.put(menuModel, null);
-        }
-
-
 
         childModelsList = new ArrayList<>();
         menuModel = new MenuModel("RRB GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
-        childModel = new MenuModel("RRB Officer Scale", false, false, new activity_coming_soon());
+        childModel = new MenuModel("RRB Officer Scale", false, false, new rrb_os_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("RRB Office Assistant", false, false, new activity_coming_soon());
+        childModel = new MenuModel("RRB Office Assistant", false, false, new rrb_oa_sa());
         childModelsList.add(childModel);
 
         if (menuModel.hasChildren) {
@@ -284,10 +296,10 @@ public class MICAT_tfList extends AppCompatActivity {
         childModelsList = new ArrayList<>();
         menuModel = new MenuModel("IBPS GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
-        childModel = new MenuModel("IBPS PO", false, false, new activity_coming_soon());
+        childModel = new MenuModel("IBPS PO", false, false, new ibps_po_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("IBPS Clerk", false, false, new activity_coming_soon());
+        childModel = new MenuModel("IBPS Clerk", false, false, new ibps_clerk_sa());
         childModelsList.add(childModel);
 
         if (menuModel.hasChildren) {
@@ -297,10 +309,10 @@ public class MICAT_tfList extends AppCompatActivity {
         childModelsList = new ArrayList<>();
         menuModel = new MenuModel("RBI GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
-        childModel = new MenuModel("RBI Grade B Officer", false, false, new activity_coming_soon());
+        childModel = new MenuModel("RBI Grade B Officer", false, false, new rbi_gbo_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("RBI Office Assistant", false, false, new activity_coming_soon());
+        childModel = new MenuModel("RBI Office Assistant", false, false, new rbi_oa_sa());
         childModelsList.add(childModel);
 
         if (menuModel.hasChildren) {
@@ -310,10 +322,10 @@ public class MICAT_tfList extends AppCompatActivity {
         childModelsList = new ArrayList<>();
         menuModel = new MenuModel("SBI GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
-        childModel = new MenuModel("SBI PO", false, false, new activity_coming_soon());
+        childModel = new MenuModel("SBI PO", false, false, new sbi_po_sa());
         childModelsList.add(childModel);
 
-        childModel = new MenuModel("SBI Clerk", false, false, new activity_coming_soon());
+        childModel = new MenuModel("SBI Clerk", false, false, new sbi_clerk_sa());
         childModelsList.add(childModel);
 
         if (menuModel.hasChildren) {
@@ -321,7 +333,7 @@ public class MICAT_tfList extends AppCompatActivity {
         }
 
 
-        menuModel = new MenuModel("Statick GK", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Statick GK", true, false, new staticGK_sa()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {
@@ -381,4 +393,3 @@ public class MICAT_tfList extends AppCompatActivity {
         });
     }
 }
-

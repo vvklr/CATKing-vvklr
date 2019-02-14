@@ -1,29 +1,43 @@
-package in.catking.gkapp;
+package in.catking.gkapp.quiz.micat;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import in.catking.gkapp.ExpandableListAdapter;
+import in.catking.gkapp.Function;
+import in.catking.gkapp.MainActivity;
+import in.catking.gkapp.MenuModel;
+import in.catking.gkapp.R;
+import in.catking.gkapp.activity_coming_soon;
+import in.catking.gkapp.buy_gk_course;
 import in.catking.gkapp.menuItems.cmat_sa;
 import in.catking.gkapp.menuItems.ibps_clerk_sa;
 import in.catking.gkapp.menuItems.ibps_po_sa;
@@ -39,49 +53,66 @@ import in.catking.gkapp.menuItems.sbi_po_sa;
 import in.catking.gkapp.menuItems.snap_sa;
 import in.catking.gkapp.menuItems.staticGK_sa;
 import in.catking.gkapp.menuItems.xat_sa;
+import in.catking.gkapp.quiz.TF_ListQuizAdapter;
+import in.catking.gkapp.quiz.new_TF;
 
-public class buy_gk_course extends AppCompatActivity {
 
-ExpandableListAdapter expandableListAdapter;
+public class MICAT_tfList extends AppCompatActivity {
+    ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
     List<MenuModel> headerList = new ArrayList<>();
     HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
-    WebView webView;
+
+    String QUIZ_SOURCE = "https://script.google.com/macros/s/AKfycbwm84iK95_vK_fgPXo-hrBty7ubrSIQMZLCT_2Py1s6L8xEEWA/exec?MOfh6t9etWJcRGh8nZe9-3EwhP7cC3CUJ";
+
+    private ArrayList<HashMap<String, String>> dataList = new ArrayList<HashMap<String, String>>();
+    static final String KEY_NO = "no";
+    static final String KEY_QUIZNAME = "quiz_name";
+    static final String KEY_QUIZAPI = "quiz_api";
+    public ListView listQuiz;
     ProgressBar loader;
-    String URL = "http://www.courses.catking.in/gk";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.fragment_ql);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        listQuiz = findViewById(R.id.listQuiz);
+        loader = findViewById(R.id.Qloader);
+        listQuiz.setEmptyView(loader);
+
+        listQuiz.setClipToPadding(false);
+        listQuiz.setDivider(null);
+        Resources r = getResources();
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                8, r.getDisplayMetrics());
+        listQuiz.setDividerHeight(px);
+        listQuiz.setFadingEdgeLength(0);
+        listQuiz.setFitsSystemWindows(true);
+        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12,
+                r.getDisplayMetrics());
+        listQuiz.setPadding(px, px, px, px);
+        listQuiz.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
+
+        if(Function.isNetworkAvailable(getApplicationContext()))
+        {
+            MICAT_tfList.DownloadNews quizTask = new DownloadNews();
+            quizTask.execute();
+        }else{
+            Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
+        }
+
         expandableListView = findViewById(R.id.expandableListView);
         prepareMenuData();
         populateExpandableList();
-
-
-        loader = (ProgressBar) findViewById(R.id.loader);
-        webView = (WebView) findViewById(R.id.webView);
-        webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setDisplayZoomControls(false);
-        webView.loadUrl(URL);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient() {
-            public void onProgressChanged(WebView view, int progress) {
-                if (progress == 100) {
-                    loader.setVisibility(View.GONE);
-                } else {
-                    loader.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         View navFooter1 = findViewById(R.id.imageButton_f);
         navFooter1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,8 +173,6 @@ ExpandableListAdapter expandableListAdapter;
                 startActivity(webIntent);
             }
         });
-
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
         ImageView nav_Head = (ImageView) headerview.findViewById(R.id.nav_head_image);
@@ -155,10 +184,62 @@ ExpandableListAdapter expandableListAdapter;
             }
         });
 
+    }
+    class DownloadNews extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+        protected String doInBackground(String... args) {
+            String xml = "";
+
+            String urlParameters = "";//xml = Function.excuteGet("https://newsapi.org/v2/top-headlines?country="+NEWS_SOURCE+"&apiKey="+API_KEY, urlParameters);
+            xml = Function.excuteGet(QUIZ_SOURCE,urlParameters);
+            return  xml;
+        }
+        @Override
+        protected void onPostExecute(String xml) {
+
+            if(xml.length()>10){ // Just checking if not empty
+
+                try {
+                    JSONObject jsonResponse = new JSONObject(xml);
+                    JSONArray jsonArray = jsonResponse.optJSONArray("quiz");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put(KEY_NO, jsonObject.optString(KEY_NO).toString());
+                        map.put(KEY_QUIZNAME, jsonObject.optString(KEY_QUIZNAME).toString());
+                        map.put(KEY_QUIZAPI, jsonObject.optString(KEY_QUIZAPI).toString());
+                        dataList.add(map);
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Unexpected error", Toast.LENGTH_SHORT).show();
+                }
+
+                TF_ListQuizAdapter adapter = new TF_ListQuizAdapter(getApplicationContext(), dataList);
+                listQuiz.setAdapter(adapter);
+
+                listQuiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        Intent i = new Intent(getApplicationContext(), new_TF.class);
+                        i.putExtra("url", dataList.get(+position).get(KEY_QUIZAPI));
+                        i.putExtra("UID",dataList.get(+position).get(KEY_NO));
+                        startActivity(i);
+                    }
+                });
+
+            }else{
+                Toast.makeText(getApplicationContext(), "No news found", Toast.LENGTH_SHORT).show();
+            }
+        }
+
 
 
     }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -311,3 +392,4 @@ ExpandableListAdapter expandableListAdapter;
         });
     }
 }
+

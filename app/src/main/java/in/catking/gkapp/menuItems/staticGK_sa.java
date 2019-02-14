@@ -1,87 +1,92 @@
-package in.catking.gkapp;
+package in.catking.gkapp.menuItems;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import in.catking.gkapp.menuItems.cmat_sa;
-import in.catking.gkapp.menuItems.ibps_clerk_sa;
-import in.catking.gkapp.menuItems.ibps_po_sa;
-import in.catking.gkapp.menuItems.iift_sa;
-import in.catking.gkapp.menuItems.mat_sa;
-import in.catking.gkapp.menuItems.miCat_sa;
-import in.catking.gkapp.menuItems.rbi_gbo_sa;
-import in.catking.gkapp.menuItems.rbi_oa_sa;
-import in.catking.gkapp.menuItems.rrb_oa_sa;
-import in.catking.gkapp.menuItems.rrb_os_sa;
-import in.catking.gkapp.menuItems.sbi_clerk_sa;
-import in.catking.gkapp.menuItems.sbi_po_sa;
-import in.catking.gkapp.menuItems.snap_sa;
-import in.catking.gkapp.menuItems.staticGK_sa;
-import in.catking.gkapp.menuItems.xat_sa;
+import in.catking.gkapp.DetailsActivity;
+import in.catking.gkapp.ExpandableListAdapter;
+import in.catking.gkapp.MainActivity;
+import in.catking.gkapp.MenuModel;
+import in.catking.gkapp.R;
+import in.catking.gkapp.activity_coming_soon;
+import in.catking.gkapp.buy_gk_course;
+import in.catking.gkapp.quiz.CMAT.CMAT_mcqList;
+import in.catking.gkapp.quiz.CMAT.CMAT_tfList;
 
-public class buy_gk_course extends AppCompatActivity {
-
-ExpandableListAdapter expandableListAdapter;
+public class staticGK_sa extends AppCompatActivity {
+    ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
     List<MenuModel> headerList = new ArrayList<>();
     HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
-    WebView webView;
-    ProgressBar loader;
-    String URL = "http://www.courses.catking.in/gk";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_mi_cat_sa);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Button TFQuiz = (Button) findViewById(R.id.buttonTFQuiz);
+        Button MCQuiz = (Button) findViewById(R.id.buttonMultiQuiz);
+        Button AboutExam = (Button) findViewById(R.id.button_about_A_gk);
+
+        RelativeLayout rr = (RelativeLayout) findViewById(R.id.layout_relative_B);
+        final Button child2 = (Button) rr.findViewById(R.id.button_about_A_gk);
+        rr.removeView(child2);
+
+
+        TFQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTF();
+            }
+        });
+
+        MCQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startMCQ();
+            }
+        });
+
+//        AboutExam.setText("About CMAT");
+//        AboutExam.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startfAboutExam();
+//            }
+//        });
+
         expandableListView = findViewById(R.id.expandableListView);
         prepareMenuData();
         populateExpandableList();
-
-
-        loader = (ProgressBar) findViewById(R.id.loader);
-        webView = (WebView) findViewById(R.id.webView);
-        webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setDisplayZoomControls(false);
-        webView.loadUrl(URL);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient() {
-            public void onProgressChanged(WebView view, int progress) {
-                if (progress == 100) {
-                    loader.setVisibility(View.GONE);
-                } else {
-                    loader.setVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         View navFooter1 = findViewById(R.id.imageButton_f);
         navFooter1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +148,6 @@ ExpandableListAdapter expandableListAdapter;
             }
         });
 
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
         ImageView nav_Head = (ImageView) headerview.findViewById(R.id.nav_head_image);
@@ -156,8 +160,21 @@ ExpandableListAdapter expandableListAdapter;
         });
 
 
-
     }
+    public void startTF(){
+        Intent intentC = new Intent(getApplicationContext(), CMAT_tfList.class);
+        startActivity(intentC);
+    }
+    public void startMCQ(){
+        Intent intentD = new Intent(getApplicationContext(), CMAT_mcqList.class);
+        startActivity(intentD);
+    }
+//    public void startfAboutExam(){
+//        Intent intentE = new Intent(getApplicationContext(), DetailsActivity.class);
+//        intentE.putExtra("url","https://catking.in/micat-exam/");
+//        startActivity(intentE);
+//    }
+
 
     @Override
     public void onBackPressed() {
@@ -286,7 +303,11 @@ ExpandableListAdapter expandableListAdapter;
                     if (!headerList.get(groupPosition).hasChildren) {
                         Intent intentC = new Intent(getApplicationContext(),headerList.get(groupPosition).activity.getClass());
                         startActivity(intentC);
+                        //webView.loadUrl(model.url);
                         onBackPressed();
+//                        WebView webView = findViewById(R.id.webView);
+//                        webView.loadUrl(headerList.get(groupPosition).url);
+//                        onBackPressed();
                     }
                 }
 
