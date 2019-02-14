@@ -18,6 +18,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +50,9 @@ public class staticGK_sa extends AppCompatActivity {
         Button TFQuiz = (Button) findViewById(R.id.buttonTFQuiz);
         Button MCQuiz = (Button) findViewById(R.id.buttonMultiQuiz);
         Button AboutExam = (Button) findViewById(R.id.button_about_A_gk);
+
+        TextView TextEXAM = (TextView)findViewById(R.id.gk_name);
+        TextEXAM.setText("Static GK");
 
         RelativeLayout rr = (RelativeLayout) findViewById(R.id.layout_relative_B);
         final Button child2 = (Button) rr.findViewById(R.id.button_about_A_gk);

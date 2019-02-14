@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +65,9 @@ public class rrb_oa_sa extends AppCompatActivity {
                 startMCQ();
             }
         });
+
+        TextView TextEXAM = (TextView)findViewById(R.id.gk_name);
+        TextEXAM.setText("RRB Office Assistant GK");
 
         AboutExam.setText("About RRB Office Assistant");
         AboutExam.setOnClickListener(new View.OnClickListener() {
