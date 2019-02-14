@@ -70,16 +70,17 @@ public class rrb_os_sa extends AppCompatActivity {
         TextView TextEXAM = (TextView)findViewById(R.id.gk_name);
         TextEXAM.setText("RRB Officer Scale GK");
 
-        RelativeLayout rr = (RelativeLayout) findViewById(R.id.layout_relative_B);
-        final Button child2 = (Button) rr.findViewById(R.id.button_about_A_gk);
-        rr.removeView(child2);
-//        AboutExam.setText("About RRB Officer Scale");
-//        AboutExam.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startfAboutExam();
-//            }
-//        });
+//        RelativeLayout rr = (RelativeLayout) findViewById(R.id.layout_relative_B);
+//        final Button child2 = (Button) rr.findViewById(R.id.button_about_A_gk);
+//        rr.removeView(child2);
+
+        AboutExam.setText("About RRB Officer Scale");
+        AboutExam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startfAboutExam();
+            }
+        });
 
         expandableListView = findViewById(R.id.expandableListView);
         prepareMenuData();

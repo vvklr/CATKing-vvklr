@@ -69,16 +69,16 @@ public class rbi_oa_sa extends AppCompatActivity {
         TextView TextEXAM = (TextView)findViewById(R.id.gk_name);
         TextEXAM.setText("RBI Office Assistant GK");
 
-        RelativeLayout rr = (RelativeLayout) findViewById(R.id.layout_relative_B);
-        final Button child2 = (Button) rr.findViewById(R.id.button_about_A_gk);
-        rr.removeView(child2);
-//        AboutExam.setText("About RBI Office Assistant");
-//        AboutExam.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startfAboutExam();
-//            }
-//        });
+//        RelativeLayout rr = (RelativeLayout) findViewById(R.id.layout_relative_B);
+//        final Button child2 = (Button) rr.findViewById(R.id.button_about_A_gk);
+//        rr.removeView(child2);
+        AboutExam.setText("About RBI Office Assistant");
+        AboutExam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startfAboutExam();
+            }
+        });
 
         expandableListView = findViewById(R.id.expandableListView);
         prepareMenuData();
