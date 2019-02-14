@@ -174,7 +174,9 @@ public class MainActivity extends AppCompatActivity {
                     .setTitle("Exiting GK App")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            MainActivity.super.onBackPressed();
+                            finishAffinity();
+                            finish();
+                            //MainActivity.super.onBackPressed();
                             //MainActivity.this.finish();
                             //super.onBackPressed();
                         }

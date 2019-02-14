@@ -6,11 +6,13 @@
         <item name="colorPrimary">#212121</item>
         <item name="colorPrimaryDark">#424242</item>
         <item name="colorAccent">#03A9F4</item>
+        <item name="android:statusBarColor">#201B53</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">#201B53</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -27,6 +29,7 @@
         <item name="android:fontFamily">@font/tondo_bold</item>
         <!--dialog background-->
         <item name="android:windowBackground">@drawable/alert_dialogue</item>
+        <item name="android:statusBarColor">#201B53</item>
     </style>
 
 </resources>
