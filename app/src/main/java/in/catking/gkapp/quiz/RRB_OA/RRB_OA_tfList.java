@@ -55,6 +55,7 @@ import in.catking.gkapp.menuItems.staticGK_sa;
 import in.catking.gkapp.menuItems.xat_sa;
 import in.catking.gkapp.quiz.ListQuizAdapter;
 import in.catking.gkapp.quiz.newMCQ;
+import in.catking.gkapp.quiz.new_TF;
 
 public class RRB_OA_tfList extends AppCompatActivity {
 
@@ -227,7 +228,7 @@ public class RRB_OA_tfList extends AppCompatActivity {
                 listQuiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
-                        Intent i = new Intent(getApplicationContext(), newMCQ.class);
+                        Intent i = new Intent(getApplicationContext(), new_TF.class);
                         i.putExtra("url", dataList.get(+position).get(KEY_QUIZAPI));
                         i.putExtra("UID",dataList.get(+position).get(KEY_NO));
                         startActivity(i);
