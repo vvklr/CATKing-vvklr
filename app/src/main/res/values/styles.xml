@@ -17,4 +17,16 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@android:color/white</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--title and message font-->
+        <item name="android:fontFamily">@font/tondo_bold</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/alert_dialogue</item>
+    </style>
+
 </resources>

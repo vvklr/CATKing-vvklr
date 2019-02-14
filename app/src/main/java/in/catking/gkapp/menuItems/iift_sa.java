@@ -171,7 +171,7 @@ public class iift_sa extends AppCompatActivity {
     }
     public void startfAboutExam(){
         Intent intentE = new Intent(getApplicationContext(), DetailsActivity.class);
-        intentE.putExtra("url","https://catking.in/micat-exam/");
+        intentE.putExtra("url","https://catking.in/iift-delhi/");
         startActivity(intentE);
     }
 

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -69,13 +70,16 @@ public class rrb_oa_sa extends AppCompatActivity {
         TextView TextEXAM = (TextView)findViewById(R.id.gk_name);
         TextEXAM.setText("RRB Office Assistant GK");
 
-        AboutExam.setText("About RRB Office Assistant");
-        AboutExam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startfAboutExam();
-            }
-        });
+        RelativeLayout rr = (RelativeLayout) findViewById(R.id.layout_relative_B);
+        final Button child2 = (Button) rr.findViewById(R.id.button_about_A_gk);
+        rr.removeView(child2);
+//        AboutExam.setText("About RRB Office Assistant");
+//        AboutExam.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startfAboutExam();
+//            }
+//        });
 
         expandableListView = findViewById(R.id.expandableListView);
         prepareMenuData();

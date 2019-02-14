@@ -2,14 +2,17 @@ package in.catking.gkapp;
 //Vishal Raut
 //Email me on vr.iitb@gmail.com if you come across any problem
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.LightingColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -165,7 +168,25 @@ public class MainActivity extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.MyDialogTheme);
+            builder.setCancelable(false)
+                    .setMessage("Are you sure you want to Stop learning?")
+                    .setTitle("Exiting GK App")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            MainActivity.super.onBackPressed();
+                            //MainActivity.this.finish();
+                            //super.onBackPressed();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+            //super.onBackPressed();
         }
     }
 
@@ -309,31 +330,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-//    @SuppressWarnings("StatementWithEmptyBody")
-//
-//    @Override
-//    public boolean onNavigationItemSelected(ImageButton item) {
-//        // Handle navigation view item clicks here.mQuestion_Number.setBackground(getResources().getDrawable(R.drawable.text_container_true));
-//        int id = item.getId();
-//
-//        if (id == R.id.imageButton_i){
-//            try{
-//                //Context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
-//                new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/EwYsHmIlFSO"));
-//            } catch (Exception e) {
-//                new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/rahulcatking/"));
-//            }
-//        } else if (id == R.id.imageButton_i) {
-//
-//        } else if (id == R.id.imageButton_y) {
-//
-//        } else if (id == R.id.imageButton_q) {
-//
-//        }
-//
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
 }

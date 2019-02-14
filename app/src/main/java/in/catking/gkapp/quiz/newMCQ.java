@@ -9,6 +9,7 @@ package in.catking.gkapp.quiz;
 //Email me on vr.iitb@gmail.com if you come across any problem
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -20,6 +21,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -5313,7 +5315,22 @@ public class newMCQ extends AppCompatActivity{
         if (drawer.isDrawerOpen(GravityCompat.START)) {
         drawer.closeDrawer(GravityCompat.START);
         } else {
-        super.onBackPressed();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.MyDialogTheme);
+            builder.setCancelable(false)
+                    .setMessage("Are you sure you want to quit?")
+                    .setTitle("Exiting Quiz")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            newMCQ.super.onBackPressed();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
             }
         }
     @Override
