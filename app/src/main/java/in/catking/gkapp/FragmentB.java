@@ -44,18 +44,18 @@ public class FragmentB extends Fragment {
         listNews.setEmptyView(loader);
 
 
-        listNews.setClipToPadding(false);
-        listNews.setDivider(null);
-        Resources r = getResources();
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                8, r.getDisplayMetrics());
-        listNews.setDividerHeight(px);
-        listNews.setFadingEdgeLength(0);
-        listNews.setFitsSystemWindows(true);
-        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12,
-                r.getDisplayMetrics());
-        listNews.setPadding(px, px, px, px);
-        listNews.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
+//        listNews.setClipToPadding(false);
+//        listNews.setDivider(null);
+//        Resources r = getResources();
+//        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+//                8, r.getDisplayMetrics());
+//        listNews.setDividerHeight(px);
+//        listNews.setFadingEdgeLength(0);
+//        listNews.setFitsSystemWindows(true);
+//        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12,
+//                r.getDisplayMetrics());
+//        listNews.setPadding(px, px, px, px);
+//        listNews.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
 
 
         if(Function.isNetworkAvailable(getContext()))
@@ -105,7 +105,14 @@ public class FragmentB extends Fragment {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         HashMap<String, String> map = new HashMap<String, String>();
-                        map.put(KEY_AUTHOR, jsonObject.optString(KEY_AUTHOR).toString());
+                        String aa =jsonObject.optString(KEY_AUTHOR);
+                        String nu = "null";
+                        boolean cc = aa.equalsIgnoreCase(nu);
+                        if(cc == true){
+                            map.put(KEY_AUTHOR, "");
+                        }else{
+                            map.put(KEY_AUTHOR, jsonObject.optString(KEY_AUTHOR).toString());
+                        }
                         map.put(KEY_TITLE, jsonObject.optString(KEY_TITLE).toString());
                         map.put(KEY_DESCRIPTION, jsonObject.optString(KEY_DESCRIPTION).toString());
                         map.put(KEY_URL, jsonObject.optString(KEY_URL).toString());

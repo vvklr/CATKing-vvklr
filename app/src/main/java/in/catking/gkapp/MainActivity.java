@@ -66,14 +66,31 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent Email = new Intent(Intent.ACTION_SEND);
-                Email.setType("text/email");
-                Email.putExtra(Intent.EXTRA_EMAIL,
-                        new String[]{"vronpc@gmail.com"});  //developer 's email
-                Email.putExtra(Intent.EXTRA_SUBJECT,
-                        "My Suggestions to Admin"); // Email 's Subject
-                Email.putExtra(Intent.EXTRA_TEXT, "Dear CATKing," + "");  //Email 's Greeting text
-                startActivity(Intent.createChooser(Email, "Send Feedback:"));
+
+
+                        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                        share.setType("text/plain");
+
+                        share.putExtra(Intent.EXTRA_SUBJECT, "Hi,\n" +
+                                "Came across this GK application, which will be helpful to enhance your GK for\n" +
+                                "various competitive exams.\n" +
+                                "Download now: https://www.catking.in/gk-app/\n" +
+                                "Thanks");
+                        share.putExtra(Intent.EXTRA_TEXT, "Hi,\n" +
+                                "Came across this GK application, which will be helpful to enhance your GK for\n" +
+                                "various competitive exams.\n" +
+                                "Download now: https://www.catking.in/gk-app/\n" +
+                                "Thanks");
+
+                        startActivity(Intent.createChooser(share, "Share your result with friends using"));
+//                Intent Email = new Intent(Intent.ACTION_SEND);
+//                Email.setType("text/email");
+//                Email.putExtra(Intent.EXTRA_EMAIL,
+//                        new String[]{"vronpc@gmail.com"});  //developer 's email
+//                Email.putExtra(Intent.EXTRA_SUBJECT,
+//                        "My Suggestions to Admin"); // Email 's Subject
+//                Email.putExtra(Intent.EXTRA_TEXT, "Dear CATKing," + "");  //Email 's Greeting text
+//                startActivity(Intent.createChooser(Email, "Send Feedback:"));
             }
         });
 
@@ -194,7 +211,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void prepareMenuData() {
 
-        MenuModel menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
+        MenuModel menuModel = new MenuModel("Home", true, false, new MainActivity()); //Menu of Android Tutorial. No sub menus
+        headerList.add(menuModel);
+
+        if (!menuModel.hasChildren) {
+            childList.put(menuModel, null);
+        }
+
+        menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
         List<MenuModel> childModelsList = new ArrayList<>();
         MenuModel childModel = new MenuModel("SNAP", false, false, new snap_sa());

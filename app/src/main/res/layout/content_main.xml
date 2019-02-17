@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_marginTop="60dp"
         android:background="@color/colorPrimary"
-        app:tabSelectedTextColor="#00BCD4"
+        app:tabSelectedTextColor="#FFFFFF"
         app:tabIndicatorColor="#FFFFFF"
         app:tabIndicatorHeight="6dp"
-        app:tabTextColor="@android:color/white"
+        app:tabTextColor="#ADABAB"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints">
 

@@ -13,15 +13,18 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         if (position == 0)
         {
-            fragment = new FragmentA();
+            fragment = new FragmentC();
+            //fragment = new FragmentA();
         }
         else if (position == 1)
         {
-            fragment = new FragmentB();
+            fragment = new FragmentA();
+            //fragment = new FragmentB();
         }
         else if (position == 2)
         {
-            fragment = new FragmentC();
+            fragment = new FragmentB();
+            //fragment = new FragmentC();
         }
         return fragment;
     }
@@ -34,15 +37,18 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         String title = null;
         if (position == 0)
         {
-            title = "INDIA GK";
+            title = "GK Quiz";
+            //title = "INDIA GK";
         }
         else if (position == 1)
         {
-            title = "World GK";
+            title = "INDIA GK";
+            //title = "World GK";
         }
         else if (position == 2)
         {
-            title = "GK Quiz";
+            title = "World GK";
+            //title = "GK Quiz";
         }
         return title;
     }

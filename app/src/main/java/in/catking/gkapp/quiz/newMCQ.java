@@ -5317,8 +5317,8 @@ public class newMCQ extends AppCompatActivity{
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.MyDialogTheme);
             builder.setCancelable(false)
-                    .setMessage("Are you sure you want to quit?")
-                    .setTitle("Exiting Quiz")
+                    .setMessage("Are you sure you want to exit the quiz?")
+                    .setTitle("Exit Quiz")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             newMCQ.super.onBackPressed();
@@ -5342,8 +5342,13 @@ public class newMCQ extends AppCompatActivity{
     }
 
     private void prepareMenuData() {
+        MenuModel menuModel = new MenuModel("Home", true, false, new MainActivity()); //Menu of Android Tutorial. No sub menus
+        headerList.add(menuModel);
 
-        MenuModel menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
+        if (!menuModel.hasChildren) {
+            childList.put(menuModel, null);
+        }
+        menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
         List<MenuModel> childModelsList = new ArrayList<>();
         MenuModel childModel = new MenuModel("SNAP", false, false, new snap_sa());

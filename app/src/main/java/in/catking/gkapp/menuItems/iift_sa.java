@@ -187,8 +187,14 @@ public class iift_sa extends AppCompatActivity {
     }
 
     private void prepareMenuData() {
+        MenuModel menuModel = new MenuModel("Home", true, false, new MainActivity()); //Menu of Android Tutorial. No sub menus
+        headerList.add(menuModel);
 
-        MenuModel menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
+        if (!menuModel.hasChildren) {
+            childList.put(menuModel, null);
+        }
+
+        menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
         List<MenuModel> childModelsList = new ArrayList<>();
         MenuModel childModel = new MenuModel("SNAP", false, false, new snap_sa());

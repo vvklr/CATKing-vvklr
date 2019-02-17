@@ -264,7 +264,7 @@ public class new_TF extends AppCompatActivity {
                                         share.putExtra(Intent.EXTRA_SUBJECT, "I got " + m_Score + " questions correct out of " + myQuestionData.length +
                                                 " questions\n Install GK App to keep your General Knowledge up to date");
                                         share.putExtra(Intent.EXTRA_TEXT, "I got " + m_Score + " questions correct out of " + myQuestionData.length +
-                                                " questions\n Install GK App to keep your General Knowledge up to date " + "https://gkapp.in/");
+                                                " questions\n Install GK App to keep your General Knowledge up to date " + "https://www.catking.in/gk-app/");
 
                                         startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                     }
@@ -1134,7 +1134,7 @@ public class new_TF extends AppCompatActivity {
                                                 share.putExtra(Intent.EXTRA_SUBJECT, "I got " + m_Score + " questions correct out of " + myQuestionData.length +
                                                         " questions\n Install GK App to keep your General Knowledge up to date");
                                                 share.putExtra(Intent.EXTRA_TEXT, "I got " + m_Score + " questions correct out of " + myQuestionData.length +
-                                                        " questions\n Install GK App to keep your General Knowledge up to date " + "https://gkapp.in/");
+                                                        " questions\n Install GK App to keep your General Knowledge up to date " + "https://www.catking.in/gk-app/");
 
                                                 startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                             }
@@ -2000,7 +2000,7 @@ public class new_TF extends AppCompatActivity {
                                                 share.putExtra(Intent.EXTRA_SUBJECT, "I got " + m_Score + " questions correct out of " + myQuestionData.length +
                                                         " questions\n Install GK App to keep your General Knowledge up to date");
                                                 share.putExtra(Intent.EXTRA_TEXT, "I got " + m_Score + " questions correct out of " + myQuestionData.length +
-                                                        " questions\n Install GK App to keep your General Knowledge up to date " + "https://gkapp.in/");
+                                                        " questions\n Install GK App to keep your General Knowledge up to date " + "https://www.catking.in/gk-app/");
 
                                                 startActivity(Intent.createChooser(share, "Share your result with friends using"));
                                             }
@@ -2827,8 +2827,8 @@ public class new_TF extends AppCompatActivity {
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.MyDialogTheme);
             builder.setCancelable(false)
-                    .setMessage("Are you sure you want to quit?")
-                    .setTitle("Exiting Quiz")
+                    .setMessage("Are you sure you want to exit the quiz?")
+                    .setTitle("Exit Quiz")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             new_TF.super.onBackPressed();
@@ -2845,8 +2845,13 @@ public class new_TF extends AppCompatActivity {
     }
 
     private void prepareMenuData() {
+        MenuModel menuModel = new MenuModel("Home", true, false, new MainActivity()); //Menu of Android Tutorial. No sub menus
+        headerList.add(menuModel);
 
-        MenuModel menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
+        if (!menuModel.hasChildren) {
+            childList.put(menuModel, null);
+        }
+        menuModel = new MenuModel("MBA GK", true, true, new activity_coming_soon());
         headerList.add(menuModel);
         List<MenuModel> childModelsList = new ArrayList<>();
         MenuModel childModel = new MenuModel("SNAP", false, false, new snap_sa());
