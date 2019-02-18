@@ -62,6 +62,7 @@ public class TF_QuizList extends AppCompatActivity {
     HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
 
     String QUIZ_SOURCE = "https://script.google.com/macros/s/AKfycbwABx8uB6I5ym7AsLhiAYfo_Vg3V0cEpcwB9td4Ilco3M4At14/exec?MRx_bnZRMR-1I3GS5Xc264rAIaA47-59-";
+    String MONTH_SOURCE ="https://script.google.com/macros/s/AKfycbz_Go1jwoMoAHhN4fMmaZCDM18nm3v9xMhIqQ7soKAV-QWdBouk/exec?Ms7b69CpbCjFROZh15cctazSAfNTxgSUZ";
 
     private ArrayList<HashMap<String, String>> dataList = new ArrayList<HashMap<String, String>>();
     static final String KEY_NO = "no";
@@ -81,23 +82,26 @@ public class TF_QuizList extends AppCompatActivity {
         loader = findViewById(R.id.Qloader);
         listQuiz.setEmptyView(loader);
 
-        listQuiz.setClipToPadding(false);
-        listQuiz.setDivider(null);
-        Resources r = getResources();
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                8, r.getDisplayMetrics());
-        listQuiz.setDividerHeight(px);
-        listQuiz.setFadingEdgeLength(0);
-        listQuiz.setFitsSystemWindows(true);
-        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12,
-                r.getDisplayMetrics());
-        listQuiz.setPadding(px, px, px, px);
-        listQuiz.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
+//        listQuiz.setClipToPadding(false);
+//        listQuiz.setDivider(null);
+//        Resources r = getResources();
+//        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+//                8, r.getDisplayMetrics());
+//        listQuiz.setDividerHeight(px);
+//        listQuiz.setFadingEdgeLength(0);
+//        listQuiz.setFitsSystemWindows(true);
+//        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12,
+//                r.getDisplayMetrics());
+//        listQuiz.setPadding(px, px, px, px);
+//        listQuiz.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
 
         if(Function.isNetworkAvailable(getApplicationContext()))
         {
             TF_QuizList.DownloadNews quizTask = new DownloadNews();
             quizTask.execute();
+            TF_QuizList.DownloadMonth monthTask = new TF_QuizList.DownloadMonth();
+            monthTask.execute();
+
         }else{
             Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
         }
@@ -241,6 +245,58 @@ public class TF_QuizList extends AppCompatActivity {
 
 
     }
+    class DownloadMonth extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+        protected String doInBackground(String... args) {
+            String xml = "";
+
+            String urlParameters = "";//xml = Function.excuteGet("https://newsapi.org/v2/top-headlines?country="+NEWS_SOURCE+"&apiKey="+API_KEY, urlParameters);
+            xml = Function.excuteGet(MONTH_SOURCE,urlParameters);
+            return  xml;
+        }
+        @Override
+        protected void onPostExecute(String xml) {
+
+            if(xml.length()>10){ // Just checking if not empty
+
+                try {
+                    JSONObject jsonResponse = new JSONObject(xml);
+                    JSONArray jsonArray = jsonResponse.optJSONArray("quiz");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put(KEY_NO, jsonObject.optString(KEY_NO).toString());
+                        map.put(KEY_QUIZNAME, jsonObject.optString(KEY_QUIZNAME).toString());
+                        map.put(KEY_QUIZAPI, jsonObject.optString(KEY_QUIZAPI).toString());
+                        dataList.add(map);
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Unexpected error", Toast.LENGTH_SHORT).show();
+                }
+
+                ListQuizAdapter adapter = new ListQuizAdapter(getApplicationContext(), dataList);
+                listQuiz.setAdapter(adapter);
+
+                listQuiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        Intent i = new Intent(getApplicationContext(), TF_month_quiz.class);
+                        i.putExtra("month_url", dataList.get(+position).get(KEY_QUIZAPI));
+                        startActivity(i);
+
+                    }
+                });
+
+            }else{
+                Toast.makeText(getApplicationContext(), "No quiz found", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -340,7 +396,7 @@ public class TF_QuizList extends AppCompatActivity {
         }
 
 
-        menuModel = new MenuModel("Statick GK", true, false, new staticGK_sa()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Static GK", true, false, new staticGK_sa()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

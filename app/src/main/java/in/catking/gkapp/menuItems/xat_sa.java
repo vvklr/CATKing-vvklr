@@ -32,6 +32,8 @@ import in.catking.gkapp.activity_coming_soon;
 import in.catking.gkapp.buy_gk_course;
 import in.catking.gkapp.quiz.IIFT.IIFT_mcqList;
 import in.catking.gkapp.quiz.IIFT.IIFT_tfList;
+import in.catking.gkapp.quiz.XAT.XAT_mcqList;
+import in.catking.gkapp.quiz.XAT.XAT_tfList;
 import in.catking.gkapp.quiz.micat.MICAT_mcqList;
 import in.catking.gkapp.quiz.micat.MICAT_tfList;
 
@@ -164,11 +166,11 @@ public class xat_sa extends AppCompatActivity {
 
     }
     public void startTF(){
-        Intent intentC = new Intent(getApplicationContext(), IIFT_tfList.class);
+        Intent intentC = new Intent(getApplicationContext(), XAT_tfList.class);
         startActivity(intentC);
     }
     public void startMCQ(){
-        Intent intentD = new Intent(getApplicationContext(), IIFT_mcqList.class);
+        Intent intentD = new Intent(getApplicationContext(), XAT_mcqList.class);
         startActivity(intentD);
     }
     public void startfAboutExam(){
@@ -276,7 +278,7 @@ public class xat_sa extends AppCompatActivity {
         }
 
 
-        menuModel = new MenuModel("Statick GK", true, false, new staticGK_sa()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Static GK", true, false, new staticGK_sa()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

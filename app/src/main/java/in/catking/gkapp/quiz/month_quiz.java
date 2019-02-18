@@ -1,32 +1,44 @@
-package in.catking.gkapp;
-//Vishal Raut
-//Email me on vr.iitb@gmail.com if you come across any problem
+package in.catking.gkapp.quiz;
+
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.LightingColorFilter;
+import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.view.View;
+import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import in.catking.gkapp.ExpandableListAdapter;
+import in.catking.gkapp.Function;
+import in.catking.gkapp.MainActivity;
+import in.catking.gkapp.MenuModel;
+import in.catking.gkapp.R;
+import in.catking.gkapp.activity_coming_soon;
+import in.catking.gkapp.buy_gk_course;
 import in.catking.gkapp.menuItems.cmat_sa;
 import in.catking.gkapp.menuItems.ibps_clerk_sa;
 import in.catking.gkapp.menuItems.ibps_po_sa;
@@ -43,56 +55,58 @@ import in.catking.gkapp.menuItems.snap_sa;
 import in.catking.gkapp.menuItems.staticGK_sa;
 import in.catking.gkapp.menuItems.xat_sa;
 
-public class MainActivity extends AppCompatActivity {
+public class month_quiz extends AppCompatActivity {
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
     List<MenuModel> headerList = new ArrayList<>();
     HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
-    TabLayout tabLayout;
-    ViewPager viewPager;
-    ViewPagerAdapter viewPagerAdapter;
+
+    String MONTH_SOURCE;
+    private ArrayList<HashMap<String, String>> dataList = new ArrayList<HashMap<String, String>>();
+    static final String KEY_NO = "no";
+    static final String KEY_QUIZNAME = "quiz_name";
+    static final String KEY_QUIZAPI = "quiz_api";
+    public ListView listQuiz;
+    ProgressBar loader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_ql);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        MONTH_SOURCE = intent.getStringExtra("url");
+
+        listQuiz = findViewById(R.id.listQuiz);
+        loader = findViewById(R.id.Qloader);
+        listQuiz.setEmptyView(loader);
+
+//        listQuiz.setClipToPadding(false);
+//        listQuiz.setDivider(null);
+//        Resources r = getResources();
+//        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+//                8, r.getDisplayMetrics());
+//        listQuiz.setDividerHeight(px);
+//        listQuiz.setFadingEdgeLength(0);
+//        listQuiz.setFitsSystemWindows(true);
+//        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12,
+//                r.getDisplayMetrics());
+//        listQuiz.setPadding(px, px, px, px);
+//        listQuiz.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
+
+        if(Function.isNetworkAvailable(getApplicationContext()))
+        {
+            month_quiz.DownloadNews quizTask = new month_quiz.DownloadNews();
+            quizTask.execute();
+        }else{
+            Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
+        }
+
 
         expandableListView = findViewById(R.id.expandableListView);
         prepareMenuData();
         populateExpandableList();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                        Intent share = new Intent(android.content.Intent.ACTION_SEND);
-                        share.setType("text/plain");
-
-                        share.putExtra(Intent.EXTRA_SUBJECT, "Hi,\n" +
-                                "Came across this GK application, which will be helpful to enhance your GK for\n" +
-                                "various competitive exams.\n" +
-                                "Download now: https://www.catking.in/gk-app/\n" +
-                                "Thanks");
-                        share.putExtra(Intent.EXTRA_TEXT, "Hi,\n" +
-                                "Came across this GK application, which will be helpful to enhance your GK for\n" +
-                                "various competitive exams.\n" +
-                                "Download now: https://www.catking.in/gk-app/\n" +
-                                "Thanks");
-
-                        startActivity(Intent.createChooser(share, "Share your result with friends using"));
-//                Intent Email = new Intent(Intent.ACTION_SEND);
-//                Email.setType("text/email");
-//                Email.putExtra(Intent.EXTRA_EMAIL,
-//                        new String[]{"vronpc@gmail.com"});  //developer 's email
-//                Email.putExtra(Intent.EXTRA_SUBJECT,
-//                        "My Suggestions to Admin"); // Email 's Subject
-//                Email.putExtra(Intent.EXTRA_TEXT, "Dear CATKing," + "");  //Email 's Greeting text
-//                startActivity(Intent.createChooser(Email, "Send Feedback:"));
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -157,9 +171,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.quora.com/profile/Rahul-Singh-6180"));
-                    startActivity(webIntent);
+                startActivity(webIntent);
             }
         });
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
@@ -171,13 +186,63 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    class DownloadNews extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+        protected String doInBackground(String... args) {
+            Intent intent = getIntent();
+            MONTH_SOURCE = intent.getStringExtra("month_url");
+            String xml = "";
+
+            String urlParameters = "";//xml = Function.excuteGet("https://newsapi.org/v2/top-headlines?country="+NEWS_SOURCE+"&apiKey="+API_KEY, urlParameters);
+            xml = Function.excuteGet(MONTH_SOURCE,urlParameters);
+            return  xml;
+        }
+        @Override
+        protected void onPostExecute(String xml) {
+
+            if(xml.length()>10){ // Just checking if not empty
+
+                try {
+                    JSONObject jsonResponse = new JSONObject(xml);
+                    JSONArray jsonArray = jsonResponse.optJSONArray("quiz");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put(KEY_NO, jsonObject.optString(KEY_NO).toString());
+                        map.put(KEY_QUIZNAME, jsonObject.optString(KEY_QUIZNAME).toString());
+                        map.put(KEY_QUIZAPI, jsonObject.optString(KEY_QUIZAPI).toString());
+                        dataList.add(map);
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Unexpected error", Toast.LENGTH_SHORT).show();
+                }
+
+                TF_ListQuizAdapter adapter = new TF_ListQuizAdapter(getApplicationContext(), dataList);
+                listQuiz.setAdapter(adapter);
+
+                listQuiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        Intent i = new Intent(getApplicationContext(), newMCQ.class);
+                        i.putExtra("url", dataList.get(+position).get(KEY_QUIZAPI));
+                        i.putExtra("UID",dataList.get(+position).get(KEY_NO));
+                        startActivity(i);
+                    }
+                });
+
+            }else{
+                Toast.makeText(getApplicationContext(), "No quiz found", Toast.LENGTH_SHORT).show();
+            }
+        }
 
 
-        tabLayout = (TabLayout) findViewById(R.id.tab_gk);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+
     }
     @Override
     public void onBackPressed() {
@@ -185,27 +250,7 @@ public class MainActivity extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.MyDialogTheme);
-            builder.setCancelable(false)
-                    .setMessage("Are you sure you want to Stop learning?")
-                    .setTitle("Exiting GK App")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            finishAffinity();
-                            finish();
-                            //MainActivity.super.onBackPressed();
-                            //MainActivity.this.finish();
-                            //super.onBackPressed();
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-            //super.onBackPressed();
+            super.onBackPressed();
         }
     }
 
@@ -349,11 +394,13 @@ public class MainActivity extends AppCompatActivity {
                     MenuModel model = childList.get(headerList.get(groupPosition)).get(childPosition);
                     Intent intentC = new Intent(getApplicationContext(),model.activity.getClass());
                     startActivity(intentC);
-                        onBackPressed();
+                    //webView.loadUrl(model.url);
+                    onBackPressed();
                 }
 
                 return false;
             }
         });
     }
+
 }
