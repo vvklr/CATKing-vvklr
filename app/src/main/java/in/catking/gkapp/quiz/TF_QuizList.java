@@ -16,9 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -65,10 +67,12 @@ public class TF_QuizList extends AppCompatActivity {
     String MONTH_SOURCE ="https://script.google.com/macros/s/AKfycbz_Go1jwoMoAHhN4fMmaZCDM18nm3v9xMhIqQ7soKAV-QWdBouk/exec?Ms7b69CpbCjFROZh15cctazSAfNTxgSUZ";
 
     private ArrayList<HashMap<String, String>> dataList = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<String, String>> monthList = new ArrayList<HashMap<String, String>>();
     static final String KEY_NO = "no";
     static final String KEY_QUIZNAME = "quiz_name";
     static final String KEY_QUIZAPI = "quiz_api";
     public ListView listQuiz;
+    public ListView listMonth;
     ProgressBar loader;
 
     @Override
@@ -79,6 +83,7 @@ public class TF_QuizList extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         listQuiz = findViewById(R.id.listQuiz);
+        listMonth = findViewById(R.id.listMonth);
         loader = findViewById(R.id.Qloader);
         listQuiz.setEmptyView(loader);
 
@@ -101,7 +106,6 @@ public class TF_QuizList extends AppCompatActivity {
             quizTask.execute();
             TF_QuizList.DownloadMonth monthTask = new TF_QuizList.DownloadMonth();
             monthTask.execute();
-
         }else{
             Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
         }
@@ -226,6 +230,8 @@ public class TF_QuizList extends AppCompatActivity {
 
                 TF_ListQuizAdapter adapter = new TF_ListQuizAdapter(getApplicationContext(), dataList);
                 listQuiz.setAdapter(adapter);
+                setListViewHeightBasedOnChildren(listQuiz);
+
 
                 listQuiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View view,
@@ -245,6 +251,8 @@ public class TF_QuizList extends AppCompatActivity {
 
 
     }
+
+
     class DownloadMonth extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -273,20 +281,22 @@ public class TF_QuizList extends AppCompatActivity {
                         map.put(KEY_NO, jsonObject.optString(KEY_NO).toString());
                         map.put(KEY_QUIZNAME, jsonObject.optString(KEY_QUIZNAME).toString());
                         map.put(KEY_QUIZAPI, jsonObject.optString(KEY_QUIZAPI).toString());
-                        dataList.add(map);
+                        monthList.add(map);
                     }
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Unexpected error", Toast.LENGTH_SHORT).show();
                 }
 
-                ListQuizAdapter adapter = new ListQuizAdapter(getApplicationContext(), dataList);
-                listQuiz.setAdapter(adapter);
+                ListQuizAdapter adapter = new ListQuizAdapter(getApplicationContext(), monthList);
+                listMonth.setAdapter(adapter);
+                setListViewHeightBasedOnChildren(listMonth);
 
-                listQuiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                listMonth.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
                         Intent i = new Intent(getApplicationContext(), TF_month_quiz.class);
-                        i.putExtra("month_url", dataList.get(+position).get(KEY_QUIZAPI));
+                        i.putExtra("month_url", monthList.get(+position).get(KEY_QUIZAPI));
                         startActivity(i);
 
                     }
@@ -297,6 +307,8 @@ public class TF_QuizList extends AppCompatActivity {
             }
         }
     }
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -454,5 +466,26 @@ public class TF_QuizList extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 }

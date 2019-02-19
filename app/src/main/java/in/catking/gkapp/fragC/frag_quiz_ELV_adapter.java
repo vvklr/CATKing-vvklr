@@ -13,7 +13,6 @@ import java.util.List;
 
 import in.catking.gkapp.R;
 import in.catking.gkapp.quiz.QuizList;
-import in.catking.gkapp.test1;
 
 public class frag_quiz_ELV_adapter extends BaseExpandableListAdapter {
 

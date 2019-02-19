@@ -16,9 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -63,13 +65,16 @@ public class QuizList extends AppCompatActivity{
     HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
 
 
+    String MONTH_SOURCE ="https://script.google.com/macros/s/AKfycbxeh2q1lesRvM8HJWArjEikSVXxMtIpzaojuyIqLAW4w2Kim50Y/exec?MJ7kX2bt0vSBnySUntAL6VzSAfNTxgSUZ";
     String QUIZ_SOURCE = "https://script.google.com/macros/s/AKfycbwq2-UV7olkZ-lD9uOLOiFIsL0DgsKbPq2war_IIl2JTwhIs2Q/exec?MxDQFLFiPj2cyRTpxua1LJLAIaA47-59-";
 
     private ArrayList<HashMap<String, String>> dataList = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<String, String>> monthList = new ArrayList<HashMap<String, String>>();
     static final String KEY_NO = "no";
     static final String KEY_QUIZNAME = "quiz_name";
     static final String KEY_QUIZAPI = "quiz_api";
     public ListView listQuiz;
+    public ListView listMonth;
     ProgressBar loader;
 
     @Override
@@ -84,26 +89,29 @@ public class QuizList extends AppCompatActivity{
 
 
         listQuiz = findViewById(R.id.listQuiz);
+        listMonth = findViewById(R.id.listMonth);
         loader = findViewById(R.id.Qloader);
         listQuiz.setEmptyView(loader);
 
-        listQuiz.setClipToPadding(false);
-        listQuiz.setDivider(null);
-        Resources r = getResources();
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                0, r.getDisplayMetrics());
-        listQuiz.setDividerHeight(px);
-        listQuiz.setFadingEdgeLength(0);
-        listQuiz.setFitsSystemWindows(true);
-        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0,
-                r.getDisplayMetrics());
-        listQuiz.setPadding(px, px, px, px);
-        listQuiz.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
+//        listQuiz.setClipToPadding(false);
+//        listQuiz.setDivider(null);
+//        Resources r = getResources();
+//        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+//                0, r.getDisplayMetrics());
+//        listQuiz.setDividerHeight(px);
+//        listQuiz.setFadingEdgeLength(0);
+//        listQuiz.setFitsSystemWindows(true);
+//        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0,
+//                r.getDisplayMetrics());
+//        listQuiz.setPadding(px, px, px, px);
+//        listQuiz.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
 
         if(Function.isNetworkAvailable(getApplicationContext()))
         {
             QuizList.DownloadNews quizTask = new DownloadNews();
             quizTask.execute();
+            QuizList.DownloadMonth monthTask = new QuizList.DownloadMonth();
+            monthTask.execute();
         }else{
             Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
         }
@@ -224,6 +232,7 @@ public class QuizList extends AppCompatActivity{
 
                 ListQuizAdapter adapter = new ListQuizAdapter(getApplicationContext(), dataList);
                 listQuiz.setAdapter(adapter);
+                setListViewHeightBasedOnChildren(listQuiz);
 
                 listQuiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View view,
@@ -238,6 +247,61 @@ public class QuizList extends AppCompatActivity{
 
             }else{
                 Toast.makeText(getApplicationContext(), "No news found", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    class DownloadMonth extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+        protected String doInBackground(String... args) {
+            String xml = "";
+
+            String urlParameters = "";//xml = Function.excuteGet("https://newsapi.org/v2/top-headlines?country="+NEWS_SOURCE+"&apiKey="+API_KEY, urlParameters);
+            xml = Function.excuteGet(MONTH_SOURCE,urlParameters);
+            return  xml;
+        }
+        @Override
+        protected void onPostExecute(String xml) {
+
+            if(xml.length()>10){ // Just checking if not empty
+
+                try {
+                    JSONObject jsonResponse = new JSONObject(xml);
+                    JSONArray jsonArray = jsonResponse.optJSONArray("quiz");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put(KEY_NO, jsonObject.optString(KEY_NO).toString());
+                        map.put(KEY_QUIZNAME, jsonObject.optString(KEY_QUIZNAME).toString());
+                        map.put(KEY_QUIZAPI, jsonObject.optString(KEY_QUIZAPI).toString());
+                        monthList.add(map);
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Unexpected error", Toast.LENGTH_SHORT).show();
+                }
+
+                ListQuizAdapter adapter = new ListQuizAdapter(getApplicationContext(), monthList);
+                listMonth.setAdapter(adapter);
+                setListViewHeightBasedOnChildren(listMonth);
+
+
+                listMonth.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        Intent i = new Intent(getApplicationContext(), TF_month_quiz.class);
+                        i.putExtra("month_url", monthList.get(+position).get(KEY_QUIZAPI));
+                        startActivity(i);
+
+                    }
+                });
+
+            }else{
+                Toast.makeText(getApplicationContext(), "No quiz found", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -399,5 +463,26 @@ public class QuizList extends AppCompatActivity{
                 return false;
             }
         });
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 }
