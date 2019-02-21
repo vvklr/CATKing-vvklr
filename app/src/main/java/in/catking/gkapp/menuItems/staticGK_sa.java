@@ -33,6 +33,7 @@ import in.catking.gkapp.activity_coming_soon;
 import in.catking.gkapp.buy_gk_course;
 import in.catking.gkapp.quiz.CMAT.CMAT_mcqList;
 import in.catking.gkapp.quiz.CMAT.CMAT_tfList;
+import in.catking.gkapp.quiz.StaticGK.StaticGK_mcqList;
 
 public class staticGK_sa extends AppCompatActivity {
     ExpandableListAdapter expandableListAdapter;
@@ -47,7 +48,7 @@ public class staticGK_sa extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button TFQuiz = (Button) findViewById(R.id.buttonTFQuiz);
+        //Button TFQuiz = (Button) findViewById(R.id.buttonTFQuiz);
         Button MCQuiz = (Button) findViewById(R.id.buttonMultiQuiz);
         Button AboutExam = (Button) findViewById(R.id.button_about_A_gk);
 
@@ -59,12 +60,12 @@ public class staticGK_sa extends AppCompatActivity {
         rr.removeView(child2);
 
 
-        TFQuiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startTF();
-            }
-        });
+//        TFQuiz.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startTF();
+//            }
+//        });
 
         MCQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,12 +166,12 @@ public class staticGK_sa extends AppCompatActivity {
 
 
     }
-    public void startTF(){
-        Intent intentC = new Intent(getApplicationContext(), CMAT_tfList.class);
-        startActivity(intentC);
-    }
+//    public void startTF(){
+//        Intent intentC = new Intent(getApplicationContext(), CMAT_tfList.class);
+//        startActivity(intentC);
+//    }
     public void startMCQ(){
-        Intent intentD = new Intent(getApplicationContext(), CMAT_mcqList.class);
+        Intent intentD = new Intent(getApplicationContext(), StaticGK_mcqList.class);
         startActivity(intentD);
     }
 //    public void startfAboutExam(){
@@ -217,6 +218,9 @@ public class staticGK_sa extends AppCompatActivity {
         childModelsList.add(childModel);
 
         childModel = new MenuModel("MAT", false, false, new mat_sa());
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("TISSNET", false, false, new tissnet_sa());
         childModelsList.add(childModel);
 
 

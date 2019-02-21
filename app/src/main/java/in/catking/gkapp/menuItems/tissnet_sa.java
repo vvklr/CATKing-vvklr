@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,12 +29,10 @@ import in.catking.gkapp.MenuModel;
 import in.catking.gkapp.R;
 import in.catking.gkapp.activity_coming_soon;
 import in.catking.gkapp.buy_gk_course;
-import in.catking.gkapp.quiz.CMAT.CMAT_mcqList;
-import in.catking.gkapp.quiz.CMAT.CMAT_tfList;
-import in.catking.gkapp.quiz.RBI_GBO.RBI_GBO_mcqList;
-import in.catking.gkapp.quiz.RBI_GBO.RBI_GBO_tfList;
+import in.catking.gkapp.quiz.TISSNET.tissnetGK_mcqList;
 
-public class rbi_gbo_sa extends AppCompatActivity {
+public class tissnet_sa extends AppCompatActivity {
+
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
     List<MenuModel> headerList = new ArrayList<>();
@@ -68,12 +65,9 @@ public class rbi_gbo_sa extends AppCompatActivity {
         });
 
         TextView TextEXAM = (TextView)findViewById(R.id.gk_name);
-        TextEXAM.setText("RBI Grade B Officer GK");
+        TextEXAM.setText("TISSNET GK");
 
-//        RelativeLayout rr = (RelativeLayout) findViewById(R.id.layout_relative_B);
-//        final Button child2 = (Button) rr.findViewById(R.id.button_about_A_gk);
-//        rr.removeView(child2);
-        AboutExam.setText("About RBI Grade B Officer");
+        AboutExam.setText("About TISSNET");
         AboutExam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,17 +159,17 @@ public class rbi_gbo_sa extends AppCompatActivity {
 
 
     }
-//    public void startTF(){
-//        Intent intentC = new Intent(getApplicationContext(), RBI_GBO_tfList.class);
+    //    public void startTF(){
+//        Intent intentC = new Intent(getApplicationContext(), SNAP_tfList.class);
 //        startActivity(intentC);
 //    }
     public void startMCQ(){
-        Intent intentD = new Intent(getApplicationContext(), RBI_GBO_mcqList.class);
+        Intent intentD = new Intent(getApplicationContext(), tissnetGK_mcqList.class);
         startActivity(intentD);
     }
     public void startfAboutExam(){
         Intent intentE = new Intent(getApplicationContext(), DetailsActivity.class);
-        intentE.putExtra("url","https://catking.in/rbi-exam");
+        intentE.putExtra("url","https://catking.in/tissnet-exam/");
         startActivity(intentE);
     }
 

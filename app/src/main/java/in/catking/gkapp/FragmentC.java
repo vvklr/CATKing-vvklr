@@ -19,22 +19,17 @@ public class FragmentC extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_c, container, false);
-//        View.OnClickListener listener = new View.OnClickListener() {
-//            public void onClick(View view) {
-//
-//            }
-//        };
-        Button TFQuiz = (Button) rootView.findViewById(R.id.buttonTFQuiz);
+
+        //Button TFQuiz = (Button) rootView.findViewById(R.id.buttonTF);
         Button MCQuiz = (Button) rootView.findViewById(R.id.buttonMultiQuiz);
 
-//        Button CardQuiz = (Button) rootView.findViewById(R.id.buttonCardQuiz);
 
-        TFQuiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startTF();
-            }
-        });
+//        TFQuiz.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startTF();
+//            }
+//        });
 
         MCQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,10 +39,10 @@ public class FragmentC extends Fragment{
         });
         return rootView;
     }
-    public void startTF(){
-                Intent intentC = new Intent(getContext(),TF_QuizList.class);
-                startActivity(intentC);
-    }
+//    public void startTF(){
+//                Intent intentC = new Intent(getContext(),TF_QuizList.class);
+//                startActivity(intentC);
+//    }
     public void startMCQ(){
                 Intent intentD = new Intent(getContext(),QuizList.class);
                 startActivity(intentD);

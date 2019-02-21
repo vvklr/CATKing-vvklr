@@ -33,6 +33,8 @@
         <activity android:name=".view_Geography" />
         <activity android:name=".view_History" />
         <activity android:name=".view_doc_activity" />
+        <activity android:name=".menuItems.tissnet_sa"/>
+        <activity android:name=".quiz.TISSNET.tissnetGK_mcqList"/>
         <activity android:name=".test1" />
         <activity android:name=".test2" />
         <activity android:name=".test3" />

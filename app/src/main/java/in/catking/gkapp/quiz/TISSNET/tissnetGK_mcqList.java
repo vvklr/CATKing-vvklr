@@ -1,10 +1,12 @@
-package in.catking.gkapp.menuItems;
+package in.catking.gkapp.quiz.TISSNET;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,85 +14,108 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import in.catking.gkapp.DetailsActivity;
 import in.catking.gkapp.ExpandableListAdapter;
+import in.catking.gkapp.Function;
 import in.catking.gkapp.MainActivity;
 import in.catking.gkapp.MenuModel;
 import in.catking.gkapp.R;
 import in.catking.gkapp.activity_coming_soon;
 import in.catking.gkapp.buy_gk_course;
-import in.catking.gkapp.quiz.CMAT.CMAT_mcqList;
-import in.catking.gkapp.quiz.CMAT.CMAT_tfList;
-import in.catking.gkapp.quiz.RBI_GBO.RBI_GBO_mcqList;
-import in.catking.gkapp.quiz.RBI_GBO.RBI_GBO_tfList;
+import in.catking.gkapp.menuItems.cmat_sa;
+import in.catking.gkapp.menuItems.ibps_clerk_sa;
+import in.catking.gkapp.menuItems.ibps_po_sa;
+import in.catking.gkapp.menuItems.iift_sa;
+import in.catking.gkapp.menuItems.mat_sa;
+import in.catking.gkapp.menuItems.miCat_sa;
+import in.catking.gkapp.menuItems.rbi_gbo_sa;
+import in.catking.gkapp.menuItems.rbi_oa_sa;
+import in.catking.gkapp.menuItems.rrb_oa_sa;
+import in.catking.gkapp.menuItems.rrb_os_sa;
+import in.catking.gkapp.menuItems.sbi_clerk_sa;
+import in.catking.gkapp.menuItems.sbi_po_sa;
+import in.catking.gkapp.menuItems.snap_sa;
+import in.catking.gkapp.menuItems.staticGK_sa;
+import in.catking.gkapp.menuItems.tissnet_sa;
+import in.catking.gkapp.menuItems.xat_sa;
+import in.catking.gkapp.quiz.ListQuizAdapter;
+import in.catking.gkapp.quiz.StaticGK.StaticGK_mcqList;
+import in.catking.gkapp.quiz.newMCQ;
 
-public class rbi_gbo_sa extends AppCompatActivity {
+public class tissnetGK_mcqList extends AppCompatActivity {
+
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
     List<MenuModel> headerList = new ArrayList<>();
     HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
 
+
+    String QUIZ_SOURCE = "https://script.google.com/macros/s/AKfycbwweIFBvnEcG1Mw2aEqPsiPsNR6Dvuu3-ggK-gqRdByOAc2Q-qU/exec?MDkqZLSK8bxu7U7LVKJHkkTSAfNTxgSUZ";
+
+    private ArrayList<HashMap<String, String>> dataList = new ArrayList<HashMap<String, String>>();
+    static final String KEY_NO = "no";
+    static final String KEY_QUIZNAME = "quiz_name";
+    static final String KEY_QUIZAPI = "quiz_api";
+    public ListView listQuiz;
+    ProgressBar loader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mi_cat_sa);
+        setContentView(R.layout.activity_month_quiz);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //Button TFQuiz = (Button) findViewById(R.id.buttonTFQuiz);
-        Button MCQuiz = (Button) findViewById(R.id.buttonMultiQuiz);
-        Button AboutExam = (Button) findViewById(R.id.button_about_A_gk);
-
-
-//        TFQuiz.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startTF();
-//            }
-//        });
-
-        MCQuiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startMCQ();
-            }
-        });
-
-        TextView TextEXAM = (TextView)findViewById(R.id.gk_name);
-        TextEXAM.setText("RBI Grade B Officer GK");
-
-//        RelativeLayout rr = (RelativeLayout) findViewById(R.id.layout_relative_B);
-//        final Button child2 = (Button) rr.findViewById(R.id.button_about_A_gk);
-//        rr.removeView(child2);
-        AboutExam.setText("About RBI Grade B Officer");
-        AboutExam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startfAboutExam();
-            }
-        });
-
         expandableListView = findViewById(R.id.expandableListView);
         prepareMenuData();
         populateExpandableList();
+
+
+        listQuiz = findViewById(R.id.listQuiz);
+        loader = findViewById(R.id.Qloader);
+        listQuiz.setEmptyView(loader);
+
+        listQuiz.setClipToPadding(false);
+        listQuiz.setDivider(null);
+        Resources r = getResources();
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                0, r.getDisplayMetrics());
+        listQuiz.setDividerHeight(px);
+        listQuiz.setFadingEdgeLength(0);
+        listQuiz.setFitsSystemWindows(true);
+        px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0,
+                r.getDisplayMetrics());
+        listQuiz.setPadding(px, px, px, px);
+        listQuiz.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
+
+        if(Function.isNetworkAvailable(getApplicationContext()))
+        {
+           tissnetGK_mcqList.DownloadNews quizTask = new tissnetGK_mcqList.DownloadNews();
+            quizTask.execute();
+        }else{
+            Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         View navFooter1 = findViewById(R.id.imageButton_f);
         navFooter1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,9 +157,9 @@ public class rbi_gbo_sa extends AppCompatActivity {
         navFooter3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + "k5PwQ1n2x4U"));
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + "k5PwQ1n2x4U")); // redirecting to youtube app.
                 Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://www.youtube.com/channel/UC4eEFUtZeW6iOqH8e9e0CyQ"));
+                        Uri.parse("https://www.youtube.com/channel/UC4eEFUtZeW6iOqH8e9e0CyQ")); // will redirect to web browser if application is not present.
                 try {
                     startActivity(appIntent);
                 } catch (ActivityNotFoundException ex) {
@@ -163,22 +188,60 @@ public class rbi_gbo_sa extends AppCompatActivity {
             }
         });
 
+    }
+    class DownloadNews extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-    }
-//    public void startTF(){
-//        Intent intentC = new Intent(getApplicationContext(), RBI_GBO_tfList.class);
-//        startActivity(intentC);
-//    }
-    public void startMCQ(){
-        Intent intentD = new Intent(getApplicationContext(), RBI_GBO_mcqList.class);
-        startActivity(intentD);
-    }
-    public void startfAboutExam(){
-        Intent intentE = new Intent(getApplicationContext(), DetailsActivity.class);
-        intentE.putExtra("url","https://catking.in/rbi-exam");
-        startActivity(intentE);
-    }
+        }
+        protected String doInBackground(String... args) {
+            String xml = "";
 
+            String urlParameters = "";//xml = Function.excuteGet("https://newsapi.org/v2/top-headlines?country="+NEWS_SOURCE+"&apiKey="+API_KEY, urlParameters);
+            xml = Function.excuteGet(QUIZ_SOURCE,urlParameters);
+            return  xml;
+        }
+        @Override
+        protected void onPostExecute(String xml) {
+
+            if(xml.length()>10){ // Just checking if not empty
+
+                try {
+                    JSONObject jsonResponse = new JSONObject(xml);
+                    JSONArray jsonArray = jsonResponse.optJSONArray("quiz");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put(KEY_NO, jsonObject.optString(KEY_NO).toString());
+                        map.put(KEY_QUIZNAME, jsonObject.optString(KEY_QUIZNAME).toString());
+                        map.put(KEY_QUIZAPI, jsonObject.optString(KEY_QUIZAPI).toString());
+                        dataList.add(map);
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Unexpected error", Toast.LENGTH_SHORT).show();
+                }
+
+                ListQuizAdapter adapter = new ListQuizAdapter(getApplicationContext(), dataList);
+                listQuiz.setAdapter(adapter);
+
+                listQuiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        Intent i = new Intent(getApplicationContext(), newMCQ.class);
+                        i.putExtra("url", dataList.get(+position).get(KEY_QUIZAPI));
+                        i.putExtra("UID",dataList.get(+position).get(KEY_NO));
+                        startActivity(i);
+
+                    }
+                });
+
+            }else{
+                Toast.makeText(getApplicationContext(), "No news found", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -221,7 +284,6 @@ public class rbi_gbo_sa extends AppCompatActivity {
 
         childModel = new MenuModel("TISSNET", false, false, new tissnet_sa());
         childModelsList.add(childModel);
-
 
         if (menuModel.hasChildren) {
             childList.put(menuModel, childModelsList);
@@ -316,11 +378,7 @@ public class rbi_gbo_sa extends AppCompatActivity {
                     if (!headerList.get(groupPosition).hasChildren) {
                         Intent intentC = new Intent(getApplicationContext(),headerList.get(groupPosition).activity.getClass());
                         startActivity(intentC);
-                        //webView.loadUrl(model.url);
                         onBackPressed();
-//                        WebView webView = findViewById(R.id.webView);
-//                        webView.loadUrl(headerList.get(groupPosition).url);
-//                        onBackPressed();
                     }
                 }
 

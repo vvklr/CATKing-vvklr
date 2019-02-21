@@ -44,17 +44,17 @@ public class miCat_sa extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button TFQuiz = (Button) findViewById(R.id.buttonTFQuiz);
+        //Button TFQuiz = (Button) findViewById(R.id.buttonTFQuiz);
         Button MCQuiz = (Button) findViewById(R.id.buttonMultiQuiz);
         Button AboutMICAT = (Button) findViewById(R.id.button_about_A_gk);
 
 
-        TFQuiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startTF();
-            }
-        });
+//        TFQuiz.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startTF();
+//            }
+//        });
 
         MCQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,10 +154,10 @@ public class miCat_sa extends AppCompatActivity {
 
 
     }
-    public void startTF(){
-        Intent intentC = new Intent(getApplicationContext(), MICAT_tfList.class);
-        startActivity(intentC);
-    }
+//    public void startTF(){
+//        Intent intentC = new Intent(getApplicationContext(), MICAT_tfList.class);
+//        startActivity(intentC);
+//    }
     public void startMCQ(){
         Intent intentD = new Intent(getApplicationContext(), MICAT_mcqList.class);
         startActivity(intentD);
@@ -206,6 +206,9 @@ public class miCat_sa extends AppCompatActivity {
         childModelsList.add(childModel);
 
         childModel = new MenuModel("MAT", false, false, new mat_sa());
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("TISSNET", false, false, new tissnet_sa());
         childModelsList.add(childModel);
 
 

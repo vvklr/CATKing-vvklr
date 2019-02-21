@@ -38,6 +38,7 @@ import in.catking.gkapp.menuItems.sbi_clerk_sa;
 import in.catking.gkapp.menuItems.sbi_po_sa;
 import in.catking.gkapp.menuItems.snap_sa;
 import in.catking.gkapp.menuItems.staticGK_sa;
+import in.catking.gkapp.menuItems.tissnet_sa;
 import in.catking.gkapp.menuItems.xat_sa;
 
 /**
@@ -204,6 +205,9 @@ public class DetailsActivity extends AppCompatActivity {
         childModelsList.add(childModel);
 
         childModel = new MenuModel("MAT", false, false, new mat_sa());
+        childModelsList.add(childModel);
+
+        childModel = new MenuModel("TISSNET", false, false, new tissnet_sa());
         childModelsList.add(childModel);
 
 

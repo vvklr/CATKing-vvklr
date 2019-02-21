@@ -19,19 +19,6 @@
         android:textAllCaps="false"
         android:textSize="18dp" />
 
-    <Button
-        android:id="@+id/buttonTFQuiz"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:padding="10dp"
-        android:layout_below="@+id/buttonMultiQuiz"
-        android:background="@drawable/login_button_new"
-        android:fontFamily="@font/tondo_bold"
-        android:text="@string/trueFalseQuiz"
-        android:textAllCaps="false"
-        android:textSize="18dp" />
-
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +47,7 @@
             android:fontFamily="@font/tondo_regular"
             android:text=""
             android:textColor="#000000"
-            android:textSize="200dp" />
+            android:textSize="150dp" />
     </android.support.v7.widget.CardView>
 
 
