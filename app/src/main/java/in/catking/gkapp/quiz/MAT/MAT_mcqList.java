@@ -76,7 +76,7 @@ public class MAT_mcqList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_ql);
+        setContentView(R.layout.activity_month_quiz);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         expandableListView = findViewById(R.id.expandableListView);
