@@ -122,8 +122,8 @@ public class newMCQ extends AppCompatActivity{
         Intent intent = getIntent();
         URL = intent.getStringExtra("url");
         uniqueID = intent.getStringExtra("UID");
-        GifImageView gifImageView = (GifImageView) findViewById(R.id.Gif_View);
-        gifImageView.setGifImageResource(R.drawable.smartphone_drib);
+//        GifImageView gifImageView = (GifImageView) findViewById(R.id.Gif_View);
+//        gifImageView.setGifImageResource(R.drawable.smartphone_drib);
 
 
         AsyncHttpClient client1 = new AsyncHttpClient();

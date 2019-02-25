@@ -69,7 +69,7 @@ public class Login_Mobile extends AppCompatActivity {
                     @Override
                     public void run() {
                         //Do any action here. Now we are moving to next page
-                        Intent mySuperIntent = new Intent(Login_Mobile.this, Splash_Screen_otp.class);
+                        Intent mySuperIntent = new Intent(Login_Mobile.this, spalsh_screen.class);
                         final String mobile = mobile_number.getText().toString();
                         mySuperIntent.putExtra("mob",mobile);
                         startActivity(mySuperIntent);
