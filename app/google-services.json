@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "854411151835",
+    "firebase_url": "https://gkapp-catking.firebaseio.com",
+    "project_id": "gkapp-catking",
+    "storage_bucket": "gkapp-catking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854411151835:android:16a681db1220f763",
+        "android_client_info": {
+          "package_name": "in.catking.gkapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854411151835-79tparjaebe123v69ch740e61fv8n07b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnVZC5-ZxACUGUIH-AfKCHZAfSum9wR08"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
