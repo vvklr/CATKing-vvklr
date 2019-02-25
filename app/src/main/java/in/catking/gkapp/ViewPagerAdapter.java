@@ -37,7 +37,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         String title = null;
         if (position == 0)
         {
-            title = "GK Quiz";
+            title = "CURRENT AFFAIRS";
             //title = "INDIA GK";
         }
         else if (position == 1)

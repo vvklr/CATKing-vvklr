@@ -90,7 +90,7 @@ public class Login_Mobile extends AppCompatActivity {
 
     }
     public void sendOTP(){
-        final int randomOTP = (int)(Math.random() * 900000 + 100000);
+        final int randomOTP = (int)(Math.random() * 9000 + 1000);
         RequestParams param = new RequestParams();
         param.put("authkey",AUTH_KEY);
         param.put("otp",randomOTP);

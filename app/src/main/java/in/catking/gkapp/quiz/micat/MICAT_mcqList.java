@@ -351,7 +351,7 @@ public class MICAT_mcqList extends AppCompatActivity{
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Current Affairs", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Current Affairs", true, false, new MainActivity()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

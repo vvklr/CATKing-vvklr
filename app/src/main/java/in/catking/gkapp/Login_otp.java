@@ -84,6 +84,7 @@ public class Login_otp extends AppCompatActivity {
                     postData.execute(URL,Aname,Aphone,Aemail);
                     setLogin("v_login","v_success",getApplicationContext());
                     Intent intentD = new Intent(getApplicationContext(),MainActivity.class);
+                    intentD.putExtra("e_mail",Aemail);
                     startActivity(intentD);
 
                 }else{

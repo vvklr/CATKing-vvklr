@@ -43,6 +43,7 @@ import in.catking.gkapp.menuItems.snap_sa;
 import in.catking.gkapp.menuItems.staticGK_sa;
 import in.catking.gkapp.menuItems.tissnet_sa;
 import in.catking.gkapp.menuItems.xat_sa;
+import com.onesignal.OneSignal;
 
 public class MainActivity extends AppCompatActivity {
     ExpandableListAdapter expandableListAdapter;
@@ -55,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+        Intent myE = getIntent();
+        String Aemail = myE.getStringExtra("e_mail");
+        OneSignal.setEmail(Aemail);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -309,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Current Affairs", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Current Affairs", true, false, new MainActivity()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

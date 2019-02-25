@@ -63,6 +63,7 @@ import in.catking.gkapp.menuItems.sbi_clerk_sa;
 import in.catking.gkapp.menuItems.sbi_po_sa;
 import in.catking.gkapp.menuItems.snap_sa;
 import in.catking.gkapp.menuItems.staticGK_sa;
+import in.catking.gkapp.menuItems.tissnet_sa;
 import in.catking.gkapp.menuItems.xat_sa;
 import in.catking.gkapp.utils.GifImageView;
 
@@ -5369,6 +5370,9 @@ public class newMCQ extends AppCompatActivity{
         childModel = new MenuModel("MAT", false, false, new mat_sa());
         childModelsList.add(childModel);
 
+        childModel = new MenuModel("TISSNET", false, false, new tissnet_sa());
+        childModelsList.add(childModel);
+
 
         if (menuModel.hasChildren) {
             childList.put(menuModel, childModelsList);
@@ -5435,7 +5439,7 @@ public class newMCQ extends AppCompatActivity{
             childList.put(menuModel, null);
         }
 
-        menuModel = new MenuModel("Current Affairs", true, false, new activity_coming_soon()); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Current Affairs", true, false, new MainActivity()); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         if (!menuModel.hasChildren) {

@@ -1,0 +1,109 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:paddingBottom="50dp"
+    android:paddingTop="10dp"
+    android:layout_height="match_parent">
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/takeqn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Take Today's Quiz Now!"
+                    android:textColor="#000000"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/tondo_bold"
+                    android:textStyle="bold" />
+
+                <ListView
+                    android:id="@+id/listQuiz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:divider="#F5F5F5"
+                    android:dividerHeight="1dp"
+                    android:visibility="visible" />
+                <RelativeLayout
+                    android:id="@+id/emptyTodayView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ProgressBar
+                        android:id="@+id/Tloader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:outlineAmbientShadowColor="@color/material_blue_900"
+                        android:layout_centerHorizontal="true"/>
+                    <TextView
+                        android:id="@+id/emptyT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textColor="#000000"
+                        android:textSize="50dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:fontFamily="@font/tondo_bold"
+                        android:textStyle="bold"/>
+
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/archives"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Archives"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:fontFamily="@font/tondo_bold"
+                    android:textStyle="bold" />
+                <ListView
+                    android:id="@+id/listQuizArchive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:divider="#F5F5F5"
+                    android:dividerHeight="1dp"
+                    android:visibility="visible" />
+                <ListView
+                    android:id="@+id/listMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:divider="#F5F5F5"
+                    android:dividerHeight="1dp"
+                    android:visibility="visible" />
+                <ListView
+                    android:id="@+id/listYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:divider="#F5F5F5"
+                    android:dividerHeight="1dp"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/Qloader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:outlineAmbientShadowColor="@color/material_blue_900"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>
